@@ -28,4 +28,16 @@ class Student extends Model
     public function hashUrlExams(){
         return $this->hasMany(HashUrlExam::class);
     }
+    public function responseQuestionLongs(){
+        return $this->hasMany(ResponseQuestionLongText::class);
+    }
+    public function responseQuestionMultiChoices(){
+        return $this->hasMany(ResponseQuestionMultiChoice::class);
+    }
+    public function responseQuestionSpan(){
+        return $this->hasMany(ResponseQuestionSpan::class);
+    }
+    public function responseQuestionTartib(){
+        return $this->hasMany(ResponseQuestionTartib::class);
+    }
 }

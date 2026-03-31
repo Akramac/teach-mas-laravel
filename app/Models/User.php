@@ -41,10 +41,22 @@ class User extends Authenticatable
     public function students(){
         return $this->hasMany(Student::class);
     }
-
     public function teachers(){
-        return $this->hasMany(Student::class);
+        return $this->hasMany(Teacher::class);
     }
+    public function responseQuestionLongs(){
+        return $this->hasMany(ResponseQuestionLongText::class);
+    }
+    public function responseQuestionMultiChoices(){
+        return $this->hasMany(ResponseQuestionMultiChoice::class);
+    }
+    public function responseQuestionSpan(){
+        return $this->hasMany(ResponseQuestionSpan::class);
+    }
+    public function responseQuestionTartib(){
+        return $this->hasMany(ResponseQuestionTartib::class);
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *
