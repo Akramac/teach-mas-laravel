@@ -31,4 +31,8 @@ class QuestionSpan extends Model
     public function responseQuestionSpan(){
         return $this->hasMany(ResponseQuestionSpan::class);
     }
+    public function exams()
+    {
+        return $this->belongsToMany(Exam::class, 'exam_question_span');
+    }
 }

@@ -56,6 +56,9 @@ class User extends Authenticatable
     public function responseQuestionTartib(){
         return $this->hasMany(ResponseQuestionTartib::class);
     }
+    public function responseQuestionTawsil(){
+        return $this->hasMany(ResponseQuestionTawsil::class);
+    }
 
     /**
      * The attributes that should be hidden for serialization.

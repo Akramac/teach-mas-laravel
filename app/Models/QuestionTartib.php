@@ -32,5 +32,9 @@ class QuestionTartib extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
+    public function exams()
+    {
+        return $this->belongsToMany(Exam::class, 'exam_question_tartib');
+    }
 
 }

@@ -38,6 +38,23 @@ class Exam extends Model
     public function hashUrlExams(){
         return $this->hasMany(HashUrlExam::class);
     }
+
+    public function questionLongTexts(){
+        return $this->belongsToMany(QuestionLongText::class, 'exam_question_long_text');
+    }
+    public function questionMultiChoices(){
+        return $this->belongsToMany(QuestionMultiChoice::class, 'exam_question_multi_choice');
+    }
+    public function questionSpans(){
+        return $this->belongsToMany(QuestionSpan::class, 'exam_question_span');
+    }
+    public function questionTartibs(){
+        return $this->belongsToMany(QuestionTartib::class, 'exam_question_tartib');
+    }
+    public function questionTawsils(){
+        return $this->belongsToMany(QuestionTawsil::class, 'exam_question_tawsil');
+    }
+
     public function responseQuestionLongs(){
         return $this->hasMany(ResponseQuestionLongText::class);
     }
@@ -50,6 +67,15 @@ class Exam extends Model
     public function responseQuestionTartib(){
         return $this->hasMany(ResponseQuestionTartib::class);
     }
+    public function responseQuestionTawsil(){
+        return $this->hasMany(ResponseQuestionTawsil::class);
+    }
 
+    public function teacherExams(){
+        return $this->belongsToMany(Teacher::class, 'exam_teacher');
+    }
+    public function studentExams(){
+        return $this->belongsToMany(Student::class, 'student_exam');
+    }
 
 }

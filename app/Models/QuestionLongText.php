@@ -30,4 +30,8 @@ class QuestionLongText extends Model
     public function responseQuestionLongs(){
         return $this->hasMany(ResponseQuestionLongText::class);
     }
+    public function exams()
+    {
+        return $this->belongsToMany(Exam::class, 'exam_question_long_text');
+    }
 }

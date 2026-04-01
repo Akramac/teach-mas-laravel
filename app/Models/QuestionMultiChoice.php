@@ -43,4 +43,8 @@ class QuestionMultiChoice extends Model
     public function responseQuestionMultiChoices(){
         return $this->hasMany(ResponseQuestionMultiChoice::class);
     }
+    public function exams()
+    {
+        return $this->belongsToMany(Exam::class, 'exam_question_multi_choice');
+    }
 }

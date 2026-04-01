@@ -40,4 +40,17 @@ class Student extends Model
     public function responseQuestionTartib(){
         return $this->hasMany(ResponseQuestionTartib::class);
     }
+    public function responseQuestionTawsil(){
+        return $this->hasMany(ResponseQuestionTawsil::class);
+    }
+
+    public function studentExams()
+    {
+        return $this->belongsToMany(Exam::class, 'student_exam');
+    }
+    public function studentTeachers()
+    {
+        return $this->belongsToMany(Teacher::class, 'student_teacher');
+    }
+
 }
