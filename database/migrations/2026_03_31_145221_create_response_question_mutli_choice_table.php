@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('teacher_id')->constrained()->onDelete('cascade');
             $table->foreignId('student_id')->constrained()->onDelete('cascade');
             $table->foreignId('exam_id')->constrained()->onDelete('cascade');
-            $table->foreignId('question_multi_id')->constrained()->onDelete('cascade');
+            $table->foreignId('question_multi_id')->constrained('question_multi_choice','id')->onDelete('cascade');
             $table->string('title', 255);
             $table->boolean('is_single_choice');
             $table->string('response_option_1', 255);

@@ -23,7 +23,6 @@ return new class extends Migration
             $table->boolean('no_remake_exam');
             $table->boolean('show_results');
             $table->foreignId('teacher_id')->constrained()->onDelete('cascade');
-            $table->foreignId('categorie_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

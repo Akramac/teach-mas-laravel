@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('exam_question_long_text', function (Blueprint $table) {
             $table->id();
             $table->foreignId('exam_id')->constrained()->onDelete('cascade'); // Foreign key to exams
-            $table->foreignId('question_long_text_id')->constrained()->onDelete('cascade'); // Foreign key to question_long_text
+            $table->foreignId('question_long_text_id')->constrained('question_long_text','id')->onDelete('cascade'); // Foreign key to question_long_text
             $table->timestamps();
         });
     }

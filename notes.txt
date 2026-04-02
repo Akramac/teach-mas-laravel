@@ -1,0 +1,3 @@
+
+           2026_03_30_132256_create_exams_table.php ::: $table->foreignId('categorie_id')->constrained()->onDelete('cascade');
+

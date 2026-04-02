@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('teacher_id')->constrained()->onDelete('cascade');
             $table->foreignId('student_id')->constrained()->onDelete('cascade');
             $table->foreignId('exam_id')->constrained()->onDelete('cascade');
-            $table->foreignId('question_tartib_id')->constrained()->onDelete('cascade');
+            $table->foreignId('question_tartib_id')->constrained('question_tartib','id')->onDelete('cascade');
             $table->string('reponse_option_to_order_1', 255);
             $table->string('correct_order_1', 255);
             $table->string('reponse_option_to_order_2', 255);
