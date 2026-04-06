@@ -29,7 +29,7 @@
             </div>
             <div class="col-sm-4 col-md-2">
             </div>
-            <div class="col-sm-12 col-md-4">
+            <div class="col-sm-12 col-md-12">
                 <h5>Sign up for our newsletter</h5>
                 <p><i>Add your email address to sign up for our monthly emails and to receive promotional offers.</i></p>
                 <div class="form-group form-newsletter">
@@ -44,10 +44,8 @@
 
     <div class="footer-social">
         <div class="row">
-            <div class="col-sm-6">
-                <!--				<a href="#" target="_blank"><i class="fa fa-download"></i> Download Lager</a> &nbsp; | &nbsp; <a href="#">Sitemap</a> &nbsp; | &nbsp; <a href="#">Privacy policy</a>
-                -->			</div>
-            <div class="col-sm-6 links">
+
+            <div class="col-md-6  links">
                 <ul>
                     <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                     <li><a href="#"><i class="fa fa-twitter"></i></a></li>

@@ -42,7 +42,7 @@
                 <li class="left-side"><a href="index.php/register?user=student"><img alt="student" src="{{asset('assets/images/57_Student.jpg')}}" width="30" /></a></li>
             <!--				<li class="left-side"><a href="<?php /*echo base_url(); */?>index.php/register?user=admin"><img alt="admin" src="<?php /*echo base_url(); */?>assets/images/58_Admin.jpg" width="30" /></a></li>
 -->				<li><a href="javascript:void(0);" class="open-login"><i class="icon icon-user"></i></a></li>
-                <li><a href="javascript:void(0);" class="open-search"><i class="icon icon-magnifier"></i></a></li>
+                <li><a href="javascript:void(0);" class="open-search"><i class="icon-zoom-in"></i></a></li>
                 <!--<li><a href="javascript:void(0);" class="open-cart"><i class="icon icon-cart"></i> <span>4</span></a></li>-->
             </ul>
         </div>
