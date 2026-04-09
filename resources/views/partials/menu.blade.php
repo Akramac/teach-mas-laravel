@@ -6,6 +6,11 @@
 
         <a href="index.php/index" class="logo"><img src="{{asset('assets/images/logo.png')}}" alt="Yahia-mas" width="30"/></a>
 
+        <!-- Toast Container -->
+        <div id="toast-container" aria-live="polite" aria-atomic="true" style="position: fixed; top: 20px; right: 20px; z-index: 1050;">
+            <!-- Toasts will be injected here -->
+        </div>
+
         <!-- ==========  Pre navigation ========== -->
 
         <div class="navigation navigation-pre clearfix">
@@ -24,6 +29,8 @@
                 </div>
             </div>
         </div>
+
+
 
         <!-- ==========  Top navigation ========== -->
 

@@ -21,7 +21,7 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
-        $this->validator($request->all())->validate();
+
         $userType=$request->input('user_type');
         $userLevel='';
         if ($userType === 'teacher') {
@@ -45,7 +45,6 @@ class RegisterController extends Controller
             return redirect()->route('login')->with('success','Registration successful!');
 
         } catch (Exception $e) {
-            dd('Problem registrating'.$e->getMessage());
             return redirect()->back()->withInput()->with('error','Problem registrating'.$e->getMessage());
         }
 

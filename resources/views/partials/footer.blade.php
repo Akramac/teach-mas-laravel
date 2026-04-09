@@ -67,7 +67,40 @@
 <script src="{{asset('assets/js/main.js')}}"></script>
 <script src="{{asset('assets/js/jquery.countdown.min.js')}}"></script>
 
-<script src="https://cdn.tiny.cloud/1/fgubiqw56r03ri5kika6lt60fbuy2wgf930m75v87kyx7uvj/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-<script src="{{asset('assets/js/toastr.min.js')}}"></script>
 
+<script src="https://cdn.tiny.cloud/1/fgubiqw56r03ri5kika6lt60fbuy2wgf930m75v87kyx7uvj/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+
+<script>
+    // Function to show toast messages
+    function showToast(message, type) {
+        const toastHTML = `
+                <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="true" style="margin-bottom: 10px;">
+                    <div class="toast-header">
+                        <strong class="mr-auto">${type === 'success' ? 'Success' : 'Error'}</strong>
+                        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="toast-body">
+                        ${message}
+                    </div>
+                </div>
+            `;
+        $('.toast').addClass('show')
+        $('#toast-container').append(toastHTML)
+        $('.toast').last().toast('show')
+    }
+
+    console.log("session")
+    console.log(session('success'))
+
+    // Show success or error messages from session
+    @if(session('success'))
+    showToast("{{ session('success') }}", 'success');
+    @endif
+    @if(session('error'))
+    showToast("{{ session('error') }}", 'error');
+    @endif
+
+</script>
 </body>

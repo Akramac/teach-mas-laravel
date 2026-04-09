@@ -19,7 +19,8 @@
     <title></title>
 
     <!--CSS bundle -->
-    <link rel="stylesheet" media="all" href="{{asset('assets/css/bootstrap.css')}}" />
+    <!-- <link rel="stylesheet" media="all" href="{{asset('assets/css/bootstrap.css')}}" /> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" media="all" href="{{asset('assets/css/animate.css')}}" />
     <link rel="stylesheet" media="all" href="{{asset('assets/css/font-awesome.css')}}" />
     <link rel="stylesheet" media="all" href="{{asset('assets/css/linear-icons.css')}}" />
@@ -29,14 +30,16 @@
     <link rel="stylesheet" media="all" href="{{asset('assets/css/theme.css')}}" />
     <link rel="stylesheet" media="all" href="{{asset('assets/css/jquery.countdown.css')}}" />
     <!--Google fonts-->
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/toastr.min.css')}}">
 
     <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin-ext" rel="stylesheet">
 
 
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
+    <!-- [if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>

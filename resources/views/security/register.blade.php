@@ -36,6 +36,7 @@
                 </div>
             @endif
             <br />
+
             <div class="panel panel-default">
                 <div class="panel-heading">Register as {{request('user')}}</div>
                 <div class="panel-body">
@@ -85,7 +86,7 @@
     $(document).ready(function(){
 
 
-
+        showToast("aaa", 'success');
     })
 </script>
 
