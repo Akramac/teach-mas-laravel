@@ -22,8 +22,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('teacher/teacherExam', [TeacherController::class, 'showExam']);
-Route::get('login', [LoginController::class, 'index']);
-Route::get('register', [RegisterController::class, 'index']);
-Route::get('editProfile', [ProfileController::class, 'index']);
-Route::get('changePassword', [PasswordController::class, 'index']);
+
+Route::get('login', [LoginController::class, 'index'])->name('login');
+Route::get('register', [RegisterController::class, 'index'])->name('register');
+Route::get('changePassword', [PasswordController::class, 'index'])->name('changePassword');
+Route::middleware(['auth.redirect'])->group(function(){
+    Route::get('teacher/teacherExam', [TeacherController::class, 'showExam'])->name('showExam');
+    Route::get('editProfile', [ProfileController::class, 'index'])->name('editProfile');
+});
