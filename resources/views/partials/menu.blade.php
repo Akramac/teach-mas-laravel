@@ -31,7 +31,7 @@
             <ul>
                 <!--add active class for current page-->
                 <li class="left-side"><a href="index.html" class="logo-icon"><!--<img src="<?php /*echo base_url(); */?>assets/images/icon.png" alt="Alternate Text" /></a>--></li>
-                <li class="left-side"><a href="index.php/register?user=teacher"><img alt="teacher" src="{{asset('assets/images/teacher.png')}}" width="30" /></a></li>
+                <li class="left-side"><a href="register?user=teacher"><img alt="teacher" src="{{asset('assets/images/teacher.png')}}" width="30" /></a></li>
                 <!--
 
                     // Use active class for current state
@@ -39,7 +39,7 @@
                     <li class="left-side active"><a href="#">Man</a></li>
 
                 -->
-                <li class="left-side"><a href="index.php/register?user=student"><img alt="student" src="{{asset('assets/images/57_Student.jpg')}}" width="30" /></a></li>
+                <li class="left-side"><a href="register?user=student"><img alt="student" src="{{asset('assets/images/57_Student.jpg')}}" width="30" /></a></li>
             <!--				<li class="left-side"><a href="<?php /*echo base_url(); */?>index.php/register?user=admin"><img alt="admin" src="<?php /*echo base_url(); */?>assets/images/58_Admin.jpg" width="30" /></a></li>
 -->				<li><a href="javascript:void(0);" class="open-login"><i class="icon icon-user"></i></a></li>
                 <li><a href="javascript:void(0);" class="open-search"><i class="icon-zoom-in"></i></a></li>

@@ -30,34 +30,40 @@
     <section class="contact section-register">
         <div class="container">
             <br />
+            @if(session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+            @endif
             <br />
             <div class="panel panel-default">
-                <div class="panel-heading">Register as </div>
+                <div class="panel-heading">Register as {{request('user')}}</div>
                 <div class="panel-body">
-                    <form method="post" action="index.php/register/validation"  >
+                    <form method="post" action="{{route('registerData')}}">
+                        @csrf
                         <div class="form-group" hidden>
                             <label>Type</label>
-                            <input type="text" name="user_type" class="form-control" value="" />
+                            <input type="text" id="type" name="user_type" class="form-control" value="{{request('user')}}"  />
                         </div>
 
                         <div class="form-group">
                             <label for="user_name">Enter Your Name</label>
-                            <input type="text" name="user_name" class="form-control" autocomplete="off"/>
+                            <input type="text" name="name" class="form-control" autocomplete="off" required/>
                             <span class="text-danger" style="color:red;"></span>
                         </div>
                         <div class="form-group">
                             <label>Enter Your Valid Email Address</label>
-                            <input type="email" name="user_email" class="form-control"  autocomplete="off"/>
+                            <input type="email" name="email" class="form-control"  autocomplete="off"/>
                             <span class="text-danger" style="color:red;"></span>
                         </div>
                         <div class="form-group">
                             <label>Enter Password</label>
-                            <input type="password" name="user_password" class="form-control" autocomplete="new-password" />
+                            <input type="password" name="password" class="form-control" autocomplete="new-password" />
                             <span class="text-danger" style="color:red;"></span>
                         </div>
                         <div class="form-group">
-                            <input type="submit" name="register" value="Register" class="btn btn-info" />
-                            <a href="index.php/login"><span class="text-danger" style="color:green;float:right;">Already have account?  Login !</span></a>
+                            <button  type="submit" name="register"  class="btn btn-info"> Register</button>
+                            <a href="{{route('login')}}"><span class="text-danger" style="color:green;float:right;">Already have account?  Login !</span></a>
 
                         </div>
                     </form>
