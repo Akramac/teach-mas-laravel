@@ -45,16 +45,16 @@
 
                 <hr />
                 <div class="row" >
-
-                    <form method="post" action="{{asset('index.php/login/validation')}}">
+                    <form method="post" action="{{url('login/validation')}}">
+                        @csrf
                         <div class="form-group col-md-12">
                             <label>Enter your email</label>
-                            <input type="text" name="user_email" class="form-control" value="" />
+                            <input type="email" name="email" class="form-control" value="" />
                             <span class="text-danger" style="color:red;"></span>
                         </div>
                         <div class="form-group col-md-12">
                             <label>Enter Password</label>
-                            <input type="password" name="user_password" class="form-control" value="" />
+                            <input type="password" name="password" class="form-control" value="" />
                             <span class="text-danger" style="color:red;"></span>
                         </div>
                         <div class="form-group col-md-12">

@@ -59,7 +59,7 @@
                         </div>
                         <div class="form-group">
                             <label>Enter Password</label>
-                            <input type="password" name="password" class="form-control" autocomplete="new-password" />
+                            <input type="password" name="password" class="form-control" autocomplete="new-password" required />
                             <span class="text-danger" style="color:red;"></span>
                         </div>
                         <div class="form-group">

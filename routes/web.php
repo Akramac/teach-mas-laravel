@@ -26,6 +26,7 @@ Route::get('/', function () {
 Route::get('login', [LoginController::class, 'index'])->name('login');
 Route::get('register', [RegisterController::class, 'index'])->name('register');
 Route::post('registerData', [RegisterController::class, 'register'])->name('registerData');
+Route::post('login/validation', [LoginController::class, 'validation'])->name('login/validation');
 Route::get('changePassword', [PasswordController::class, 'index'])->name('changePassword');
 Route::middleware(['auth.redirect'])->group(function(){
     Route::get('teacher/teacherExam', [TeacherController::class, 'showExam'])->name('showExam');
