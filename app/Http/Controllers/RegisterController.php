@@ -21,7 +21,7 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
-
+        $validator  = $this->validator($request->all());
         $userType=$request->input('user_type');
         $userLevel='';
         if ($userType === 'teacher') {
@@ -33,6 +33,10 @@ class RegisterController extends Controller
         }
         $verification_key = Str::random(20);
 
+        if($validator->fails()){
+            $errorMessage = $validator->errors()->first();
+            return redirect()->back()->withInput()->with('error','Problem registrating: '.$errorMessage);
+        }
         try {
             $user = User::create([
                 'name'=>$request->name,
@@ -41,14 +45,13 @@ class RegisterController extends Controller
                 'verification_key'=>$verification_key,
                 'password'=>Hash::make($request->password),
             ]);
+
             // Return the view with the data
             return redirect()->route('login')->with('success','Registration successful!');
 
         } catch (Exception $e) {
             return redirect()->back()->withInput()->with('error','Problem registrating'.$e->getMessage());
         }
-
-
     }
     protected function validator(array $data)
     {
@@ -56,7 +59,7 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'user_type' => ['required', 'string'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'min:4'],
         ]);
     }
 

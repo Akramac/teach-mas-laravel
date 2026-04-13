@@ -14,6 +14,10 @@
         width: 140px !important;
         height: 70px !important;
     }
+
+    .contact .row{
+        justify-content: center;
+    }
 </style>
 
 
@@ -40,20 +44,20 @@
                 <div class="h4" style="text-align: center">Login </div>
 
                 <hr />
-                <div class="row">
+                <div class="row" >
 
                     <form method="post" action="{{asset('index.php/login/validation')}}">
-                        <div class="form-group col-md-6 col-md-offset-3">
+                        <div class="form-group col-md-12">
                             <label>Enter your email</label>
                             <input type="text" name="user_email" class="form-control" value="" />
                             <span class="text-danger" style="color:red;"></span>
                         </div>
-                        <div class="form-group col-md-6 col-md-offset-3">
+                        <div class="form-group col-md-12">
                             <label>Enter Password</label>
                             <input type="password" name="user_password" class="form-control" value="" />
                             <span class="text-danger" style="color:red;"></span>
                         </div>
-                        <div class="form-group col-md-6 col-md-offset-3">
+                        <div class="form-group col-md-12">
                             <input type="submit" name="login" value="Login" class="btn btn-info" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style="float:right;" href="register">Forgot password ?</a>
                         </div>
                     </form>
@@ -79,7 +83,6 @@
 <script src="{{asset('assets/js/toastr.min.js')}}"></script>
 <script>
     $(document).ready(function(){
-
     })
 </script>
 

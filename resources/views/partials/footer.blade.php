@@ -73,8 +73,9 @@
 <script>
     // Function to show toast messages
     function showToast(message, type) {
+        const toastClass= type === 'success' ? 'green' : 'red' ;
         const toastHTML = `
-                <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="true" style="margin-bottom: 10px;">
+                <div class="toast ${toastClass}  white-text show" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="true" style="margin-bottom: 10px;">
                     <div class="toast-header">
                         <strong class="mr-auto">${type === 'success' ? 'Success' : 'Error'}</strong>
                         <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
@@ -91,14 +92,11 @@
         $('.toast').last().toast('show')
     }
 
-    console.log("session")
-    console.log(session('success'))
 
     // Show success or error messages from session
     @if(session('success'))
     showToast("{{ session('success') }}", 'success');
-    @endif
-    @if(session('error'))
+    @elseif(session('error'))
     showToast("{{ session('error') }}", 'error');
     @endif
 

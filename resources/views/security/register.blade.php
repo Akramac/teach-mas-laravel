@@ -85,8 +85,6 @@
 <script>
     $(document).ready(function(){
 
-
-        showToast("aaa", 'success');
     })
 </script>
 
