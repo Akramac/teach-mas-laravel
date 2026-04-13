@@ -14,6 +14,12 @@
         width: 140px !important;
         height: 70px !important;
     }
+    .contact .row{
+        justify-content: center;
+    }
+    .contact form{
+        width:50%;
+    }
 </style>
 
 
@@ -41,23 +47,24 @@
                 <hr />
                 <div class="row">
 
-                    <form method="post" action=">index.php/change-password-treatment">
-                        <div class="form-group col-md-6 col-md-offset-3">
+                    <form method="post" action="{{url('loggedin/change-password')}}">
+                        @csrf
+                        <div class="form-group col-md-12">
                             <label>Enter your email</label>
-                            <input type="text" name="user_email" class="form-control" value="" />
+                            <input type="text" name="email" class="form-control" value="{{Auth::user()->email}}" />
                             <span class="text-danger" style="color:red;"></span>
                         </div>
-                        <div class="form-group col-md-6 col-md-offset-3">
+                        <div class="form-group col-md-12">
                             <label>Enter Old Password</label>
-                            <input type="password" name="user_old_password" class="form-control" placeholder="Old Password" />
+                            <input type="password" name="current_password" class="form-control" placeholder="Old Password" required/>
                             <span class="text-danger" style="color:red;"></span>
                         </div>
-                        <div class="form-group col-md-6 col-md-offset-3">
+                        <div class="form-group col-md-12">
                             <label>Enter New Password</label>
-                            <input type="password" name="user_new_password" class="form-control" placeholder="New Password" />
+                            <input type="password" name="new_password" class="form-control" placeholder="New Password" required/>
                             <span class="text-danger" style="color:red;"></span>
                         </div>
-                        <div class="form-group col-md-6 col-md-offset-3">
+                        <div class="form-group col-md-12">
                             <input type="submit" name="login" value="Submit" class="btn btn-info" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--<a style="float:right;" href="<?php /*echo base_url(); */?>register">Forgot password ?</a>-->
                         </div>
                     </form>

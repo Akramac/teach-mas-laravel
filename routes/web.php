@@ -30,5 +30,7 @@ Route::post('login/validation', [LoginController::class, 'validation'])->name('l
 Route::get('changePassword', [PasswordController::class, 'index'])->name('changePassword');
 Route::middleware(['auth.redirect'])->group(function(){
     Route::get('teacher/teacherExam', [TeacherController::class, 'showExam'])->name('showExam');
+    Route::get('changePassword', [PasswordController::class, 'changePassword'])->name('changePassword');
+    Route::post('loggedin/change-password', [PasswordController::class, 'changePasswordData'])->name('loggedin/change-password');
     Route::get('editProfile', [ProfileController::class, 'index'])->name('editProfile');
 });
