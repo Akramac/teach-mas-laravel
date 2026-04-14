@@ -217,7 +217,7 @@
                         <div class="social-media-wrapper">
                             <a href="{{url('changePassword')}}" class="social-icon" style="color:black;"><i class="fa fa-key" aria-hidden="true"></i>Change password</a>
                             <a href="{{url('editProfile')}}" class="social-icon" style="color:black;"><i class="fa fa-cog" aria-hidden="true"></i>Edit profile</a>
-                            <a href="index.php/logout" class="social-icon" style="color:black;"><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a>
+                            <a href="{{url('logout')}}" class="social-icon" style="color:black;"><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a>
                         </div>
                     </div>
 

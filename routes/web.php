@@ -25,10 +25,10 @@ Route::get('/', function () {
 
 
 Route::get('login', [LoginController::class, 'index'])->name('login');
+Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('register', [RegisterController::class, 'index'])->name('register');
 Route::post('registerData', [RegisterController::class, 'register'])->name('registerData');
 Route::post('login/validation', [LoginController::class, 'validation'])->name('login/validation');
-Route::get('changePassword', [PasswordController::class, 'index'])->name('changePassword');
 Route::middleware(['auth.redirect'])->group(function(){
     Route::get('teacher/teacherExam', [TeacherController::class, 'showExam'])->name('showExam');
     Route::get('student/studentExam', [StudentController::class, 'studentExam'])->name('studentExam');
@@ -36,5 +36,4 @@ Route::middleware(['auth.redirect'])->group(function(){
     Route::get('editProfile', [ProfileController::class, 'index'])->name('editProfile');
     Route::post('loggedin/change-password', [PasswordController::class, 'changePasswordData'])->name('loggedin/change-password');
     Route::post('loggedin/edit-profile', [ProfileController::class, 'editProfileData'])->name('loggedin/edit-profile');
-    Route::get('editProfile', [ProfileController::class, 'index'])->name('editProfile');
 });

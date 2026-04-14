@@ -51,7 +51,7 @@
                         @csrf
                         <div class="form-group col-md-12">
                             <label>Enter your email</label>
-                            <input type="text" name="email" class="form-control" value="{{Auth::user()->email}}" />
+                            <input type="text" name="email" class="form-control" value="{{Auth::user()? Auth::user()->email :'' }}" />
                             <span class="text-danger" style="color:red;"></span>
                         </div>
                         <div class="form-group col-md-12">

@@ -19,7 +19,7 @@ class RedirectIfNotAuthenticated
     {
 
         if(!Auth::check()){
-            if(!$request->is('login') && !$request->is('register') && !$request->is('changePassword')){
+            if(!$request->is('login') && !$request->is('register')){
                 return redirect()->route('login');
             }
         }

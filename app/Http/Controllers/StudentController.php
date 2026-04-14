@@ -40,7 +40,7 @@ class StudentController extends Controller
 
         // Get question tawsil
         $listQuestionsTawsil = QuestionTawsil::select()
-            ->join('exam_question_tawsil', 'exam_question_tawsil.quest_tawsil_id', '=', 'question_tawsil.id')
+            ->join('exam_question_tawsil', 'exam_question_tawsil.question_tawsil_id', '=', 'question_tawsil.id')
             ->join('exams', 'exams.id', '=', 'exam_question_tawsil.exam_id')
             ->where('exams.id', $idExam)
             ->get();
@@ -48,7 +48,7 @@ class StudentController extends Controller
 
         // Get question tartib
         $listQuestionsTartib = QuestionTartib::select()
-            ->join('exam_question_tartib', 'exam_question_tartib.quest_tartib_id', '=', 'question_tartib.id')
+            ->join('exam_question_tartib', 'exam_question_tartib.question_tartib_id', '=', 'question_tartib.id')
             ->join('exams', 'exams.id', '=', 'exam_question_tartib.exam_id')
             ->where('exams.id', $idExam)
             ->get();
@@ -56,7 +56,7 @@ class StudentController extends Controller
 
         // Get question span
         $listQuestionsSpan = QuestionSpan::select()
-            ->join('exam_question_span', 'exam_question_span.quest_span_id', '=', 'question_span.id')
+            ->join('exam_question_span', 'exam_question_span.question_span_id', '=', 'question_span.id')
             ->join('exams', 'exams.id', '=', 'exam_question_span.exam_id')
             ->where('exams.id', $idExam)
             ->get();
@@ -64,6 +64,7 @@ class StudentController extends Controller
 
         //get teacher id
         $exam=Exam::select('teacher_id')->where('id',$idExam)->first();
+        $data['idExam'] = $exam ? $exam->id : '';
         $data['idTeacher'] = $exam ? $exam->teacher_id : '';
 
         // Get exam duration and settings

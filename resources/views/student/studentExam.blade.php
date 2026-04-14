@@ -768,7 +768,7 @@ Common
             <h2>Product categories</h2>
         </header>
         <?php
-        if($durationExam!='00:00:00'){
+        if(isset($durationExam) && $durationExam !='00:00:00'){
         ?>
         <ul id="global" >
             <li><span class="days">00</span><p class="days_text">Days</p></li>
@@ -874,7 +874,7 @@ Common
 
         <!-- === Goolge map === -->
 
-        <div id="map" style="background-image:url(<?php echo base_url(); ?>assets/images/backgrounds/wall.jpg)"></div>
+        <div id="map" style="background-image:url(assets/images/backgrounds/wall.jpg)"></div>
 
         <div class="container">
 
@@ -1127,9 +1127,10 @@ Common
             <button class="record-btn" id="btn-record-screen" hidden>record</button>
 
             <!--end screen-->
-            <form id="msform" method="post" action="<?php echo base_url(); ?>index.php/student/add-exam	">
-                <input type="text" value="<?php echo $idExam; ?>" name="idExam" class="form-control"  hidden>
-                <input type="text" value="<?php echo $idTeacher; ?>" name="idTeacher" class="form-control"  hidden>
+            <form id="msform" method="post" action="index.php/student/add-exam	">
+                @csrf
+                <input type="text" value="{{$idExam}}" name="idExam" class="form-control"  hidden>
+                <input type="text" value="{{$idTeacher}}" name="idTeacher" class="form-control"  hidden>
 
                 <input type="text" value="" name="video-url-input"  id="video-url-input" class="form-control video-url-input"  hidden>
                 <input type="text" value="" name="screen-url-input"  id="screen-url-input" class="form-control screen-url-input"  hidden>
@@ -1151,7 +1152,7 @@ Common
                             <?php } ?>
                             <?php if($question->image !=null) {?>
                             <div style="margin-left:35%;">
-                                <img alt="no image" src="<?php echo base_url().'assets/uploads/'.$question->image ; ?>"  style="width:240px;"/>
+                                <img alt="no image" src="assets/uploads/$question->image"  style="width:240px;"/>
                             </div>
                             <?php } ?>
                             <h5><?php echo $question->title; ?></h5>
@@ -1161,28 +1162,28 @@ Common
                                 <div class="col-md-6 com-xs-12">
                                     <div class="card red lighten-2  <?php if($question->is_single_choice==false) :?>card-options-multiple<?php else : ?>card-options <?php endif ;?>" id="step-<?php echo $question->quest_multi_id; ?>" alt="<?php echo $question->option_1; ?>" style="height: 90px;">
                                         <div class="card-content white-text card-4-options">
-                                            <p><img src="<?php echo base_url(); ?>assets/images/square.png" alt="Alternate Text" style="width:25px;margin-right:5%;" /> <?php echo $question->option_1; ?></p>
+                                            <p><img src="assets/images/square.png" alt="Alternate Text" style="width:25px;margin-right:5%;" /> <?php echo $question->option_1; ?></p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6 com-xs-12">
                                     <div class="card blue-grey darken-1 <?php if($question->is_single_choice==false) :?>card-options-multiple<?php else : ?>card-options <?php endif ;?>" id="step-<?php echo $question->quest_multi_id; ?>" alt="<?php echo $question->option_2; ?>" style="height: 90px;">
                                         <div class="card-content white-text card-4-options">
-                                            <p><img src="<?php echo base_url(); ?>assets/images/traingle.png" alt="Alternate Text" style="width:25px;margin-right:5%;" />  <?php echo $question->option_2; ?></p>
+                                            <p><img src="assets/images/traingle.png" alt="Alternate Text" style="width:25px;margin-right:5%;" />  <?php echo $question->option_2; ?></p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6 com-xs-12">
                                     <div class="card brown lighten-2  <?php if($question->is_single_choice==false) :?>card-options-multiple<?php else : ?>card-options <?php endif ;?>" id="step-<?php echo $question->quest_multi_id; ?>" alt="<?php echo $question->option_3; ?>" style="height: 90px;">
                                         <div class="card-content white-text card-4-options">
-                                            <p><img src="<?php echo base_url(); ?>assets/images/cercle.png" alt="Alternate Text" style="width:25px;margin-right:5%;" /> <?php echo $question->option_3; ?></p>
+                                            <p><img src="assets/images/cercle.png" alt="Alternate Text" style="width:25px;margin-right:5%;" /> <?php echo $question->option_3; ?></p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6 com-xs-12">
                                     <div class="card  blue lighten-2 <?php if($question->is_single_choice==false) :?>card-options-multiple<?php else : ?>card-options <?php endif ;?>" id="step-<?php echo $question->quest_multi_id; ?>" alt="<?php echo $question->option_4; ?>" style="height: 90px;">
                                         <div class="card-content white-text card-4-options">
-                                            <p><img src="<?php echo base_url(); ?>assets/images/xbox.png" alt="Alternate Text" style="width:25px;margin-right:5%;" /> <?php echo $question->option_4; ?></p>
+                                            <p><img src="assets/images/xbox.png" alt="Alternate Text" style="width:25px;margin-right:5%;" /> <?php echo $question->option_4; ?></p>
                                         </div>
                                     </div>
                                 </div>
@@ -1190,7 +1191,7 @@ Common
                                 <div class="col-md-6 com-xs-12">
                                     <div class="card teal accent-2 <?php if($question->is_single_choice==false) :?>card-options-multiple<?php else : ?>card-options <?php endif ;?>" id="step-<?php echo $question->quest_multi_id; ?>" alt="<?php echo $question->option_5; ?>" style="height: 90px;">
                                         <div class="card-content white-text card-4-options">
-                                            <p><img src="<?php echo base_url(); ?>assets/images/xbox.png" alt="Alternate Text" style="width:25px;margin-right:5%;" /> <?php echo $question->option_5; ?></p>
+                                            <p><img src="assets/images/xbox.png" alt="Alternate Text" style="width:25px;margin-right:5%;" /> <?php echo $question->option_5; ?></p>
                                         </div>
                                     </div>
                                 </div>
@@ -1199,7 +1200,7 @@ Common
                                 <div class="col-md-6 com-xs-12">
                                     <div class="card  blue-grey lighten-5 <?php if($question->is_single_choice==false) :?>card-options-multiple<?php else : ?>card-options <?php endif ;?>" id="step-<?php echo $question->quest_multi_id; ?>" alt="<?php echo $question->option_6; ?>" style="height: 90px;">
                                         <div class="card-content white-text card-4-options">
-                                            <p><img src="<?php echo base_url(); ?>assets/images/xbox.png" alt="Alternate Text" style="width:25px;margin-right:5%;" /> <?php echo $question->option_6; ?></p>
+                                            <p><img src="assets/images/xbox.png" alt="Alternate Text" style="width:25px;margin-right:5%;" /> <?php echo $question->option_6; ?></p>
                                         </div>
                                     </div>
                                 </div>
@@ -1278,7 +1279,7 @@ Common
                             <?php } ?>
                             <?php if($question->image !=null) {?>
                             <div style="margin-left:35%;">
-                                <img alt="no image" src="<?php echo base_url().'assets/uploads/'.$question->image ; ?>"  style="width:240px;"/>
+                                <img alt="no image" src="assets/uploads/.$question->image"  style="width:240px;"/>
                             </div>
                             <?php } ?>
                             <div class="row">
@@ -1313,7 +1314,7 @@ Common
                             <?php } ?>
                             <?php if($question->image !=null) {?>
                             <div style="margin-left:35%;">
-                                <img alt="no image" src="<?php echo base_url().'assets/uploads/'.$question->image ; ?>"  style="width:240px;"/>
+                                <img alt="no image" src="assets/uploads/.$question->image"  style="width:240px;"/>
                             </div>
                             <?php } ?>
                             <div class="row" >
@@ -1323,8 +1324,8 @@ Common
 
                                     <div style="margin-top: 7%;">
                                         <div class="row">
-                                            <img src="<?php echo base_url(); ?>assets/images/dragg.png" alt="Alternate Text" style="width:35px;" />
-                                            <img src="<?php echo base_url(); ?>assets/images/link.png" alt="Alternate Text" style="width:25px;float:right;"/>
+                                            <img src="assets/images/dragg.png" alt="Alternate Text" style="width:35px;" />
+                                            <img src="assets/images/link.png" alt="Alternate Text" style="width:25px;float:right;"/>
                                             <ul id="sortlist<?php echo $question->quest_tawsil_id; ?>" class="col-md-6 col-xs-6 sortlist" style="margin-top:30px;">
                                                 <li alt="<?php echo $question->option_1; ?>">
 
@@ -1404,11 +1405,11 @@ Common
                             <h5><?php echo $question->title; ?></h5>
                             <?php if($question->image !=null) {?>
                             <div style="margin-left:35%;">
-                                <img alt="no image" src="<?php echo base_url().'assets/uploads/'.$question->image ; ?>"  style="width:240px;"/>
+                                <img alt="no image" src="assets/uploads/.$question->image"  style="width:240px;"/>
                             </div>
                             <?php } ?>
                             <label>Order this cards correctly :</label>
-                            <div class="row justify-content-center"><img src="<?php echo base_url(); ?>assets/images/dragg.png" alt="Alternate Text" style="width:45px;float:right;"/>
+                            <div class="row justify-content-center"><img src="assets/images/dragg.png" alt="Alternate Text" style="width:45px;float:right;"/>
                                 <ul id="sortlistOrder<?php echo $question->quest_tartib_id; ?>" class="col-md-6 col-xs-12 sortlistOrder" >
                                 <!--<img src="<?php /*echo base_url(); */?>assets/images/dragg.png" alt="Alternate Text" style="width:25px;float:right;"/>-->
                                     <li alt="<?php echo $question->option_to_order_1; ?>">
@@ -1468,7 +1469,7 @@ Common
                             <?php } ?>
                             <?php if($question->image !=null) {?>
                             <div style="margin-left:35%;">
-                                <img alt="no image" src="<?php echo base_url().'assets/uploads/'.$question->image ; ?>"  style="width:240px;"/>
+                                <img alt="no image" src="assets/uploads/.$question->image"  style="width:240px;"/>
                             </div>
                             <?php } ?>
                             <div class="row">
@@ -1583,7 +1584,7 @@ Common
     </section>
     <div id="dialog" title="Need permission" hidden>
         <p>Allow Camera record to continue the exam !</p>
-        <img src="<?php echo base_url(); ?>assets/images/camera.png" alt="Placeholder Image" style="width:260px;" />
+        <img src="{{asset('assets/images/camera.png')}}" alt="Placeholder Image" style="width:260px;" />
 
     </div>
     <!-- ========================  Stretcher widget ======================== -->
@@ -1918,11 +1919,13 @@ Common
         //convert date exam to seconds
 
         <?php
-        if($durationExam!='00:00:00'){
-
+        if($durationExam!='00:00:00' && isset($durationExam)){
 
         $pieces = explode(":", $durationExam);
-        $durationSeconds= $pieces[0]*3600+$pieces[1]*60+$pieces[2];
+        $durationSeconds= 0;
+        if(array_key_exists(0,$pieces) && array_key_exists(1,$pieces) && array_key_exists(2,$pieces)){
+        $durationSeconds= (int)$pieces[0]*3600+(int)$pieces[1]*60+(int)$pieces[2];
+        }
         //$durationSeconds= '10';
         $date = date("m/d/Y H:i:s");
         $newDate = date('m/d/Y H:i:s', strtotime($date. ' +'.$durationSeconds.' seconds'));
@@ -2218,7 +2221,7 @@ Common
         //callback('Uploading ' + fileType + ' recording to server.');
 
         // var upload_url = 'https://your-domain.com/files-uploader/';
-        var upload_url = '<?php echo base_url(); ?>index.php/student/save-video';
+        var upload_url = 'index.php/student/save-video';
 
         // var upload_directory = upload_url;
         var upload_directory = 'uploads/';
@@ -2250,7 +2253,7 @@ Common
         //callback('Uploading ' + fileType + ' recording to server.');
 
         // var upload_url = 'https://your-domain.com/files-uploader/';
-        var upload_url = '<?php echo base_url(); ?>index.php/student/save-screen-video';
+        var upload_url = 'index.php/student/save-screen-video';
 
         // var upload_directory = upload_url;
         var upload_directory = 'uploads/';
