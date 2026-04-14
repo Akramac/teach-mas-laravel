@@ -14,6 +14,12 @@
         width: 140px !important;
         height: 70px !important;
     }
+    .contact .row{
+        justify-content: center;
+    }
+    .contact form{
+        width:50%;
+    }
 </style>
 
 
@@ -41,25 +47,26 @@
                 <hr />
                 <div class="row">
 
-                    <form method="post" action="index.php/edit-profile-treatment" enctype="multipart/form-data">
-                        <input type="text" name="user_id" class="form-control" value=""  hidden/>
+                    <form method="post" action="{{url('loggedin/edit-profile')}}" enctype="multipart/form-data">
+                        @csrf
+                        <input type="text" name="id" class="form-control" value="{{Auth::user()->id}}"  hidden/>
 
-                        <div class="form-group col-md-6 col-md-offset-3">
+                        <div class="form-group col-md-12">
                             <label>Change your email</label>
-                            <input type="text" name="user_email" class="form-control" value="" />
+                            <input type="text" name="email" class="form-control" value="{{Auth::user()->email}}" />
                             <span class="text-danger" style="color:red;"></span>
                         </div>
-                        <div class="form-group col-md-6 col-md-offset-3">
+                        <div class="form-group col-md-12">
                             <label>Change Name</label>
-                            <input type="text" name="user_name" class="form-control" value="" placeholder="Your name"  />
+                            <input type="text" name="name" class="form-control" value="{{Auth::user()->name}}" placeholder="Your name"  />
                             <span class="text-danger" style="color:red;"></span>
                         </div>
-                        <div class="form-group col-md-6 col-md-offset-3">
+                        <div class="form-group col-md-12">
                             <label>Change profile photo</label>
-                            <input type='file' name='user_image' class="form-control" size='20' />
+                            <input type='file' name='image' class="form-control" size='20' />
                             <span class="text-danger" style="color:red;"></span>
                         </div>
-                        <div class="form-group col-md-6 col-md-offset-3">
+                        <div class="form-group col-md-12">
                             <input type="submit" name="login" value="Submit" class="btn btn-info" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--<a style="float:right;" href="<?php /*echo base_url(); */?>register">Forgot password ?</a>-->
                         </div>
                     </form>

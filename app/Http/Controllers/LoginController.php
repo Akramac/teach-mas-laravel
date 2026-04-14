@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Categorie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -10,6 +11,12 @@ class LoginController extends Controller
 {
     public function index()
     {
+        if(Auth::user() && Auth::user()->user_level ==='ROLE_TEACHER'){
+            $data['title'] = 'Index Teacher';
+            $categoriesResult = Categorie::all();
+            $data['categories'] = $categoriesResult;
+            return view('teacher/teacherExam', $data);
+        }
         $data['title'] = 'Login';
 
         // Return the view with the data

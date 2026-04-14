@@ -4,7 +4,7 @@
 
     <div class="clearfix">
 
-        <a href="index.php/index" class="logo"><img src="{{asset('assets/images/logo.png')}}" alt="Yahia-mas" width="30"/></a>
+        <a href="{{url('login')}}" class="logo"><img src="{{asset('assets/images/logo.png')}}" alt="Yahia-mas" width="30"/></a>
 
         <!-- Toast Container -->
         <div id="toast-container" aria-live="polite" aria-atomic="true" style="position: fixed; top: 20px; right: 20px; z-index: 1050;">
@@ -216,7 +216,7 @@
                     <div class="back">
                         <div class="social-media-wrapper">
                             <a href="{{url('changePassword')}}" class="social-icon" style="color:black;"><i class="fa fa-key" aria-hidden="true"></i>Change password</a>
-                            <a href="index.php/edit-profile" class="social-icon" style="color:black;"><i class="fa fa-cog" aria-hidden="true"></i>Edit profile</a>
+                            <a href="{{url('editProfile')}}" class="social-icon" style="color:black;"><i class="fa fa-cog" aria-hidden="true"></i>Edit profile</a>
                             <a href="index.php/logout" class="social-icon" style="color:black;"><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a>
                         </div>
                     </div>

@@ -1,0 +1,21 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Categorie;
+use Illuminate\Http\Request;
+
+class StudentController extends Controller
+{
+    public function studentExam($idExam='')
+    {
+        // Simulate fetching categories from a database or service
+        $categoriesResult = Categorie::all();
+
+        // Prepare data to be passed to the view
+        $data['categories'] = $categoriesResult;
+
+        // Return the view with the data
+        return view('student.studentExam', $data);
+    }
+}
