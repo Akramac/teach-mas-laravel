@@ -2,20 +2,6 @@
 <!--Widget Whatsapp-->
 <!--Widget Whatsapp end-->
 <footer>
-    <!--footer showroom-->
-    <div class="footer-showroom hidden">
-        <div class="row">
-            <div class="col-sm-8">
-                <h2>Visit our showroom</h2>
-                <p>200 12th Ave, New York, NY 10001, USA</p>
-                <p>Mon - Sat: 10 am - 6 pm &nbsp; &nbsp; | &nbsp; &nbsp; Sun: 12pm - 2 pm</p>
-            </div>
-            <div class="col-sm-4 text-center">
-                <a href="#" class="btn btn-clean"><span class="icon icon-map-marker"></span> Get directions</a>
-                <div class="call-us h4"><span class="icon icon-phone-handset"></span> 333.278.06622</div>
-            </div>
-        </div>
-    </div>
 
     <!--footer links-->
     <div class="footer-links">
@@ -68,7 +54,8 @@
 <script src="{{asset('assets/js/jquery.countdown.min.js')}}"></script>
 
 
-<script src="https://cdn.tiny.cloud/1/fgubiqw56r03ri5kika6lt60fbuy2wgf930m75v87kyx7uvj/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+<!-- <script src="https://cdn.tiny.cloud/1/fgubiqw56r03ri5kika6lt60fbuy2wgf930m75v87kyx7uvj/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script> -->
+<script src="https://cdn.tiny.cloud/1/fzxfo2kr8mflwqf6eh4lpq001t14sd64r4varfm7i0451r9n/tinymce/8/tinymce.min.js" referrerpolicy="origin" crossorigin="anonymous"></script>
 
 <script>
     // Function to show toast messages

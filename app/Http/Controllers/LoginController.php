@@ -56,7 +56,12 @@ class LoginController extends Controller
             return redirect()->back()->withInput()->with('error','Problem login: '.$errorMessage);
         }
         if(Auth::attempt(['email'=>$request->email,'password'=>$request->password])){
-            return redirect()->intended('teacher/teacherExam');
+            if(Auth::user() && Auth::user()->user_level ==='ROLE_TEACHER'){
+                return redirect()->route('showExam');
+            }
+            if(Auth::user() && Auth::user()->user_level ==='ROLE_STUDENT'){
+                return redirect()->route('studentExam');
+            }
         }
 
         // Return the view with the data
