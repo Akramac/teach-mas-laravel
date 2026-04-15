@@ -31,6 +31,7 @@ Route::post('registerData', [RegisterController::class, 'register'])->name('regi
 Route::post('login/validation', [LoginController::class, 'validation'])->name('login/validation');
 Route::middleware(['auth.redirect'])->group(function(){
     Route::get('teacher/teacherExam', [TeacherController::class, 'showExam'])->name('showExam');
+    Route::post('teacher/addExamData', [TeacherController::class, 'addExamData'])->name('addExamData');
     Route::get('student/studentExam', [StudentController::class, 'studentExam'])->name('studentExam');
     Route::get('changePassword', [PasswordController::class, 'changePassword'])->name('changePassword');
     Route::get('editProfile', [ProfileController::class, 'index'])->name('editProfile');

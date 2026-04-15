@@ -698,6 +698,10 @@ Common
         padding: 5px 10px;
         width: 325px;
     }
+
+    .choose-record, .checkbox-retake-questions, .checkbox-random-questions{
+        margin-top:60px;
+    }
 </style>
 <div class="page-loader"></div>
 
@@ -829,7 +833,8 @@ Common
             <p>
                 Make your questions by adding part by part and adding the time and also pictures
             </p>
-            <form id="msform-teacher" method="POST" action="index.php/teacher/add-exam" enctype='multipart/form-data'>
+            <form id="msform-teacher" method="POST" action="{{url('addExamData')}}" enctype='multipart/form-data'>
+                @csrf
                 <div class="form-group">
                     <label style="text-align:left">Title of the exam</label>
                     <input type="text"  name="title_exam" required>
@@ -840,7 +845,7 @@ Common
                     <select class="browser-default" name="select-category" style="margin-top:7%;" required>
                         <option value=""  disabled selected>Choose the category</option>
                         <?php foreach($categories as $categorie) { ?>
-                        <option value="<?php echo $categorie->id; ?>"><?php echo $categorie->name; ?></option>
+                        <option value="{{$categorie->id}}">{{$categorie->name}}</option>
                         <?php } ?>
                     </select>
 
@@ -859,7 +864,7 @@ Common
                     <label style="text-align:left">Duration of the whole exam <a style="color:black;">(h:m:s)</a></label>
                     <input type="text" class="time-pick" id="timepicker" value="00:15:00"  name="usr_time_exam">
                 </div>
-                <div class="input-field col s12">
+                <div class="input-field col choose-record s12">
                     <label style="text-align:left;margin-top: -6%;">Choose to record screen/camera of the student</label>
                     <span class="checkbox" style="margin-top:7%;">
 						<input type="checkbox" class="check-record" name="record-screen" id="record-screen">
@@ -871,7 +876,7 @@ Common
 					</span>
 
                 </div>
-                <div class="input-field col s12">
+                <div class="input-field col checkbox-random-questions s12">
                     <label style="text-align:left;margin-top: -6%;">Choose to make random order of questions</label>
                     <span class="checkbox" style="margin-top:7%;">
 						<input type="checkbox" class="check-random-questions" name="check-random-questions" id="check-random-questions">
@@ -879,7 +884,7 @@ Common
 					</span>
 
                 </div>
-                <div class="input-field col s12">
+                <div class="input-field col checkbox-retake-questions s12">
                     <label style="text-align:left;margin-top: -6%;">Choose to not retake the exam by students</label>
                     <span class="checkbox" style="margin-top:7%;">
 						<input type="checkbox" class="check-no-retake-exam" name="check-no-retake-exam" id="check-no-retake-exam">
