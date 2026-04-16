@@ -4,7 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Categorie;
 use App\Models\Exam;
+use App\Models\ExamQuestLongTextJunction;
+use App\Models\ExamQuestMultiChoiceJunction;
+use App\Models\ExamQuestTawsilJunction;
+use App\Models\QuestionLongText;
 use App\Models\QuestionMultiChoice;
+use App\Models\QuestionTawsil;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -78,9 +83,9 @@ class TeacherController extends Controller
                         $fileName = $this->handleFileUpload($request, "file-uploaded-multi-" . $i);
                         $noSpecificTime = $request->has('no-specific-time-multi-' . $i) && $request->input('no-specific-time-multi-' . $i) == 'on';
 
-                        $result = $this->addMultipleChoiceQuestion($request, $i, $fileName, $noSpecificTime);
-                        if ($result) {
-                            $this->addQuestionJunction($result, $exam->id);
+                        $resultId = $this->addMultipleChoiceQuestion($request, $i, $fileName, $noSpecificTime);
+                        if ($resultId) {
+                            $this->add_mutli_choice_junction($resultId, $exam->id);
                         } else {
                             return redirect()->back()->with('error', 'Error Adding question with choices')->withInput();
                         }
@@ -94,16 +99,31 @@ class TeacherController extends Controller
                         $fileName = $this->handleFileUpload($request, "file-uploaded-long-" . $i);
                         $noSpecificTime = $request->has('no-specific-time-long-' . $i) && $request->input('no-specific-time-long-' . $i) == 'on';
 
-                        $result = $this->addLongTextQuestion($request, $i, $fileName, $noSpecificTime);
-                        if ($result) {
-                            $this->addQuestionJunction($result, $exam->id);
+                        $resultId = $this->addLongTextQuestion($request, $i, $fileName, $noSpecificTime);
+                        if ($resultId) {
+                            $this->add_long_text_junction($resultId, $exam->id);
                         } else {
                             return redirect()->back()->with('error', 'Error Adding Long Text question')->withInput();
                         }
                     }
                 }
 
-                // Handle other question types similarly...
+                $numQuestTawsil = $request->input('count-quest-tawsil');
+                for ($i = 1; $i <= $numQuestTawsil; $i++) {
+                    if ($request->input('quest_tawsil-' . $i) == 'quest_tawsil') {
+                        $fileName = $this->handleFileUpload($request, "file-uploaded-long-" . $i);
+
+                        // No specific time for question
+                        $noSpecificTime = $request->has('no-specific-time-tawsil-' . $i) && $request->input('no-specific-time-tawsil-' . $i) == 'on';
+
+                        $resultId = $this->addTawsilQuestion($request, $i, $fileName, $noSpecificTime);
+                        if ($resultId) {
+                            $this->add_tawsil_junction($resultId, $exam->id);
+                        } else {
+                            return redirect()->back()->with('error', 'Error Adding Long Text question')->withInput();
+                        }
+                    }
+                }
 
                 // Generate URL for student to show their exam
                 $hash = rand();
@@ -173,18 +193,140 @@ class TeacherController extends Controller
                     $request->input('data-file-uploaded-multi-' . $i),
                     $noSpecificTime
                 );
-
+                return $result;
             }
 
-            private function addLongTextQuestion(Request $request, $index, $fileName, $noSpecificTime)
+            private function addLongTextQuestion(Request $request, $i, $fileName, $noSpecificTime)
             {
-                // Implement the logic to add a long text question
-                // Return the result or ID of the created question
+                // Initialize file name
+                $fileName = null;
+
+                // Check if the file is uploaded
+                if ($request->hasFile("file-uploaded-long-" . $i)) {
+                    $file = $request->file("file-uploaded-long-" . $i);
+                    $rand = rand();
+                    $fileName = $rand . preg_replace("/\s+/", "", $file->getClientOriginalName());
+
+                    // Store the file in the public/uploads directory
+                    $filePath = $file->storeAs('uploads', $fileName, 'public');
+
+                    // Check if the file was uploaded successfully
+                    if (!$filePath) {
+                        return redirect()->back()->with('error', 'Error uploading image');
+                    }
+                }
+
+                // No specific time for question
+                $isNoSpecificTime = $request->input('no-specific-time-long-' . $i);
+                $noSpecificTime = $isNoSpecificTime === 'on' ? true : null;
+
+                // Prepare data for adding long text question
+                $result = $this->add_data_long_text(
+                    Auth::id(),
+                    $request->input('title-question-long-' . $i),
+                    $request->input('correct-question-long-' . $i),
+                    $request->input('usr_time-long-' . $i),
+                    $request->input('file-uploaded-long-' . $i),
+                    $request->input('points-long-' . $i),
+                    $fileName,
+                    $noSpecificTime);
+
+                return $result;
             }
 
-            private function addQuestionJunction($questionId, $examId)
+            private function addTawsilQuestion(Request $request, $i, $fileName, $noSpecificTime)
             {
-                // Implement the logic to create a junction between the question and the exam
+                // Initialize file name
+                $fileName = null;
+
+                // Check if the file is uploaded
+                if ($request->hasFile("file-uploaded-tawsil-" . $i)) {
+                    $file = $request->file("file-uploaded-tawsil-" . $i);
+                    $rand = rand();
+                    $fileName = $rand . preg_replace("/\s+/", "", $file->getClientOriginalName());
+
+                    // Store the file in the public/uploads directory
+                    $filePath = $file->storeAs('uploads', $fileName, 'public');
+
+                    // Check if the file was uploaded successfully
+                    if (!$filePath) {
+                        return redirect()->back()->with('error', 'Error uploading image');
+                    }
+                }
+
+                // No specific time for question
+                $isNoSpecificTime = $request->input('no-specific-time-tawsil-' . $i);
+                $noSpecificTime = $isNoSpecificTime === 'on' ? true : null;
+
+                // Prepare data for adding long text question
+                $result = $this->add_data_tawsil(
+                    Auth::id(),
+                    $request->input('title-question-tawsil-' . $i),
+                    $request->input('usr_time-tawsil-' . $i),
+                    $request->input('option-tawsil-1-' . $i),
+                    $request->input('link-option-tawsil-1-' . $i),
+                    $request->input('option-tawsil-2-' . $i),
+                    $request->input('link-option-tawsil-2-' . $i),
+                    $request->input('option-tawsil-3-' . $i),
+                    $request->input('link-option-tawsil-3-' . $i),
+                    $request->input('option-tawsil-4-' . $i),
+                    $request->input('ink-option-tawsil-4-' . $i),
+                    $request->input('option-tawsil-5-' . $i),
+                    $request->input('link-option-tawsil-5-' . $i),
+                    $request->input('option-tawsil-6-' . $i),
+                    $request->input('link-option-tawsil-6-' . $i),
+                    $request->input('file-uploaded-tawsil-' . $i),
+                    $request->input('points-tawsil-' . $i),
+                    $fileName,
+                    $noSpecificTime);
+
+                return $result;
+            }
+
+
+            private function add_long_text_junction($questionId, $examId)
+            {
+                $data = [
+                    'question_long_text_id' => $questionId,
+                    'exam_id' => $examId,
+                ];
+
+
+                // Insert the data into the database
+                $question = ExamQuestLongTextJunction::create($data);
+
+                // Return the ID of the newly created question
+                return $question->id;
+            }
+
+            private function add_mutli_choice_junction($questionId, $examId)
+            {
+                $data = [
+                    'question_multi_choice_id' => $questionId,
+                    'exam_id' => $examId,
+                ];
+
+
+                // Insert the data into the database
+                $question = ExamQuestMultiChoiceJunction::create($data);
+
+                // Return the ID of the newly created question
+                return $question->id;
+            }
+
+            private function add_tawsil_junction($questionId, $examId)
+            {
+                $data = [
+                    'question_tawsil_id' => $questionId,
+                    'exam_id' => $examId,
+                ];
+
+
+                // Insert the data into the database
+                $question = ExamQuestTawsilJunction::create($data);
+
+                // Return the ID of the newly created question
+                return $question->id;
             }
 
     function add_data_choices($userID, $title,$timepick,$CheckUnique,$option1,$correctOption1,$option2,$correctOption2,$option3,$correctOption3,$option4,$correctOption4,$option5,$correctOption5,$option6,$correctOption6,$fileUrl,$points,$image,$dataFile,$noSpecificTime)
@@ -218,6 +360,63 @@ class TeacherController extends Controller
 
         // Insert the data into the database
         $question = QuestionMultiChoice::create($data);
+
+        // Return the ID of the newly created question
+        return $question->id;
+    }
+
+    function add_data_long_text($userID, $title,$correct,$timepick,$fileUrl,$points,$image,$noSpecificTime)
+    {
+        $data = [
+            'user_id' => $userID,
+            'title' => $title,
+            'correct_long_text' => $correct,
+            'duration' => $timepick,
+            'file_url' => $fileUrl,
+            'points' => $points,
+            'no_specific_time' => $noSpecificTime,
+        ];
+
+        if ($image !== null) {
+            $data['image'] = $image;
+        }
+
+        $question = QuestionLongText::create($data);
+
+        return $question->id;
+    }
+
+    public function add_data_tawsil($userID, $title, $timepick, $option1, $linkOption1, $option2, $linkOption2, $option3, $linkOption3, $option4, $linkOption4, $option5, $linkOption5, $option6, $linkOption6, $fileUrl, $points, $image, $noSpecificTime)
+    {
+        // Prepare the data array
+        $data = [
+            'user_id' => $userID,
+            'title' => $title,
+            'duration' => $timepick,
+            'option_1' => $option1,
+            'link_option_1' => $linkOption1,
+            'option_2' => $option2,
+            'link_option_2' => $linkOption2,
+            'option_3' => $option3,
+            'link_option_3' => $linkOption3,
+            'option_4' => $option4,
+            'link_option_4' => $linkOption4,
+            'option_5' => $option5,
+            'link_option_5' => $linkOption5,
+            'option_6' => $option6,
+            'link_option_6' => $linkOption6,
+            'file_url' => $fileUrl,
+            'points' => $points,
+            'no_specific_time' => $noSpecificTime,
+        ];
+
+        // Add image to the data array if it is not null
+        if ($image !== null) {
+            $data['image'] = $image;
+        }
+
+        // Insert the data into the database
+        $question = QuestionTawsil::create($data);
 
         // Return the ID of the newly created question
         return $question->id;
