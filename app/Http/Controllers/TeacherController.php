@@ -9,6 +9,8 @@ use App\Models\ExamQuestMultiChoiceJunction;
 use App\Models\ExamQuestTawsilJunction;
 use App\Models\QuestionLongText;
 use App\Models\QuestionMultiChoice;
+use App\Models\QuestionSpan;
+use App\Models\QuestionTartib;
 use App\Models\QuestionTawsil;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
@@ -111,7 +113,7 @@ class TeacherController extends Controller
                 $numQuestTawsil = $request->input('count-quest-tawsil');
                 for ($i = 1; $i <= $numQuestTawsil; $i++) {
                     if ($request->input('quest_tawsil-' . $i) == 'quest_tawsil') {
-                        $fileName = $this->handleFileUpload($request, "file-uploaded-long-" . $i);
+                        $fileName = $this->handleFileUpload($request, "file-uploaded-tawsil-" . $i);
 
                         // No specific time for question
                         $noSpecificTime = $request->has('no-specific-time-tawsil-' . $i) && $request->input('no-specific-time-tawsil-' . $i) == 'on';
@@ -119,6 +121,40 @@ class TeacherController extends Controller
                         $resultId = $this->addTawsilQuestion($request, $i, $fileName, $noSpecificTime);
                         if ($resultId) {
                             $this->add_tawsil_junction($resultId, $exam->id);
+                        } else {
+                            return redirect()->back()->with('error', 'Error Adding Long Text question')->withInput();
+                        }
+                    }
+                }
+
+                $numQuestTartib = $request->input('count-quest-tartib');
+                for ($i = 1; $i <= $numQuestTartib; $i++) {
+                    if ($request->input('quest_tartib-' . $i) == 'quest_tartib') {
+                        $fileName = $this->handleFileUpload($request, "file-uploaded-tartib-" . $i);
+
+                        // No specific time for question
+                        $noSpecificTime = $request->has('no-specific-time-tartib-' . $i) && $request->input('no-specific-time-tartib-' . $i) == 'on';
+
+                        $resultId = $this->addTartibQuestion($request, $i, $fileName, $noSpecificTime);
+                        if ($resultId) {
+                            $this->add_tartib_junction($resultId, $exam->id);
+                        } else {
+                            return redirect()->back()->with('error', 'Error Adding Long Text question')->withInput();
+                        }
+                    }
+                }
+
+                $numQuestSpan = $request->input('count-quest-span');
+                for ($i = 1; $i <= $numQuestSpan; $i++) {
+                    if ($request->input('quest_span-' . $i) == 'quest_span') {
+                        $fileName = $this->handleFileUpload($request, "file-uploaded-span-" . $i);
+
+                        // No specific time for question
+                        $noSpecificTime = $request->has('no-specific-time-span-' . $i) && $request->input('no-specific-time-span-' . $i) == 'on';
+
+                        $resultId = $this->addSpanQuestion($request, $i, $fileName, $noSpecificTime);
+                        if ($resultId) {
+                            $this->add_span_junction($resultId, $exam->id);
                         } else {
                             return redirect()->back()->with('error', 'Error Adding Long Text question')->withInput();
                         }
@@ -169,9 +205,11 @@ class TeacherController extends Controller
                 $isNoSpecificTime = $request->input('no-specific-time-multi-' . $i);
                 $noSpecificTime = $isNoSpecificTime === 'on' ? true : null;
 
+                $idQuestionMulti=$request->input('id-quest-multi-'.$i);
+                if(!isset($idQuestionMulti) || $idQuestionMulti==''){
                 // Prepare data for adding choices
                 $result = $this->add_data_choices(
-                    Auth::id(), // Assuming you are using Laravel's Auth to get the user ID
+                    Auth::id(),
                     $request->input('title-question-multi-' . $i),
                     $request->input('usr_time-multi-' . $i),
                     $request->input('indeterminate-checkbox-single-' . $i),
@@ -194,6 +232,38 @@ class TeacherController extends Controller
                     $noSpecificTime
                 );
                 return $result;
+                }else{
+                    $result = $this->update_data_choices(
+                        $idQuestionMulti,
+                        Auth::id(),
+                        $request->input('title-question-multi-' . $i),
+                        $request->input('usr_time-multi-' . $i),
+                        $request->input('indeterminate-checkbox-single-' . $i),
+                        $request->input('option-multi-1-' . $i),
+                        $request->input('correct-option-multi-1-' . $i),
+                        $request->input('option-multi-2-' . $i),
+                        $request->input('correct-option-multi-2-' . $i),
+                        $request->input('option-multi-3-' . $i),
+                        $request->input('correct-option-multi-3-' . $i),
+                        $request->input('option-multi-4-' . $i),
+                        $request->input('correct-option-multi-4-' . $i),
+                        $request->input('option-multi-5-' . $i),
+                        $request->input('correct-option-multi-5-' . $i),
+                        $request->input('option-multi-6-' . $i),
+                        $request->input('correct-option-multi-6-' . $i),
+                        $request->input('file-uploaded-multi-' . $i),
+                        $request->input('points-multi-' . $i),
+                        $fileName,
+                        $request->input('data-file-uploaded-multi-' . $i),
+                        $noSpecificTime
+                    );
+
+                    if(isset($result) & $result!='' ) {
+                        Session::put('success','Updated correctly!');
+                    }else{
+                        Session::put('error','Update error!');
+                    }
+                }
             }
 
             private function addLongTextQuestion(Request $request, $i, $fileName, $noSpecificTime)
@@ -220,6 +290,8 @@ class TeacherController extends Controller
                 $isNoSpecificTime = $request->input('no-specific-time-long-' . $i);
                 $noSpecificTime = $isNoSpecificTime === 'on' ? true : null;
 
+                $idQuestionLong=$request->input('id-quest-long-'.$i);
+                if(!isset($idQuestionLong) || $idQuestionLong==''){
                 // Prepare data for adding long text question
                 $result = $this->add_data_long_text(
                     Auth::id(),
@@ -232,6 +304,25 @@ class TeacherController extends Controller
                     $noSpecificTime);
 
                 return $result;
+                }else{
+                    $result = $this->update_data_long_text(
+                        $idQuestionLong,
+                        $this->session->userdata('id'),
+                        $this->input->post('title-question-long-'.$i),
+                        $this->input->post('correct-question-long-'.$i),
+                        $this->input->post('usr_time-long-'.$i),
+                        $this->input->post('file-uploaded-long-'.$i),
+                        $this->input->post('points-long-'.$i),
+                        $fileName,
+                        $noSpecificTime
+
+                    );
+                    if(isset($result) & $result!='' ) {
+                        Session::put('success','Updated correctly!');
+                    }else{
+                        Session::put('error','Update error!');
+                    }
+                }
             }
 
             private function addTawsilQuestion(Request $request, $i, $fileName, $noSpecificTime)
@@ -253,34 +344,195 @@ class TeacherController extends Controller
                         return redirect()->back()->with('error', 'Error uploading image');
                     }
                 }
+                $idQuestionTawsil=$request->input('id-quest-tawsil-'.$i);
+                // No specific time for question
+                 $isNoSpecificTime = $request->input('no-specific-time-tawsil-' . $i);
+                 $noSpecificTime = $isNoSpecificTime === 'on' ? true : null;
+                if(!isset($idQuestionTawsil) || $idQuestionTawsil=='') {
+                    // Prepare data for adding long text question
+                    $result = $this->add_data_tawsil(
+                        Auth::id(),
+                        $request->input('title-question-tawsil-' . $i),
+                        $request->input('usr_time-tawsil-' . $i),
+                        $request->input('option-tawsil-1-' . $i),
+                        $request->input('link-option-tawsil-1-' . $i),
+                        $request->input('option-tawsil-2-' . $i),
+                        $request->input('link-option-tawsil-2-' . $i),
+                        $request->input('option-tawsil-3-' . $i),
+                        $request->input('link-option-tawsil-3-' . $i),
+                        $request->input('option-tawsil-4-' . $i),
+                        $request->input('ink-option-tawsil-4-' . $i),
+                        $request->input('option-tawsil-5-' . $i),
+                        $request->input('link-option-tawsil-5-' . $i),
+                        $request->input('option-tawsil-6-' . $i),
+                        $request->input('link-option-tawsil-6-' . $i),
+                        $request->input('file-uploaded-tawsil-' . $i),
+                        $request->input('points-tawsil-' . $i),
+                        $fileName,
+                        $noSpecificTime);
+
+                    return $result;
+                }else{
+                    $result = $this->update_data_tawsil(
+                        $idQuestionTawsil,
+                        Auth::id(),
+                        $request->input('title-question-tawsil-' . $i),
+                        $request->input('usr_time-tawsil-' . $i),
+                        $request->input('option-tawsil-1-' . $i),
+                        $request->input('link-option-tawsil-1-' . $i),
+                        $request->input('option-tawsil-2-' . $i),
+                        $request->input('link-option-tawsil-2-' . $i),
+                        $request->input('option-tawsil-3-' . $i),
+                        $request->input('link-option-tawsil-3-' . $i),
+                        $request->input('option-tawsil-4-' . $i),
+                        $request->input('ink-option-tawsil-4-' . $i),
+                        $request->input('option-tawsil-5-' . $i),
+                        $request->input('link-option-tawsil-5-' . $i),
+                        $request->input('option-tawsil-6-' . $i),
+                        $request->input('link-option-tawsil-6-' . $i),
+                        $request->input('file-uploaded-tawsil-' . $i),
+                        $request->input('points-tawsil-' . $i),
+                        $fileName,
+                        $noSpecificTime
+
+                    );
+                    if(isset($result) & $result!='' ) {
+                        Session::put('success','Updated correctly!');
+                    }else{
+                        Session::put('error','Update error!');
+                    }
+                }
+            }
+
+            private function addTartibQuestion(Request $request, $i, $fileName, $noSpecificTime)
+            {
+                // Initialize file name
+                $fileName = null;
+
+                // Check if the file is uploaded
+                if ($request->hasFile("file-uploaded-tartib-" . $i)) {
+                    $file = $request->file("file-uploaded-tartib-" . $i);
+                    $rand = rand();
+                    $fileName = $rand . preg_replace("/\s+/", "", $file->getClientOriginalName());
+
+                    // Store the file in the public/uploads directory
+                    $filePath = $file->storeAs('uploads', $fileName, 'public');
+
+                    // Check if the file was uploaded successfully
+                    if (!$filePath) {
+                        return redirect()->back()->with('error', 'Error uploading image');
+                    }
+                }
 
                 // No specific time for question
-                $isNoSpecificTime = $request->input('no-specific-time-tawsil-' . $i);
+                $isNoSpecificTime = $request->input('no-specific-time-tartib-' . $i);
                 $noSpecificTime = $isNoSpecificTime === 'on' ? true : null;
+                $idQuestionTartib=$request->input('id-quest-tartib-'.$i);
+                if(!isset($idQuestionTartib) || $idQuestionTartib=='') {
+
 
                 // Prepare data for adding long text question
-                $result = $this->add_data_tawsil(
+                $result = $this->add_data_tartib(
                     Auth::id(),
-                    $request->input('title-question-tawsil-' . $i),
-                    $request->input('usr_time-tawsil-' . $i),
-                    $request->input('option-tawsil-1-' . $i),
-                    $request->input('link-option-tawsil-1-' . $i),
-                    $request->input('option-tawsil-2-' . $i),
-                    $request->input('link-option-tawsil-2-' . $i),
-                    $request->input('option-tawsil-3-' . $i),
-                    $request->input('link-option-tawsil-3-' . $i),
-                    $request->input('option-tawsil-4-' . $i),
-                    $request->input('ink-option-tawsil-4-' . $i),
-                    $request->input('option-tawsil-5-' . $i),
-                    $request->input('link-option-tawsil-5-' . $i),
-                    $request->input('option-tawsil-6-' . $i),
-                    $request->input('link-option-tawsil-6-' . $i),
-                    $request->input('file-uploaded-tawsil-' . $i),
-                    $request->input('points-tawsil-' . $i),
+                    $request->input('title-question-tartib-'.$i),
+                    $request->input('usr_time-tartib-'.$i),
+                    $request->input('option-to-order-1-'.$i),
+                    $request->input('option-to-order-2-'.$i),
+                    $request->input('option-to-order-3-'.$i),
+                    $request->input('option-to-order-4-'.$i),
+                    $request->input('option-to-order-5-'.$i),
+                    $request->input('option-to-order-6-'.$i),
+                    $request->input('file-uploaded-tartib-'.$i),
+                    $request->input('points-tartib-'.$i),
                     $fileName,
                     $noSpecificTime);
 
                 return $result;
+                }else{
+                    $result = $this->update_data_tartib(
+                        $idQuestionTartib,
+                        Auth::id(),
+                        $request->input('title-question-tartib-'.$i),
+                        $request->input('usr_time-tartib-'.$i),
+                        $request->input('option-to-order-1-'.$i),
+                        $request->input('option-to-order-2-'.$i),
+                        $request->input('option-to-order-3-'.$i),
+                        $request->input('option-to-order-4-'.$i),
+                        $request->input('option-to-order-5-'.$i),
+                        $request->input('option-to-order-6-'.$i),
+                        $request->input('file-uploaded-tartib-'.$i),
+                        $request->input('points-tartib-'.$i),
+                        $fileName,
+                        $noSpecificTime
+                    );
+                    if(isset($result) & $result!='' ) {
+                        Session::put('success','Updated correctly!');
+                    }else{
+                        Session::put('error','Update error!');
+                    }
+                }
+            }
+
+            private function addSpanQuestion(Request $request, $i, $fileName, $noSpecificTime)
+            {
+                // Initialize file name
+                $fileName = null;
+
+                // Check if the file is uploaded
+                if ($request->hasFile("file-uploaded-span-" . $i)) {
+                    $file = $request->file("file-uploaded-span-" . $i);
+                    $rand = rand();
+                    $fileName = $rand . preg_replace("/\s+/", "", $file->getClientOriginalName());
+
+                    // Store the file in the public/uploads directory
+                    $filePath = $file->storeAs('uploads', $fileName, 'public');
+
+                    // Check if the file was uploaded successfully
+                    if (!$filePath) {
+                        return redirect()->back()->with('error', 'Error uploading image');
+                    }
+                }
+
+                $wordsConcat=$request->input('words-list-span-'.$i);
+                $inputTextWithWords=preg_replace("/\s+/", "", $request->input('input-text-with-words-span-'.$i));
+
+                // No specific time for question
+                $isNoSpecificTime = $request->input('no-specific-time-span-' . $i);
+                $noSpecificTime = $isNoSpecificTime === 'on' ? true : null;
+                $idQuestionSpan=$request->input('id-quest-span-'.$i);
+                if(!isset($idQuestionSpan) || $idQuestionSpan=='') {
+                    // Prepare data for adding long text question
+                    $result = $this->add_data_span(
+                        Auth::id(),
+                        $request->input('title-question-span-'.$i),
+                        $request->input('input-text-with-words-span-'.$i),
+                        $wordsConcat,
+                        $request->input('usr_time-span-'.$i),
+                        $inputTextWithWords,
+                        $request->input('points-span-'.$i),
+                        $fileName,
+                        $noSpecificTime);
+
+                    return $result;
+                }else{
+                    $result = $this->update_data_span(
+                        $idQuestionSpan,
+                        Auth::id(),
+                        $request->input('title-question-span-'.$i),
+                        $request->input('input-text-with-words-span-'.$i),
+                        $wordsConcat,
+                        $request->input('usr_time-span-'.$i),
+                        $inputTextWithWords,
+                        $request->input('points-span-'.$i),
+                        $fileName,
+                        $noSpecificTime
+                    );
+                    if(isset($result) & $result!='' ) {
+                        Session::put('success','Updated correctly!');
+                    }else{
+                        Session::put('error','Update error!');
+                    }
+                }
             }
 
 
@@ -364,6 +616,39 @@ class TeacherController extends Controller
         // Return the ID of the newly created question
         return $question->id;
     }
+    function update_data_choices($idQuestionMulti,$userID, $title,$timepick,$CheckUnique,$option1,$correctOption1,$option2,$correctOption2,$option3,$correctOption3,$option4,$correctOption4,$option5,$correctOption5,$option6,$correctOption6,$fileUrl,$points,$image,$dataFile,$noSpecificTime)
+    {
+        $data = [
+            'user_id' => $userID,
+            'title' => $title,
+            'duration' => $timepick,
+            'is_single_choice' => ($CheckUnique === 'single') ? 1 : 0,
+            'option_1' => $option1,
+            'correct_option_1' => $correctOption1,
+            'option_2' => $option2,
+            'correct_option_2' => $correctOption2,
+            'option_3' => $option3,
+            'correct_option_3' => $correctOption3,
+            'option_4' => $option4,
+            'correct_option_4' => $correctOption4,
+            'option_5' => $option5,
+            'correct_option_5' => $correctOption5,
+            'option_6' => $option6,
+            'correct_option_6' => $correctOption6,
+            'file_url' => $fileUrl,
+            'points' => $points,
+            'data_file' => $dataFile,
+            'no_specific_time' => $noSpecificTime,
+        ];
+
+        if ($image !== null) {
+            $data['image'] = $image;
+        }
+
+        $questionMulti = QuestionMultiChoice::find($idQuestionMulti);
+        $questionMulti->update($data);
+        return $idQuestionMulti;
+    }
 
     function add_data_long_text($userID, $title,$correct,$timepick,$fileUrl,$points,$image,$noSpecificTime)
     {
@@ -384,6 +669,26 @@ class TeacherController extends Controller
         $question = QuestionLongText::create($data);
 
         return $question->id;
+    }
+    function update_data_long_text($idQuestionLong,$userID, $title,$correct,$timepick,$fileUrl,$points,$image,$noSpecificTime)
+    {
+        $data = [
+            'user_id' => $userID,
+            'title' => $title,
+            'correct_long_text' => $correct,
+            'duration' => $timepick,
+            'file_url' => $fileUrl,
+            'points' => $points,
+            'no_specific_time' => $noSpecificTime,
+        ];
+
+        if ($image !== null) {
+            $data['image'] = $image;
+        }
+
+        $questionLongText = QuestionLongText::find($idQuestionLong);
+        $questionLongText->update($data);
+        return $idQuestionLong;
     }
 
     public function add_data_tawsil($userID, $title, $timepick, $option1, $linkOption1, $option2, $linkOption2, $option3, $linkOption3, $option4, $linkOption4, $option5, $linkOption5, $option6, $linkOption6, $fileUrl, $points, $image, $noSpecificTime)
@@ -420,5 +725,137 @@ class TeacherController extends Controller
 
         // Return the ID of the newly created question
         return $question->id;
+    }
+    public function update_data_tawsil($idQuestionTawsil,$userID, $title, $timepick, $option1, $linkOption1, $option2, $linkOption2, $option3, $linkOption3, $option4, $linkOption4, $option5, $linkOption5, $option6, $linkOption6, $fileUrl, $points, $image, $noSpecificTime)
+    {
+        // Prepare the data array
+        $data = [
+            'user_id' => $userID,
+            'title' => $title,
+            'duration' => $timepick,
+            'option_1' => $option1,
+            'link_option_1' => $linkOption1,
+            'option_2' => $option2,
+            'link_option_2' => $linkOption2,
+            'option_3' => $option3,
+            'link_option_3' => $linkOption3,
+            'option_4' => $option4,
+            'link_option_4' => $linkOption4,
+            'option_5' => $option5,
+            'link_option_5' => $linkOption5,
+            'option_6' => $option6,
+            'link_option_6' => $linkOption6,
+            'file_url' => $fileUrl,
+            'points' => $points,
+            'no_specific_time' => $noSpecificTime,
+        ];
+
+        // Add image to the data array if it is not null
+        if ($image !== null) {
+            $data['image'] = $image;
+        }
+
+        $questionTawsil = QuestionTawsil::find($idQuestionTawsil);
+        $questionTawsil->update($data);
+        return $idQuestionTawsil;
+    }
+
+    function add_data_tartib($userID, $title, $timepick, $option1, $option2, $option3, $option4, $option5, $option6, $fileUrl, $points, $image, $noSpecificTime)
+    {
+        $data = [
+            'user_id' => $userID,
+            'title' => $title,
+            'duration' => $timepick,
+            'option_to_order_1' => $option1,
+            'option_to_order_2' => $option2,
+            'option_to_order_3' => $option3,
+            'option_to_order_4' => $option4,
+            'option_to_order_5' => $option5,
+            'option_to_order_6' => $option6,
+            'file_url' => $fileUrl,
+            'points' => $points,
+            'no_specific_time' => $noSpecificTime,
+        ];
+
+        if ($image != null) {
+            $data['image'] = $image;
+        }
+
+        // Insert the data into the question_tartib table
+        $questionTartib = QuestionTartib::create($data);
+
+        // Return the ID of the newly created record
+        return $questionTartib->id;
+    }
+
+    function update_data_tartib($idQuestionTartib,$userID, $title, $timepick, $option1, $option2, $option3, $option4, $option5, $option6, $fileUrl, $points, $image, $noSpecificTime)
+    {
+        $data = [
+            'user_id' => $userID,
+            'title' => $title,
+            'duration' => $timepick,
+            'option_to_order_1' => $option1,
+            'option_to_order_2' => $option2,
+            'option_to_order_3' => $option3,
+            'option_to_order_4' => $option4,
+            'option_to_order_5' => $option5,
+            'option_to_order_6' => $option6,
+            'file_url' => $fileUrl,
+            'points' => $points,
+            'no_specific_time' => $noSpecificTime,
+        ];
+
+        if ($image != null) {
+            $data['image'] = $image;
+        }
+
+        $questionTartib = QuestionTartib::find($idQuestionTartib);
+        $questionTartib->update($data);
+        return $idQuestionTartib;
+    }
+
+    function add_data_span($userID, $title, $textSpan, $words, $timepick, $fileUrl, $points, $image, $noSpecificTime)
+    {
+        $data = [
+            'user_id' => $userID,
+            'title' => $title,
+            'span_text' => $textSpan,
+            'words' => $words,
+            'duration' => $timepick,
+            'file_url' => $fileUrl,
+            'points' => $points,
+            'no_specific_time' => $noSpecificTime,
+        ];
+
+        if ($image != null) {
+            $data['image'] = $image;
+        }
+
+        // Insert the data into the question_span table
+        $questionSpan = QuestionSpan::create($data);
+
+        // Return the ID of the newly created record
+        return $questionSpan->id;
+    }
+    function update_data_span($idQuestionSpan,$userID, $title, $textSpan, $words, $timepick, $fileUrl, $points, $image, $noSpecificTime)
+    {
+        $data = [
+            'user_id' => $userID,
+            'title' => $title,
+            'span_text' => $textSpan,
+            'words' => $words,
+            'duration' => $timepick,
+            'file_url' => $fileUrl,
+            'points' => $points,
+            'no_specific_time' => $noSpecificTime,
+        ];
+
+        if ($image != null) {
+            $data['image'] = $image;
+        }
+
+        $questionSpan = QuestionSpan::find($idQuestionSpan);
+        $questionSpan->update($data);
+        return $idQuestionSpan;
     }
 }
