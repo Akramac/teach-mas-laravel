@@ -6,6 +6,8 @@ use App\Models\Categorie;
 use App\Models\Exam;
 use App\Models\ExamQuestLongTextJunction;
 use App\Models\ExamQuestMultiChoiceJunction;
+use App\Models\ExamQuestSpanJunction;
+use App\Models\ExamQuestTartibJunction;
 use App\Models\ExamQuestTawsilJunction;
 use App\Models\QuestionLongText;
 use App\Models\QuestionMultiChoice;
@@ -89,7 +91,7 @@ class TeacherController extends Controller
                         if ($resultId) {
                             $this->add_mutli_choice_junction($resultId, $exam->id);
                         } else {
-                            return redirect()->back()->with('error', 'Error Adding question with choices')->withInput();
+                            return redirect()->back()->with('error', 'Error Adding question Multi with choices')->withInput();
                         }
                     }
                 }
@@ -110,22 +112,6 @@ class TeacherController extends Controller
                     }
                 }
 
-                $numQuestTawsil = $request->input('count-quest-tawsil');
-                for ($i = 1; $i <= $numQuestTawsil; $i++) {
-                    if ($request->input('quest_tawsil-' . $i) == 'quest_tawsil') {
-                        $fileName = $this->handleFileUpload($request, "file-uploaded-tawsil-" . $i);
-
-                        // No specific time for question
-                        $noSpecificTime = $request->has('no-specific-time-tawsil-' . $i) && $request->input('no-specific-time-tawsil-' . $i) == 'on';
-
-                        $resultId = $this->addTawsilQuestion($request, $i, $fileName, $noSpecificTime);
-                        if ($resultId) {
-                            $this->add_tawsil_junction($resultId, $exam->id);
-                        } else {
-                            return redirect()->back()->with('error', 'Error Adding Long Text question')->withInput();
-                        }
-                    }
-                }
 
                 $numQuestTartib = $request->input('count-quest-tartib');
                 for ($i = 1; $i <= $numQuestTartib; $i++) {
@@ -139,7 +125,7 @@ class TeacherController extends Controller
                         if ($resultId) {
                             $this->add_tartib_junction($resultId, $exam->id);
                         } else {
-                            return redirect()->back()->with('error', 'Error Adding Long Text question')->withInput();
+                            return redirect()->back()->with('error', 'Error Adding Tartib question')->withInput();
                         }
                     }
                 }
@@ -155,6 +141,23 @@ class TeacherController extends Controller
                         $resultId = $this->addSpanQuestion($request, $i, $fileName, $noSpecificTime);
                         if ($resultId) {
                             $this->add_span_junction($resultId, $exam->id);
+                        } else {
+                            return redirect()->back()->with('error', 'Error Adding Long Text question')->withInput();
+                        }
+                    }
+                }
+
+                $numQuestTawsil = $request->input('count-quest-tawsil');
+                for ($i = 1; $i <= $numQuestTawsil; $i++) {
+                    if ($request->input('quest_tawsil-' . $i) == 'quest_tawsil') {
+                        $fileName = $this->handleFileUpload($request, "file-uploaded-tawsil-" . $i);
+
+                        // No specific time for question
+                        $noSpecificTime = $request->has('no-specific-time-tawsil-' . $i) && $request->input('no-specific-time-tawsil-' . $i) == 'on';
+
+                        $resultId = $this->addTawsilQuestion($request, $i, $fileName, $noSpecificTime);
+                        if ($resultId) {
+                            $this->add_tawsil_junction($resultId, $exam->id);
                         } else {
                             return redirect()->back()->with('error', 'Error Adding Long Text question')->withInput();
                         }
@@ -546,6 +549,36 @@ class TeacherController extends Controller
 
                 // Insert the data into the database
                 $question = ExamQuestLongTextJunction::create($data);
+
+                // Return the ID of the newly created question
+                return $question->id;
+            }
+
+            private function add_tartib_junction($questionId, $examId)
+            {
+                $data = [
+                    'question_tartib_id' => $questionId,
+                    'exam_id' => $examId,
+                ];
+
+
+                // Insert the data into the database
+                $question = ExamQuestTartibJunction::create($data);
+
+                // Return the ID of the newly created question
+                return $question->id;
+            }
+
+            private function add_span_junction($questionId, $examId)
+            {
+                $data = [
+                    'question_span_id' => $questionId,
+                    'exam_id' => $examId,
+                ];
+
+
+                // Insert the data into the database
+                $question = ExamQuestSpanJunction::create($data);
 
                 // Return the ID of the newly created question
                 return $question->id;
