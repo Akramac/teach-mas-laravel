@@ -48,9 +48,7 @@ class TeacherController extends Controller
                 $userId = Auth::id();
 
                 // Get the teacher ID based on the authenticated user
-                $teacher = Teacher::select()->where('user', function ($query) use ($userId) {
-                    $query->where('id', $userId);
-                })->first();
+                $teacher = Teacher::find($userId);
 
                 $idTeacher = $teacher ? $teacher->id : null;
 
@@ -73,7 +71,8 @@ class TeacherController extends Controller
                     'allow_camera_record' => $allowCameraRecord,
                     'random_questions' => $randomQuestions,
                     'no_remake_exam' => $noRemakeExam,
-                    'category_id' => $request->input('select-category'),
+                    'show_results' => true,
+                    'categorie_id' => $request->input('select-category'),
                 ]);
 
                 if (!$exam) {

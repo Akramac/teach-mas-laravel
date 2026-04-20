@@ -21,7 +21,6 @@ class Exam extends Model
         'random_questions',
         'no_remake_exam',
         'show_results',
-        'show_results',
         'updated_at',
         'created_at',
     ];

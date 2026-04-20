@@ -833,7 +833,7 @@ Common
             <p>
                 Make your questions by adding part by part and adding the time and also pictures
             </p>
-            <form id="msform-teacher" method="POST" action="{{url('addExamData')}}" enctype='multipart/form-data'>
+            <form id="msform-teacher" method="POST" action="{{url('teacher/addExamData')}}" enctype='multipart/form-data'>
                 @csrf
                 <div class="form-group">
                     <label style="text-align:left">Title of the exam</label>
