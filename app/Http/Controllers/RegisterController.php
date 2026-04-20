@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Student;
+use App\Models\Teacher;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -45,6 +47,23 @@ class RegisterController extends Controller
                 'verification_key'=>$verification_key,
                 'password'=>Hash::make($request->password),
             ]);
+
+            $userId=$user->id;
+
+            if ($userType === 'teacher') {
+                 Teacher::create([
+                    'name'=>$request->name,
+                    'email'=>$request->email,
+                    'user_id'=>$userId,
+                    'approved_by_admin'=>false,
+                ]);
+            } elseif ($userType === 'student') {
+                Student::create([
+                    'name'=>$request->name,
+                    'email'=>$request->email,
+                    'user_id'=>$userId,
+                ]);
+            }
 
             // Return the view with the data
             return redirect()->route('login')->with('success','Registration successful!');
