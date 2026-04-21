@@ -18,8 +18,8 @@ return new class extends Migration
             $table->foreignId('teacher_id')->constrained()->onDelete('cascade');
             $table->foreignId('student_id')->constrained()->onDelete('cascade');
             $table->foreignId('exam_id')->constrained()->onDelete('cascade');
-            $table->integer('note_by_teacher');
-            $table->boolean('show_notes');
+            $table->integer('note_by_teacher')->nullable();
+            $table->boolean('show_notes')->nullable();
             $table->string('file_screen', 255)->nullable();
             $table->string('file_video', 255)->nullable();
             $table->timestamps();

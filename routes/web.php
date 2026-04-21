@@ -37,4 +37,5 @@ Route::middleware(['auth.redirect'])->group(function(){
     Route::get('editProfile', [ProfileController::class, 'index'])->name('editProfile');
     Route::post('loggedin/change-password', [PasswordController::class, 'changePasswordData'])->name('loggedin/change-password');
     Route::post('loggedin/edit-profile', [ProfileController::class, 'editProfileData'])->name('loggedin/edit-profile');
+    Route::get('student/activate-exam/{exam}/{teacher}/{hash}', [StudentController::class, 'activateExamUrl'])->name('student/activate-exam');
 });

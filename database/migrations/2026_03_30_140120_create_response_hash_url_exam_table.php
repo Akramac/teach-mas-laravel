@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('response_hash_url_exam', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('teacher_id')->constrained()->onDelete('cascade');
-            $table->foreignId('student_id')->constrained()->onDelete('cascade');
-            $table->foreignId('exam_id')->constrained()->onDelete('cascade');
-            $table->boolean('used_once_by_student');
+            $table->foreignId('teacher_id')->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('student_id')->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('exam_id')->nullable()->constrained()->onDelete('cascade');
+            $table->boolean('used_once_by_student')->nullable();
             $table->string('hash', 255)->nullable();
             $table->timestamps();
         });

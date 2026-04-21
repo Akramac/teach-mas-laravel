@@ -15,14 +15,14 @@ return new class extends Migration
     {
         Schema::create('question_long_text', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->boolean('no_specific_time');
-            $table->string('title', 255);
-            $table->string('correct_long_text', 255);
-            $table->string('duration', 255);
-            $table->string('file_url', 255);
-            $table->integer('points');
-            $table->string('image', 255);
+            $table->foreignId('user_id')->constrained('user')->onDelete('cascade');
+            $table->boolean('no_specific_time')->nullable();
+            $table->string('title', 255)->nullable();
+            $table->string('correct_long_text', 255)->nullable();
+            $table->string('duration', 255)->nullable();
+            $table->string('file_url', 255)->nullable();
+            $table->integer('points')->nullable();
+            $table->string('image', 255)->nullable();
             $table->timestamps();
         });
     }

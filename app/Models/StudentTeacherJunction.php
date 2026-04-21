@@ -5,20 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class HashUrlExam extends Model
+class StudentTeacherJunction extends Model
 {
     use HasFactory;
 
-    protected $table = 'response_hash_url_exam';
+    protected $table = 'student_teacher';
 
     protected $fillable = [
         'teacher_id',
-        'exam_id',
         'student_id',
-        'hash',
-        'used_once_by_student',
-        'updated_at',
         'created_at',
+        'updated_at',
     ];
 
     public function teacher(){
@@ -26,8 +23,5 @@ class HashUrlExam extends Model
     }
     public function student(){
         return $this->belongsTo(Student::class);
-    }
-    public function exam(){
-        return $this->belongsTo(Exam::class);
     }
 }

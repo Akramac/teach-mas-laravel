@@ -9,6 +9,7 @@ use App\Models\ExamQuestMultiChoiceJunction;
 use App\Models\ExamQuestSpanJunction;
 use App\Models\ExamQuestTartibJunction;
 use App\Models\ExamQuestTawsilJunction;
+use App\Models\HashUrlExam;
 use App\Models\QuestionLongText;
 use App\Models\QuestionMultiChoice;
 use App\Models\QuestionSpan;
@@ -19,6 +20,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class TeacherController extends Controller
 {
@@ -164,15 +166,16 @@ class TeacherController extends Controller
                 }
 
                 // Generate URL for student to show their exam
-                $hash = rand();
-                $url = route('student.activate-exam', [$exam->id, $idTeacher, $hash]);
+
+                $hash= Str::random(10);
+                $url = route('student/activate-exam', [$exam->id, $idTeacher, $hash]);
                 session()->flash('showUrl', $url);
                 session()->flash('success', 'Exam added successfully');
 
                 // Save the hash URL
-                $this->examModel->add_hash_url(null, $exam->id, $idTeacher, $hash);
+                $this->add_hash_url(null, $exam->id, $idTeacher, $hash);
 
-                return redirect()->route('index'); // Adjust the route as necessary
+                return redirect()->route('showExam');
             }
 
             private function handleFileUpload(Request $request, $inputName)
@@ -634,6 +637,7 @@ class TeacherController extends Controller
             'correct_option_6' => $correctOption6,
             'file_url' => $fileUrl,
             'points' => $points,
+            'image' => $image,
             'data_file' => $dataFile,
             'no_specific_time' => $noSpecificTime,
         ];
@@ -669,6 +673,7 @@ class TeacherController extends Controller
             'correct_option_6' => $correctOption6,
             'file_url' => $fileUrl,
             'points' => $points,
+            'image' => $image,
             'data_file' => $dataFile,
             'no_specific_time' => $noSpecificTime,
         ];
@@ -889,5 +894,15 @@ class TeacherController extends Controller
         $questionSpan = QuestionSpan::find($idQuestionSpan);
         $questionSpan->update($data);
         return $idQuestionSpan;
+    }
+    function add_hash_url($idStudent,$idExam,$idTeacher,$hash)
+    {
+        $dataHash['student_id']=$idStudent;
+        $dataHash['exam_id']=$idExam;
+        $dataHash['teacher_id']=$idTeacher;
+        $dataHash['hash']=$hash;
+        $hashUrl = HashUrlExam::create($dataHash);
+
+        return $hashUrl->id;
     }
 }
