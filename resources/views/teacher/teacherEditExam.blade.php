@@ -1,6 +1,5 @@
 
 @include('partials.header')
-
 <!-- Compiled and minified CSS -->
 <link rel="stylesheet" media="all" href="https://unpkg.com/materialize-stepper@3.1.0/dist/css/mstepper.min.css" />
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -551,154 +550,6 @@ Common
         height: 99px !important;
     }
 
-    /* canva draw */
-    canvas {
-        background: #fff;
-        display: block;
-        margin: 50px auto 10px;
-        border-radius: 5px;
-        box-shadow: 0 4px 0 0 #222;
-        cursor: url(../img/cursor.png), crosshair;
-    }
-
-    .controls {
-        min-height: 60px;
-        margin: 0 auto;
-        width: 600px;
-        border-radius: 5px;
-        overflow: hidden;
-    }
-
-    .draw ul {
-        list-style: none;
-        margin: 0;
-        float: left;
-        padding: 10px 0 20px;
-        width: 100%;
-        text-align: center;
-    }
-
-    .draw ul li,
-    #newColor {
-        display: block;
-        height: 54px;
-        width: 54px;
-        border-radius: 60px;
-        cursor: pointer;
-        border: 0;
-        box-shadow: 0 3px 0 0 #222;
-    }
-
-    .draw ul li {
-        display: inline-block;
-        margin: 0 5px 10px;
-    }
-
-    .red {
-        background: #fc4c4f;
-    }
-
-    .blue {
-        background: #4fa3fc;
-    }
-
-    .yellow {
-        background: #ECD13F;
-    }
-
-    .draw .selected {
-        border: 7px solid #fff;
-        width: 40px;
-        height: 40px;
-    }
-
-    .draw button {
-        background: #68B25B;
-        box-shadow: 0 3px 0 0 #6A845F;
-        color: #fff;
-        outline: none;
-        cursor: pointer;
-        text-shadow: 0 1px #6A845F;
-        display: block;
-        font-size: 16px;
-        line-height: 40px;
-    }
-
-    #revealColorSelect {
-        border: none;
-        border-radius: 5px;
-        margin: 10px auto;
-        padding: 5px 20px;
-        width: 160px;
-    }
-
-
-    /* New Color Palette */
-
-    #colorSelect {
-        background: #fff;
-        border-radius: 5px;
-        clear: both;
-        margin: 20px auto 0;
-        padding: 10px;
-        width: 305px;
-        position: relative;
-        display: none;
-    }
-
-    #colorSelect:after {
-        bottom: 100%;
-        left: 50%;
-        border: solid transparent;
-        content: " ";
-        height: 0;
-        width: 0;
-        position: absolute;
-        pointer-events: none;
-        border-color: rgba(255, 255, 255, 0);
-        border-bottom-color: #fff;
-        border-width: 10px;
-        margin-left: -10px;
-    }
-
-    #newColor {
-        width: 80px;
-        height: 80px;
-        border-radius: 3px;
-        box-shadow: none;
-        float: left;
-        border: none;
-        margin: 10px 20px 20px 10px;
-    }
-
-    .sliders p {
-        margin: 8px 0;
-        vertical-align: middle;
-    }
-
-    .sliders label {
-        display: inline-block;
-        margin: 0 10px 0 0;
-        width: 35px;
-        font-size: 14px;
-        color: #6D574E;
-    }
-
-    .sliders input {
-        position: relative;
-        top: 2px;
-    }
-
-    #colorSelect button {
-        border: none;
-        border-top: 1px solid #6A845F;
-        border-radius: 0 0 5px 5px;
-        clear: both;
-        margin: 10px -10px -7px;
-        padding: 5px 10px;
-        width: 325px;
-    }
-
     .choose-record, .checkbox-retake-questions, .checkbox-random-questions{
         margin-top:60px;
     }
@@ -709,141 +560,30 @@ Common
 
     <!-- ======================== Navigation ======================== -->
 
-    @include('partials/menu')
-
-<!-- ========================  Tabsy wrapper ======================== -->
-
-    <!-- ========================  Icons slider ======================== -->
-
-<!--
-	<section class="stretcher-wrapper">
-
-		s
-
-		<header>
-			<div class="row">
-				<div class="col-md-offset-2 col-md-8 text-center">
-					<h1 class="h2 title">List of Exams</h1>
-					<div class="text">
-						<p>Visit old exams or add a new one</p>
-					</div>
-				</div>
-			</div>
-		</header>
-
-
-
-		<ul class="stretcher">
-
-
-			<li class="stretcher-item" style="background-image:url(<?php /*echo base_url(); */?>assets/images/assesment.png);">
-
-				<div class="stretcher-logo">
-					<div class="text">
-						<span class="text-intro">Exam 12-2022</span>
-					</div>
-				</div>
-
-				<figure>
-					<h4>Exam 1</h4>
-					<figcaption>Collection of questions</figcaption>
-				</figure>
-
-				<a href="#">Anchor link</a>
-			</li>
-
-
-
-			<li class="stretcher-item" style="background-image:url(<?php /*echo base_url(); */?>assets/images/assesment.png);">
-
-				<div class="stretcher-logo">
-					<div class="text">
-						<span class="text-intro">Exam 03-2022</span>
-					</div>
-				</div>
-
-				<figure>
-					<h4>Exam 2</h4>
-					<figcaption>Collection of questions</figcaption>
-				</figure>
-
-				<a href="#">Anchor link</a>
-			</li>
-
-
-
-			<li class="stretcher-item" style="background-image:url(<?php /*echo base_url(); */?>assets/images/assesment.png);">
-
-				<div class="stretcher-logo">
-					<div class="text">
-						<span class="text-intro">Exam 05-2022</span>
-					</div>
-				</div>
-
-				<figure>
-					<h4>Exam 3</h4>
-					<figcaption>Collection of questions</figcaption>
-				</figure>
-
-				<a href="#">Anchor link</a>
-			</li>
-
-
-
-			<li class="stretcher-item" style="background-image:url(<?php /*echo base_url(); */?>assets/images/assesment.png);">
-
-				<div class="stretcher-logo">
-					<div class="text">
-						<span class="text-intro">Exam 11-2022</span>
-					</div>
-				</div>
-
-				<figure>
-					<h4>Exam 4</h4>
-					<figcaption>Collection of questions</figcaption>
-				</figure>
-
-				<a href="#">Anchor link</a>
-			</li>
-
-
-
-			<li class="stretcher-item more">
-				<div class="more-icon">
-					<span data-title-show="Show more" data-title-hide="+"></span>
-				</div>
-				<a href="#"></a>
-			</li>
-
-		</ul>
-	</section>-->
-
-    <!-- ========================  Block banner category ======================== -->
-
-    <!-- ========================  Best seller ======================== -->
+@include('partials/menu')
 
     <section class="contact section-questions">
 
         <!-- === Goolge map === -->
 
-        <div id="map" style="background-image:url({{asset('assets/images/backgrounds/wall.jpg')}})"></div>
+        <div id="map" style=""></div>
 
         <div class="container">
             <h2 class="title">Exam</h2>
             <p>
                 Make your questions by adding part by part and adding the time and also pictures
             </p>
-            <form id="msform-teacher" method="POST" action="{{url('teacher/addExamData')}}" enctype='multipart/form-data'>
-                @csrf
+            <form id="msform-teacher" method="POST" action="index.php/teacher/edit-exam" enctype='multipart/form-data'>
                 <div class="form-group">
                     <label style="text-align:left">Title of the exam</label>
-                    <input type="text"  name="title_exam" required>
+                    <input type="text"  name="title_exam" value="{{$title_exam}}" required>
+                    <input type="text"  name="id_exam" value="{{$id_exam}}" required hidden>
                 </div>
-
 
                 <div class="input-field col s12">
                     <select class="browser-default" name="select-category" style="margin-top:7%;" required>
-                        <option value=""  disabled selected>Choose the category</option>
+                        <option value=""  disabled>Choose the category</option>
+
                         <?php foreach($categories as $categorie) { ?>
                         <option value="{{$categorie->id}}">{{$categorie->name}}</option>
                         <?php } ?>
@@ -854,24 +594,24 @@ Common
                     <label style="text-align:left;margin-top: -6%;">Choose the time option</label>
                     <select class="browser-default" name="select-time-option" id="select-time-option" style="margin-top:7%;" required>
                         <option value=""  disabled selected>Choose the time option</option>
-                        <option value="whole-time"  id="whole-time" selected>Time for Whole exam</option>
-                        <option value="each-question-time" id="each-question-time" >Time for each question</option>
+                        <option value="whole-time"  id="whole-time" <?php if($durationExam!='00:00:00') { ?> selected <?php } ?>>Time for Whole exam</option>
+                        <option value="each-question-time" id="each-question-time" <?php if($durationExam=='00:00:00') { ?> selected <?php } ?>>Time for each question</option>
 
                     </select>
 
                 </div>
                 <div class="form-group" id="whole-duration-pick">
                     <label style="text-align:left">Duration of the whole exam <a style="color:black;">(h:m:s)</a></label>
-                    <input type="text" class="time-pick" id="timepicker" value="00:15:00"  name="usr_time_exam">
+                    <input type="text" class="time-pick" id="timepicker" value="{{$durationExam}}"  name="usr_time_exam">
                 </div>
                 <div class="input-field col choose-record s12">
                     <label style="text-align:left;margin-top: -6%;">Choose to record screen/camera of the student</label>
                     <span class="checkbox" style="margin-top:7%;">
-						<input type="checkbox" class="check-record" name="record-screen" id="record-screen">
+						<input type="checkbox" class="check-record" name="record-screen" id="record-screen" <?php if($allowScreenRecord==true) { ?> checked <?php } ?>>
 						<label for="record-screen"> <i></i>Record screen</label>
 					</span>
                     <span class="checkbox">
-						<input type="checkbox" class="check-record" name="record-camera" id="record-camera">
+						<input type="checkbox" class="check-record" name="record-camera" id="record-camera" <?php if($allowCameraRecord==true) { ?> checked <?php } ?>>
 						<label for="record-camera"><i></i>Record Camera</label>
 					</span>
 
@@ -879,7 +619,7 @@ Common
                 <div class="input-field col checkbox-random-questions s12">
                     <label style="text-align:left;margin-top: -6%;">Choose to make random order of questions</label>
                     <span class="checkbox" style="margin-top:7%;">
-						<input type="checkbox" class="check-random-questions" name="check-random-questions" id="check-random-questions">
+						<input type="checkbox" class="check-random-questions" name="check-random-questions" id="check-random-questions" <?php if($randomQuestions==true) { ?> checked <?php } ?>>
 						<label for="check-random-questions"> <i></i>Random Questions</label>
 					</span>
 
@@ -887,7 +627,7 @@ Common
                 <div class="input-field col checkbox-retake-questions s12">
                     <label style="text-align:left;margin-top: -6%;">Choose to not retake the exam by students</label>
                     <span class="checkbox" style="margin-top:7%;">
-						<input type="checkbox" class="check-no-retake-exam" name="check-no-retake-exam" id="check-no-retake-exam">
+						<input type="checkbox" class="check-no-retake-exam" name="check-no-retake-exam" id="check-no-retake-exam" <?php if($noRetakeExam==true) { ?> checked <?php } ?>>
 						<label for="check-no-retake-exam"> <i></i>Do not Retake the exam</label>
 					</span>
                 </div>
@@ -897,24 +637,29 @@ Common
                 </div>
                 <div class="quest-0 quest--list">
                 </div>
-                <div class="quest-1 quest--list">
-                    <input type="text" name="quest_mutliple-1" value="quest_mutliple" hidden>
-                    <input type="text" name="count-quest-mutli" value="1" hidden>
-                    <a class="btn-floating btn-large waves-effect waves-light red close-question"  id="close-1" style="float:right;"><i class="fa fa-times"></i></a>
-                    <div data-step-label="" class="step-title waves-effect waves-dark">Question 1</div>
+                <?php $countMultiQuest=0;$countSteps=1;?>
+                <?php foreach($listQuestionsSingleChoice as $question) {
+                $countMultiQuest++;
+                ?>
+                <div class="quest-{{$countSteps}} quest--list">
+                    <input type="text" name="quest_mutliple-{{$countMultiQuest}}" value="quest_mutliple" hidden>
+                    <input type="text" name="count-quest-mutli" value="{{$countMultiQuest}}" hidden>
+                    <input type="text" name="id-quest-multi-{{$countMultiQuest}}" value="{{$question->quest_multi_id}}" hidden>
+                    <a class="btn-floating btn-large waves-effect waves-light red close-question" name="{{$question->quest_multi_id}}" alt="quest_mutliple"  id="close-{{$countSteps}}" style="float:right;"><i class="fa fa-times"></i></a>
+                    <div data-step-label="" class="step-title waves-effect waves-dark">Question {{$countSteps}}</div>
                     <div class="step-content">
                         <div class="row">
                             <div class="input-field col s12">
                                 <div class="col-md-12" >
                                     <div class="form-group">
                                         <label style="text-align:left">Title of your question</label>
-                                        <input type="text" name="title-question-multi-1" class="form-control"  required="required">
+                                        <input type="text" name="title-question-multi-{{$countMultiQuest}}" class="form-control" value="{{$question->title}}" required="required">
                                     </div>
                                 </div>
                                 <div class="col-md-12" >
                                     <div class="form-group">
                                         <label style="text-align:left">Point of the question</label>
-                                        <input type="number" class="form-control"  min="0" max="20"   name="points-multi-1" required>
+                                        <input type="number" class="form-control"  min="0" max="20"   name="points-multi-{{$countMultiQuest}}" value="{{$question->points}}" required>
                                     </div>
                                 </div>
                                 <div class="col-md-12" >
@@ -922,23 +667,23 @@ Common
                                         <label style="text-align:left">Duration of the question</label>
                                         <p>
                                             <label>
-                                                <input class="no-specific-time" name="no-specific-time-multi-1"  type="checkbox" />
+                                                <input class="no-specific-time" name="no-specific-time-multi-{{$countMultiQuest}}"  type="checkbox" <?php if($question->no_specific_time==true) { ?> checked <?php } ?>/>
                                                 <span>no specific time</span>
                                             </label>
                                         </p>
-                                        <input type="text" class="time-pick" value="00:00:00"   name="usr_time-multi-1">
+                                        <input type="text" class="time-pick" value="{{$question->duration}}"   name="usr_time-multi-{{$countMultiQuest}}">
                                     </div>
                                 </div>
                                 <div class="col-md-12" >
                                     <p>
                                         <label>
-                                            <input class="indeterminate-checkbox-single" name="indeterminate-checkbox-single-1" value="single" type="radio" />
+                                            <input class="indeterminate-checkbox-single" name="indeterminate-checkbox-single-1" value="single" type="radio" <?php if($question->is_single_choice==true) { ?> checked <?php } ?>/>
                                             <span>Single Choice</span>
                                         </label>
                                     </p>
                                     <p>
                                         <label>
-                                            <input class="indeterminate-checkbox-multiple" name="indeterminate-checkbox-single-1" value="multiple" type="radio" />
+                                            <input class="indeterminate-checkbox-multiple" name="indeterminate-checkbox-single-1" value="multiple" type="radio" <?php if($question->is_single_choice==false) { ?> checked <?php } ?> />
                                             <span>Multiple choices</span>
                                         </label>
                                     </p>
@@ -949,95 +694,62 @@ Common
                                     <div class="form-group">
                                         <div class="col-md-6" >
                                             <a class="btn-floating btn-small waves-effect waves-light green correct-option-btn" > <i class="fa fa-check"></i></a>
-                                            <input type="text" class="form-control options-list"  name="option-multi-1-1">
-                                            <input type="text" style="display: none;" class="form-control correct-options-list"  name="correct-option-multi-1-1">
+                                            <input type="text" class="form-control options-list" value="{{$question->option_1}}"  name="option-multi-1-{{$countMultiQuest}}">
+                                            <input type="text" style="display: none;" class="form-control correct-options-list" value="{{$question->correct_option_1}}"  name="correct-option-multi-1-{{$countMultiQuest}}">
                                         </div>
                                         <div class="col-md-6" >
                                             <a class="btn-floating btn-small waves-effect waves-light green correct-option-btn" > <i class="fa fa-check"></i></a>
-                                            <input type="text" class="form-control options-list"  name="option-multi-2-1">
-                                            <input type="text" style="display: none;" class="form-control correct-options-list"  name="correct-option-multi-2-1">
+                                            <input type="text" class="form-control options-list"  value="{{$question->option_2}}" name="option-multi-2-{{$countMultiQuest}}">
+                                            <input type="text" style="display: none;" class="form-control correct-options-list" value="{{$question->correct_option_2}}"  name="correct-option-multi-2-{{$countMultiQuest}}">
                                         </div>
                                         <div class="col-md-6" >
                                             <a class="btn-floating btn-small waves-effect waves-light red remove-option-btn" > <i class="fa fa-minus"></i></a>
                                             <a class="btn-floating btn-small waves-effect waves-light green correct-option-btn" > <i class="fa fa-check"></i></a>
-                                            <input type="text" class="form-control options-list"  name="option-multi-3-1">
-                                            <input type="text" style="display: none;" class="form-control correct-options-list"  name="correct-option-multi-3-1">
+                                            <input type="text" class="form-control options-list" value="{{$question->option_3}}"  name="option-multi-3-{{$countMultiQuest}}">
+                                            <input type="text" style="display: none;" class="form-control correct-options-list"  value="{{$question->correct_option_3}}" name="correct-option-multi-3-{{$countMultiQuest}}">
                                         </div>
                                         <div class="col-md-6" >
                                             <a class="btn-floating btn-small waves-effect waves-light red remove-option-btn" > <i class="fa fa-minus"></i></a>
                                             <a class="btn-floating btn-small waves-effect waves-light green correct-option-btn" > <i class="fa fa-check"></i></a>
-                                            <input type="text" class="form-control options-list"  name="option-multi-4-1">
-                                            <input type="text" style="display: none;" class="form-control correct-options-list"  name="correct-option-multi-4-1">
+                                            <input type="text" class="form-control options-list"  value="{{$question->option_4}}" name="option-multi-4-{{$countMultiQuest}}">
+                                            <input type="text" style="display: none;" class="form-control correct-options-list" value="{{$question->correct_option_4}}"  name="correct-option-multi-4-{{$countMultiQuest}}">
                                         </div>
                                         <div class="col-md-6" >
-
-                                            <a style="display: none;" class="btn-floating btn-small waves-effect waves-light green correct-option-btn" > <i class="fa fa-check"></i></a>
-                                            <a style="display: none;" class="btn-floating btn-small waves-effect waves-light red remove-option-btn" > <i class="fa fa-minus"></i></a>
-                                            <input type="text"  value="" style="display:none;" class="form-control options-list"  name="option-multi-5-1">
+                                            <a <?php if($question->option_5==''){ ?> style="display: none;" <?php } ?> class="btn-floating btn-small waves-effect waves-light red remove-option-btn" > <i class="fa fa-minus"></i></a>
+                                            <a class="btn-floating btn-small waves-effect waves-light green correct-option-btn" > <i class="fa fa-check"></i></a>
+                                            <?php if($question->option_5==''){ ?>
                                             <a class="btn-floating btn-small waves-effect waves-light red add-option-btn" > <i class="fa fa-plus"></i></a>
-                                            <input type="text" style="display: none;" class="form-control correct-options-list"  name="correct-option-multi-5-1">
-
+                                            <?php } ?>
+                                            <input type="text"  value="{{$countSteps}}<?php echo $question->option_5 ; ?>" <?php if($question->option_5==''){ ?> style="display: none;" <?php } ?> class="form-control options-list"  value="{{$question->option_5}}" name="option-multi-5-{{$countMultiQuest}}">
+                                            <input type="text" style="display: none;" class="form-control correct-options-list" value="{{$question->correct_option_5}}"  name="correct-option-multi-5-{{$countMultiQuest}}">
                                         </div>
                                         <div class="col-md-6" >
-                                            <a style="display: none;" class="btn-floating btn-small waves-effect waves-light green correct-option-btn" > <i class="fa fa-check"></i></a>
-                                            <a style="display: none;" class="btn-floating btn-small waves-effect waves-light red remove-option-btn" > <i class="fa fa-minus"></i></a>
-                                            <input type="text"   value=""  style="display:none;" class="form-control options-list"  name="option-multi-6-1"><a class="btn-floating btn-small waves-effect waves-light red add-option-btn" > <i class="fa fa-plus"></i></a>
-                                            <input type="text" style="display: none;" class="form-control correct-options-list"  name="correct-option-multi-5-1">
-
+                                            <a <?php if($question->option_5==''){ ?> style="display: none;" <?php } ?> class="btn-floating btn-small waves-effect waves-light red remove-option-btn" > <i class="fa fa-minus"></i></a>
+                                            <a class="btn-floating btn-small waves-effect waves-light green correct-option-btn" > <i class="fa fa-check"></i></a>
+                                            <?php if($question->option_6==''){ ?>
+                                            <a class="btn-floating btn-small waves-effect waves-light red add-option-btn" > <i class="fa fa-plus"></i></a>
+                                            <?php } ?>
+                                            <input type="text"   value="{{$countSteps}}<?php echo $question->option_6 ; ?>"  <?php if($question->option_5==''){ ?> style="display: none;" <?php } ?> class="form-control options-list"  value="{{$question->option_6}}" name="option-multi-6-{{$countMultiQuest}}">
+                                            <input type="text" style="display: none;" class="form-control correct-options-list" value="{{$question->correct_option_6}}"  name="correct-option-multi-6-{{$countMultiQuest}}">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-12" style="text-align: left;" >
-                                    <div class = "row draw">
-                                        <label>Draw</label>
-                                        <canvas width="600" height="400" id="output"></canvas>
-                                        <div class="controls">
-                                            <ul>
-                                                <li class="red selected"></li>
-                                                <li class="blue"></li>
-                                                <li class="yellow"></li>
-                                            </ul>
-
-                                            <button type="button" download="example.jpg" href=""  id="saveImage"  onclick="downloadCanvas(this);" hidden>Save Image</button>
-                                            <button type="button" id="revealColorSelect">New Color</button>
-                                            <div id="colorSelect">
-                                                <span id="newColor"></span>
-                                                <div class="sliders">
-                                                    <p>
-                                                        <label for="red">Red</label>
-                                                        <input id="red" name="red" type="range" min=0 max=255 value=0>
-                                                    </p>
-                                                    <p>
-                                                        <label for="green">Green</label>
-                                                        <input id="green" name="green" type="range" min=0 max=255 value=0>
-                                                    </p>
-                                                    <p>
-                                                        <label for="blue">Blue</label>
-                                                        <input id="blue" name="blue" type="range" min=0 max=255 value=0>
-                                                    </p>
-                                                </div>
-                                                <div>
-                                                    <button type="button" id="addNewColor">Add Color</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12" style="text-align: left;" >
-                                    <label for="data-file-uploaded-multi-1" hidden>upload image only data string</label>
-                                    <input name="data-file-uploaded-multi-1" id="data-file-uploaded-multi-1" type = "text" hidden/>
                                     <div class = "row">
                                         <label>Upload Image</label>
                                         <div class = "file-field input-field">
                                             <div class = "btn">
                                                 <span>Browse</span>
-                                                <input name="file-uploaded-multi-1" type = "file" />
+                                                <input name="file-uploaded-multi-{{$countMultiQuest}}" type = "file" />
                                             </div>
 
                                             <div class = "file-path-wrapper">
                                                 <input class = "file-path validate" type = "text"
                                                        placeholder = "Upload file" />
                                             </div>
+                                        </div>
+                                        <div>
+                                            <img alt="no image" src="assets/uploads/.$question->image "  style="width:90px;"/>
                                         </div>
                                     </div>
                                 </div>
@@ -1048,6 +760,397 @@ Common
                     </div>
 
                 </div>
+
+                <?php $countSteps++; } ?>
+                <?php
+                $countLongQuest=0;
+                foreach($listQuestionsLongText as $question) {
+                $countLongQuest++;
+                ?>
+                <div class="quest-{{$countSteps}} quest--list">
+                    <input type="text" name="quest_long_text-{{$countLongQuest}}" value="quest_long_text" hidden>
+                    <input type="text" name="count-quest-long-text" value="{{$countLongQuest}}" hidden>
+                    <input type="text" name="id-quest-long-{{$countLongQuest}}" value="{{$question->quest_long_text_id}}" hidden>
+                    <a class="btn-floating btn-large waves-effect waves-light red close-question" name="{{$question->quest_long_text_id}}" alt="quest_long_text" id="close-{{$countSteps}}" style="float:right;"><i class="fa fa-times"></i></a>
+                    <div data-step-label="" class="step-title waves-effect waves-dark">Question {{$countSteps}}</div>
+                    <div class="step-content">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <div class="col-md-12" >
+                                    <div class="form-group">
+                                        <label style="text-align:left">Title of your question</label>
+                                        <input type="text" name="title-question-long-{{$countLongQuest}}" class="form-control" value="{{$question->title}}" required="required">
+                                    </div>
+                                </div>
+                                <div class="col-md-12" >
+                                    <div class="form-group">
+                                        <label style="text-align:left">Point of the question</label>
+                                        <input type="number" class="form-control"  min="0" max="20" value="{{$question->points}}"  name="points-long-{{$countLongQuest}}" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-12" >
+                                    <div class="form-group duration-each-input">
+                                        <label style="text-align:left">Duration of the question</label>
+                                        <p>
+                                            <label>
+                                                <input class="no-specific-time" name="no-specific-time-long-{{$countLongQuest}}"  type="checkbox" <?php if($question->no_specific_time==true) { ?> checked <?php } ?>/>
+                                                <span>no specific time</span>
+                                            </label>
+                                        </p>
+                                        <input type="text" class="time-pick" value="{{$question->duration}}" name="usr_time-long-{{$countLongQuest}}">
+                                    </div>
+                                </div>
+                                <div class="col-md-12" >
+                                    <div class="form-group">
+                                        <label style="text-align:left">Correct answer of the question</label>
+                                        <input type="text" name="correct-question-long-{{$countLongQuest}}" class="form-control" value="{{$question->correct_long_text}}" required="required">
+                                    </div>
+                                </div>
+                                <div class="col-md-12" style="text-align: left;" >
+                                    <div class = "row">
+                                        <label>Upload Image</label>
+                                        <div class = "file-field input-field">
+                                            <div class = "btn">
+                                                <span>Browse</span>
+                                                <input type = "file" name="file-uploaded-long-{{$countLongQuest}}"/>
+                                            </div>
+
+                                            <div class = "file-path-wrapper">
+                                                <input   class = "file-path validate" type = "text"
+                                                         placeholder = "Upload file" />
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <img alt="no image" src="assets/uploads/'.$question->image "  style="width:90px;"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <?php $countSteps++;  } ?>
+                <?php $countTawsilQuest=0;
+                foreach($listQuestionsTawsil as $question) {
+                $countTawsilQuest++;
+                ?>
+                <div class="quest-{{$countSteps}} quest--list">
+                    <input type="text" name="quest_tawsil-{{$countTawsilQuest}}" value="quest_tawsil" hidden>
+                    <input type="text" name="count-quest-tawsil" value="{{$countTawsilQuest}}" hidden>
+                    <input type="text" name="id-quest-tawsil-{{$countTawsilQuest}}" value="{{$question->quest_tawsil_id}}" hidden>
+                    <a class="btn-floating btn-large waves-effect waves-light red close-question"  name="{{$question->quest_tawsil_id}}" alt="quest_tawsil" id="close-{{$countSteps}}" style="float:right;"><i class="fa fa-times"></i></a>
+                    <div data-step-label="" class="step-title waves-effect waves-dark">Question {{$countSteps}}</div>
+                    <div class="step-content">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <div class="col-md-12" >
+                                    <div class="form-group">
+                                        <label style="text-align:left">Title of your question</label>
+                                        <input type="text" name="title-question-tawsil-{{$countTawsilQuest}}" class="form-control" value="{{$question->title}}"   required="required">
+                                    </div>
+                                </div>
+                                <div class="col-md-12" >
+                                    <div class="form-group">
+                                        <label style="text-align:left">Point of the question</label>
+                                        <input type="number" class="form-control"  min="0" max="20"   value="{{$question->points}}" name="points-tawsil-{{$countTawsilQuest}}" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-12" >
+                                    <div class="form-group duration-each-input">
+                                        <label style="text-align:left">Duration of the question</label>
+                                        <p>
+                                            <label>
+                                                <input class="no-specific-time" name="no-specific-time-tawsil-{{$countTawsilQuest}}"  type="checkbox" <?php if($question->no_specific_time==true) { ?> checked <?php } ?> />
+                                                <span>no specific time</span>
+                                            </label>
+                                        </p>
+                                        <input type="text" class="time-pick" value="{{$question->duration}}"  name="usr_time-tawsil-{{$countTawsilQuest}}">
+                                    </div>
+                                </div>
+                                <div class="col-md-12" >
+                                    <label style="text-align:left">Options Linked (Max 6)</label>
+                                    <div class="form-group">
+                                        <div class="col-md-5" >
+                                            <input type="text" class="form-control options-list"  value="{{$question->option_1}}" name="option-tawsil-1-{{$countTawsilQuest}}">
+                                        </div>
+                                        <div class="col-md-2" >
+                                            <img src="{{asset('assets/images/links-icon.png')}}" style="width:30px;    margin-left: 40%;"/>
+                                        </div>
+                                        <div class="col-md-5" >
+                                            <input type="text" class="form-control options-list"  value="{{$question->link_option_1}}" name="link-option-tawsil-1-{{$countTawsilQuest}}">
+                                        </div>
+                                        <div class="col-md-5" >
+                                            <input type="text" class="form-control options-list" value="{{$question->option_2}}"  name="option-tawsil-2-{{$countTawsilQuest}}">
+                                        </div>
+                                        <div class="col-md-2" >
+                                            <img src="{{asset('assets/images/links-icon.png')}}" style="width:30px;    margin-left: 40%;"/>
+                                        </div>
+                                        <div class="col-md-5" >
+                                            <input type="text" class="form-control options-list"  value="{{$question->link_option_2}}" name="link-option-tawsil-2-{{$countTawsilQuest}}">
+                                        </div>
+                                        <div class="col-md-5" >
+                                            <input type="text" class="form-control options-list" value="{{$question->option_3}}"  name="option-tawsil-3-{{$countTawsilQuest}}">
+                                        </div>
+                                        <div class="col-md-2" >
+                                            <img src="{{asset('assets/images/links-icon.png')}}" style="width:30px;    margin-left: 40%;"/>
+                                        </div>
+                                        <div class="col-md-5" >
+                                            <input type="text" class="form-control options-list" value="{{$question->link_option_3}}"   name="link-option-tawsil-3-{{$countTawsilQuest}}">
+                                        </div>
+                                        <div class="col-md-5" >
+                                            <input type="text" class="form-control options-list" value="{{$question->option_4}}"  name="option-tawsil-4-{{$countTawsilQuest}}">
+                                        </div>
+                                        <div class="col-md-2" >
+                                            <img src="{{asset('assets/images/links-icon.png')}}" style="width:30px;    margin-left: 40%;"/>
+                                        </div>
+                                        <div class="col-md-5" >
+                                            <input type="text" class="form-control options-list" value="{{$question->link_option_4}}"  name="link-option-tawsil-4-{{$countTawsilQuest}}">
+                                        </div>
+                                        <div>
+                                            <div class="col-md-5" >
+                                                <input type="text" class="form-control options-list tawsil-grised" value="{{$question->option_5}}"  name="option-tawsil-5{{$countTawsilQuest}}">
+                                            </div>
+                                            <div class="col-md-2" >
+                                                <img src="{{asset('assets/images/links-icon.png')}}" style="width:30px;    margin-left: 40%;"/>
+                                            </div>
+                                            <div class="col-md-5" >
+                                                <input type="text" class="form-control options-list tawsil-grised" value="{{$question->link_option_5}}"  name="link-option-tawsil-5-{{$countTawsilQuest}}">
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="col-md-5" >
+                                                <input type="text" class="form-control options-list tawsil-grised"  value="{{$question->option_6}}" name="option-tawsil-6-{{$countTawsilQuest}}">
+                                            </div>
+                                            <div class="col-md-2" >
+                                                <img src="{{asset('assets/images/links-icon.png')}}" style="width:30px;    margin-left: 40%;"/>
+                                            </div>
+                                            <div class="col-md-5" >
+                                                <input type="text" class="form-control options-list tawsil-grised" value="{{$question->link_option_6}}"  name="link-option-tawsil-6-{{$countTawsilQuest}}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12" style="text-align: left;" >
+                                    <div class = "row">
+                                        <label>Upload Image</label>
+                                        <div class = "file-field input-field">
+                                            <div class = "btn">
+                                                <span>Browse</span>
+                                                <input  type = "file" name="file-uploaded-tawsil-{{$countTawsilQuest}}" />
+                                            </div>
+
+                                            <div class = "file-path-wrapper">
+                                                <input  class = "file-path validate" type = "text"
+                                                        placeholder = "Upload file" />
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <img alt="no image" src="assets/uploads/.$question->image ; ?>"  style="width:90px;"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <?php $countSteps++; } ?>
+                <?php $countTartibQuest=0;
+                foreach($listQuestionsTartib as $question) {
+                $countTartibQuest++;
+                ?>
+                <div class="quest-{{$countSteps}} quest--list">
+                    <input type="text" name="quest_tartib-{{$countTartibQuest}}" value="quest_tartib" hidden>
+                    <input type="text" name="count-quest-tartib" value="{{$countTartibQuest}}" hidden>
+                    <input type="text" name="id-quest-tartib-{{$countTartibQuest}}" value="{{$question->quest_tartib_id}}" hidden>
+                    <a class="btn-floating btn-large waves-effect waves-light red close-question"  name="{{$question->quest_tartib_id}}"  alt="quest_tartib" id="close-{{$countSteps}}" style="float:right;"><i class="fa fa-times"></i></a>
+                    <div data-step-label="" class="step-title waves-effect waves-dark">Question {{$countSteps}}</div>
+                    <div class="step-content">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <div class="col-md-12" >
+                                    <div class="form-group">
+                                        <label style="text-align:left">Title of your question</label>
+                                        <input type="text" name="title-question-tartib-{{$countTartibQuest}}" value="{{$question->title}}" class="form-control"  required="required">
+                                    </div>
+                                </div>
+                                <div class="col-md-12" >
+                                    <div class="form-group">
+                                        <label style="text-align:left">Point of the question</label>
+                                        <input type="number" class="form-control"  min="0" max="20"  value="{{$question->points}}"  name="points-tartib-{{$countTartibQuest}}" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-12" >
+                                    <div class="form-group duration-each-input">
+                                        <label style="text-align:left">Duration of the question</label>
+                                        <p>
+                                            <label>
+                                                <input class="no-specific-time" name="no-specific-time-tartib-{{$countTartibQuest}}"  type="checkbox" <?php if($question->no_specific_time==true) { ?> checked <?php } ?>  />
+                                                <span>no specific time</span>
+                                            </label>
+                                        </p>
+                                        <input type="text" class="time-pick" value="{{$question->duration}}"  onfocus="this.showPicker()" name="usr_time-tartib-{{$countTartibQuest}}">
+                                    </div>
+                                </div>
+                                <div class="col-md-12" >
+                                    <label style="text-align:left">Options in order (Max 4)</label>
+                                    <div class="form-group">
+                                        <div class="col-md-6" >1.
+                                            <input type="text" class="form-control options-to-order-list" value="{{$question->option_to_order_1}}" name="option-to-order-1-{{$countTartibQuest}}">
+                                        </div>
+                                        <div class="col-md-6" >2.
+                                            <input type="text" class="form-control options-to-order-list" value="{{$question->option_to_order_2}}"  name="option-to-order-2-{{$countTartibQuest}}">
+                                        </div>
+                                        <div class="col-md-6" >3.
+                                            <input type="text" class="form-control options-to-order-list"  value="{{$question->option_to_order_3}}" name="option-to-order-3-{{$countTartibQuest}}">
+                                        </div>
+                                        <div class="col-md-6" >4.
+                                            <input type="text" class="form-control options-to-order-list" value="{{$question->option_to_order_4}}"  name="option-to-order-4-{{$countTartibQuest}}">
+                                        </div>
+
+                                        <div class="col-md-6" >5. optional
+                                            <input type="text" class="form-control options-to-order-list tawsil-grised" value="{{$question->option_to_order_5}}"  name="option-to-order-5-{{$countTartibQuest}}">
+                                        </div>
+                                        <div class="col-md-6" >6. optional
+                                            <input type="text" class="form-control options-to-order-list tawsil-grised" value="{{$question->option_to_order_6}}"  name="option-to-order-6-{{$countTartibQuest}}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12" style="text-align: left;" >
+                                    <div class = "row">
+                                        <label>Upload Image</label>
+                                        <div class = "file-field input-field">
+                                            <div class = "btn">
+                                                <span>Browse</span>
+                                                <input type = "file" name="file-uploaded-tartib-{{$countTartibQuest}}" />
+                                            </div>
+
+                                            <div class = "file-path-wrapper">
+                                                <input  class = "file-path validate" type = "text"
+                                                        placeholder = "Upload file" />
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <img alt="no image" src="assets/uploads/.$question->image"  style="width:90px;"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <?php $countSteps++; } ?>
+
+                <?php $countSpanQuest=0;
+                foreach($listQuestionsSpan as $question) {
+                $countSpanQuest++;?>
+                <div class="quest-{{$countSteps}} quest--list">
+                    <input type="text" name="quest_span-{{$countSpanQuest}}" value="quest_span" hidden>
+                    <input type="text" name="count-quest-span" value="{{$countSpanQuest}}" hidden>
+                    <input type="text" name="id-quest-span-{{$countSpanQuest}}" value="{{$question->quest_span_id}}" hidden>
+                    <a class="btn-floating btn-large waves-effect waves-light red close-question"  name="{{$question->quest_span_id}}" alt="quest_span" id="close-{{$countSteps}}" style="float:right;"><i class="fa fa-times"></i></a>
+                    <div data-step-label="" class="step-title waves-effect waves-dark">Question {{$countSteps}}</div>
+                    <div class="step-content">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <div class="col-md-12" >
+                                    <div class="form-group">
+                                        <label style="text-align:left">Title of your question</label>
+                                        <input type="text" name="title-question-span-{{$countSpanQuest}}" value="{{$question->title}}" class="form-control"  required="required">
+                                    </div>
+                                </div>
+                                <div class="col-md-12" >
+                                    <div class="form-group">
+                                        <label style="text-align:left">Point of the question</label>
+                                        <input type="number" class="form-control"  min="0" max="20"  value="{{$question->points}}"  name="points-span-{{$countSpanQuest}}" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-12" >
+                                    <div class="form-group duration-each-input">
+                                        <label style="text-align:left">Duration of the question</label>
+                                        <p>
+                                            <label>
+                                                <input class="no-specific-time" name="no-specific-time-span-{{$countSpanQuest}}"  type="checkbox" <?php if($question->no_specific_time==true) { ?> checked <?php } ?> />
+                                                <span>no specific time</span>
+                                            </label>
+                                        </p>
+                                        <input type="text" class="time-pick" value="{{$question->duration}}" name="usr_time-span-{{$countSpanQuest}}">
+                                    </div>
+                                </div>
+                                <div class="col-md-12" >
+                                    <div class="form-group">
+                                        <label for="textarea1" style="text-align:left">Text </label>
+                                        <textarea  class="materialize-textarea text-span" style="height: 90px;" name="text-span-{{$countSpanQuest}}" required>{{$question->span_text}}</textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-12" >
+                                    <div class="form-group">
+                                        <label style="text-align:left;float:left;">Words to fit</label> &nbsp;&nbsp;<a class="btn-floating btn-small waves-effect waves-light red add-words" id="add-words-{{$countSpanQuest}}" style="float:left;"><i class="fa fa-plus"></i></a>
+                                        <input type="text" class="form-control word-to-be-added"     name="words-span-{{$countSpanQuest}}" >
+                                        <input type="text" value="" class="form-control word-list-span"     name="words-list-span-{{$countSpanQuest}}" hidden>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12" >
+                                    <div class="row">
+                                        <p class="given text-to-fill-span" contenteditable="true">
+                                            <?php
+                                            $fullstring =$question->span_text;
+                                            $fullstring=str_replace("  "," ",$fullstring);
+                                            $parts=explode(' ',$fullstring);
+                                            if($parts[0]==$fullstring)	{
+                                                $parts=explode(' ',$fullstring);
+                                            }
+                                            foreach ($parts as $i => $p){
+                                            ?>
+                                            <span class="w ui-droppable"> {{$p}} </span>&nbsp;
+                                            <?php } ?>
+                                        </p>
+                                        <!--<p class="given text-to-fill-span"    contenteditable="true" readonly="readonly"></p>-->
+                                        <input type="text" value="" class="form-control input-text-with-words-span"     name="input-text-with-words-span-{{$countSpanQuest}}" hidden>
+
+                                    </div>
+
+                                    <div class="divider"></div>
+                                    <div class="section">
+                                        <section>
+                                            Place the words in red above here  <a alt="1" title="Erase"  class="btn-floating btn-small waves-effect waves-light red erase-last-word" > <i class="fa fa-eraser"></i></a>
+                                            <div class="card blue-grey ">
+                                                <div class="card-content white-text">
+                                                    <div class="row">
+                                                        <div class="col s12 section-to-add-word">
+                                                            <span class="given btn-flat white-text red lighten-1" rel="1" style="display:none;">the Santee, thDakota</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </div>
+                                <div class="col-md-12" style="text-align: left;" >
+                                    <div class = "row">
+                                        <label>Upload Image</label>
+                                        <div class = "file-field input-field">
+                                            <div class = "btn">
+                                                <span>Browse</span>
+                                                <input type = "file" name="file-uploaded-span-{{$countSpanQuest}}" />
+                                            </div>
+
+                                            <div class = "file-path-wrapper">
+                                                <input   class = "file-path validate" type = "text"
+                                                         placeholder = "Upload file" />
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <img alt="no image" src="assets/uploads/.$question->image"  style="width:90px;"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <?php $countSteps++; } ?>
                 <div class="row" style="justify-content: space-between;">
                     <button class=" btn blue"  type="submit" style="float: left;">Finish</button>
 
@@ -1056,35 +1159,6 @@ Common
                     <!--					<button class=" btn blue  next-inputs text-right" >CONTINUE</button>-->
                 </div>
 
-                <!--<li class="step">
-                    <div class="step-title waves-effect waves-dark">Question 3</div>
-                    <div class="step-content">
-                        <div class="countdown" style="zoom:0.2;">
-                            <svg viewBox="-50 -50 100 100" stroke-width="10">
-                                <circle r="45"></circle>
-                                <circle r="45" stroke-dasharray="282.7433388230814" stroke-dashoffset="282.7433388230814px"></circle>
-                            </svg>
-                        </div>
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <label>Materialize Select</label>
-                                <select class="browser-default" style="margin-top:7%;">
-                                    <option value=""  disabled selected>Choose the type of question</option>
-                                    <option value="1">text</option>
-                                    <option value="2">multiple choice</option>
-                                    <option value="3">long text</option>
-                                </select>
-
-                            </div>
-                        </div>
-                        <div class="step-actions">
-                            <--								<button class="waves-effect waves-dark btn blue next-step" data-feedback="someFunction">CONTINUE</button>
-                            --
-                            <button class="waves-effect waves-dark btn blue next-step">CONTINUE</button>
-                            <button class="waves-effect waves-dark btn-flat previous-step">BACK</button>
-                        </div>
-                    </div>
-                </li>-->
 
             </form>
 
@@ -1109,7 +1183,7 @@ Common
             </div>
 
             <div class="modal-footer">
-                <a class="modal-action
+                <a  class="modal-action
                     modal-close waves-effect waves-green
                     btn green lighten-1">
                     Close
@@ -1134,8 +1208,6 @@ Common
 
 
 @include('partials/footer')
-<div>
-</div>
 </div> <!--/wrapper-->
 <!-- Compiled and minified JavaScript -->
 <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-steps/1.0.0/jquery.steps.js"></script>-->
@@ -1145,38 +1217,16 @@ Common
 <script src="{{asset('assets/js/jquery-ui-timepicker-addon.js')}}"></script>
 <script>
     $(document).ready(function(){
-        /*
-                var stepper = document.querySelector('.stepper');
-                var stepperInstace = new MStepper(stepper, {
-                    // options
-                    firstActive: 0 // this is the default
-                })*/
-        /*$('.time-pick').timepicker({
 
-            showSeconds: true,
-            twelveHour: false,
-            onOpenEnd:function(){
-                $('.timepicker-span-hours').prepend( "<p>h:m</p>" );
-            }
-        });*/
-
-
-
-        /*$('.time-pick').on('change', function() {
-            let receivedVal = $(this).val();
-            $(this).val(receivedVal + ":00");
-        });*/
         $('.time-pick').timepicker({
             timeFormat: 'HH:mm:ss',
             showSecond: true
         });
-
-
-        var countMultiQuest=1;
-        var countLongQuest=0;
-        var countTawsilQuest=0;
-        var countTartibQuest=0;
-        var countSpanQuest=0;
+        var countMultiQuest='{{$countMultiQuest}}';
+        var countLongQuest='{{$countLongQuest}}';
+        var countTawsilQuest='{{$countTawsilQuest}}';
+        var countTartibQuest='{{$countTartibQuest}}';
+        var countSpanQuest='{{$countSpanQuest}}' ;
         $('.modal').modal({
             dismissible: false,
             onCloseEnd: function() { // Callback for Modal close
@@ -1244,13 +1294,13 @@ Common
 
 								</div>
 									<div class="col-md-6" >
-<a class="btn-floating btn-small waves-effect waves-light green correct-option-btn" > <i class="fa fa-check"></i></a>
+								<a class="btn-floating btn-small waves-effect waves-light green correct-option-btn" > <i class="fa fa-check"></i></a>
 								<input type="text" class="form-control options-list"  name="option-multi-2-${countMultiQuest}">
 								<input type="text" style="display: none;" class="form-control correct-options-list"  name="correct-option-multi-2-${countMultiQuest}">
 
 									</div>
 									<div class="col-md-6" >
-<a class="btn-floating btn-small waves-effect waves-light red remove-option-btn" > <i class="fa fa-minus"></i></a>
+										<a class="btn-floating btn-small waves-effect waves-light red remove-option-btn" > <i class="fa fa-minus"></i></a>
 										<a class="btn-floating btn-small waves-effect waves-light green correct-option-btn" > <i class="fa fa-check"></i></a>
 										<input type="text" class="form-control options-list"  name="option-multi-3-${countMultiQuest}">
 										<input type="text" style="display: none;" class="form-control correct-options-list"  name="correct-option-multi-3-${countMultiQuest}">
@@ -1266,14 +1316,16 @@ Common
 									</div>
 								<div class="col-md-6" >
 									<a style="display: none;" class="btn-floating btn-small waves-effect waves-light red remove-option-btn" > <i class="fa fa-minus"></i></a>
-									<a style="display: none;" class="btn-floating btn-small waves-effect waves-light green correct-option-btn" > <i class="fa fa-check"></i></a>
-									<input type="text"  value="" style="display:none;" class="form-control options-list"  name="option-multi-5-${countMultiQuest}"><a class="btn-floating btn-small waves-effect waves-light red add-option-btn" > <i class="fa fa-plus"></i></a>
+									<a class="btn-floating btn-small waves-effect waves-light green correct-option-btn" > <i class="fa fa-check"></i></a>
+								    <a class="btn-floating btn-small waves-effect waves-light red add-option-btn" > <i class="fa fa-plus"></i></a>
+									<input type="text"  value="" style="display:none;" class="form-control options-list"  name="option-multi-5-${countMultiQuest}">
 									<input type="text" style="display: none;" class="form-control correct-options-list"  name="correct-option-multi-5-${countMultiQuest}">
 								</div>
 								<div class="col-md-6" >
-									<a style="display: none;" class="btn-floating btn-small waves-effect waves-light green correct-option-btn" > <i class="fa fa-check"></i></a>
+									<a class="btn-floating btn-small waves-effect waves-light red add-option-btn" > <i class="fa fa-plus"></i></a>
 									<a style="display: none;" class="btn-floating btn-small waves-effect waves-light red remove-option-btn" > <i class="fa fa-minus"></i></a>
-									<input type="text"   value=""  style="display:none;" class="form-control options-list"  name="option-multi-6-${countMultiQuest}"><a class="btn-floating btn-small waves-effect waves-light red add-option-btn" > <i class="fa fa-plus"></i></a>
+									<a class="btn-floating btn-small waves-effect waves-light green correct-option-btn" > <i class="fa fa-check"></i></a>
+									<input type="text"   value=""  style="display:none;" class="form-control options-list"  name="option-multi-6-${countMultiQuest}">
 									<input type="text" style="display: none;" class="form-control correct-options-list"  name="correct-option-multi-6-${countMultiQuest}">
 								</div>
 							</div>
@@ -1284,11 +1336,11 @@ Common
 								<div class = "file-field input-field">
 									<div class = "btn">
 										<span>Browse</span>
-										<input   type = "file" />
+										<input   type = "file" name="file-uploaded-multi-${countMultiQuest}" />
 									</div>
 
 									<div class = "file-path-wrapper">
-										<input name="file-uploaded-multi-${countSteps}" class = "file-path validate" type = "text"
+										<input  class = "file-path validate" type = "text"
 											   placeholder = "Upload file" />
 									</div>
 								</div>
@@ -1310,20 +1362,6 @@ Common
                             });
                             $('#whole-duration-pick').show();
                         }
-                        /*$('.time-pick').timepicker({
-
-                            showSeconds: true,
-                            twelveHour: false,
-                            onOpenEnd:function(){
-                                $('.timepicker-span-hours').prepend( "<p>h:m</p>" );
-                            }
-                        });*/
-
-                        /*
-                        $('.time-pick').on('change', function() {
-                            let receivedVal = $(this).val();
-                            $(this).val(receivedVal + ":00");
-                        });*/
 
                         $('.time-pick').timepicker({
                             timeFormat: 'HH:mm:ss',
@@ -1376,11 +1414,11 @@ Common
 								<div class = "file-field input-field">
 									<div class = "btn">
 										<span>Browse</span>
-										<input type = "file" />
+										<input type = "file" name="file-uploaded-long-${countLongQuest}"/>
 									</div>
 
 									<div class = "file-path-wrapper">
-										<input  name="file-uploaded-long-${countLongQuest}" class = "file-path validate" type = "text"
+										<input   class = "file-path validate" type = "text"
 											   placeholder = "Upload file" />
 									</div>
 								</div>
@@ -1401,21 +1439,7 @@ Common
                             $('.duration-each-input .time-pick').val('00:00:00');
                             $('#whole-duration-pick').show();
                         }
-                        /*$('.time-pick').timepicker({
 
-                            showSeconds: true,
-                            twelveHour: false,
-                            onOpenEnd:function(){
-                                $('.timepicker-span-hours').prepend( "<p>h:m</p>" );
-                            }
-                        });
-
-
-
-                        $('.time-pick').on('change', function() {
-                            let receivedVal = $(this).val();
-                            $(this).val(receivedVal + ":00");
-                        });*/
                         $('.time-pick').timepicker({
                             timeFormat: 'HH:mm:ss',
                             showSecond: true
@@ -1524,11 +1548,11 @@ Common
 								<div class = "file-field input-field">
 									<div class = "btn">
 										<span>Browse</span>
-										<input  type = "file" />
+										<input  type = "file" name="file-uploaded-tawsil-${countTawsilQuest}" />
 									</div>
 
 									<div class = "file-path-wrapper">
-										<input name="file-uploaded-tawsil-${countTawsilQuest}" class = "file-path validate" type = "text"
+										<input  class = "file-path validate" type = "text"
 											   placeholder = "Upload file" />
 									</div>
 								</div>
@@ -1548,30 +1572,6 @@ Common
                             $('.duration-each-input .time-pick').val('00:00:00');
                             $('#whole-duration-pick').show();
                         }
-                        /*$('.time-pick').timepicker({
-
-                            showSeconds: true,
-                            twelveHour: false,
-                            onOpenEnd:function(){
-                                $('.timepicker-span-hours').prepend( "<p>h:m</p>" );
-                            }
-                        });
-
-                        $('.time-pick').timepicker({
-
-                            showSeconds: true,
-                            twelveHour: false,
-                            onOpenEnd:function(){
-                                $('.timepicker-span-hours').prepend( "<p>h:m</p>" );
-                            }
-                        });
-
-
-
-                        $('.time-pick').on('change', function() {
-                            let receivedVal = $(this).val();
-                            $(this).val(receivedVal + ":00");
-                        });*/
 
                         $('.time-pick').timepicker({
                             timeFormat: 'HH:mm:ss',
@@ -1642,11 +1642,11 @@ Common
 								<div class = "file-field input-field">
 									<div class = "btn">
 										<span>Browse</span>
-										<input type = "file" />
+										<input type = "file" name="file-uploaded-tartib-${countTartibQuest}" />
 									</div>
 
 									<div class = "file-path-wrapper">
-										<input name="file-uploaded-tartib-${countTartibQuest}" class = "file-path validate" type = "text"
+										<input  class = "file-path validate" type = "text"
 											   placeholder = "Upload file" />
 									</div>
 								</div>
@@ -1666,27 +1666,11 @@ Common
                             $('.duration-each-input .time-pick').val('00:00:00');
                             $('#whole-duration-pick').show();
                         }
-                        /*$('.time-pick').timepicker({
-
-                            showSeconds: true,
-                            twelveHour: false,
-                            onOpenEnd:function(){
-                                $('.timepicker-span-hours').prepend( "<p>h:m</p>" );
-                            }
-                        });
-
-
-
-                        $('.time-pick').on('change', function() {
-                            let receivedVal = $(this).val();
-                            $(this).val(receivedVal + ":00");
-                        });*/
 
                         $('.time-pick').timepicker({
                             timeFormat: 'HH:mm:ss',
                             showSecond: true
                         });
-
                         break;
 
                     case "6":
@@ -1731,7 +1715,7 @@ Common
 						</div>
 						<div class="col-md-12" >
 							<div class="form-group">
-								<label style="text-align:left;float:left;">Words to fit  </label> &nbsp;&nbsp;<a class="btn-floating btn-small waves-effect waves-light red add-words" id="add-words-${countSpanQuest}" style="float:left;"><i class="fa fa-plus"></i></a>
+								<label style="text-align:left;float:left;">Words to fit</label> &nbsp;&nbsp;<a class="btn-floating btn-small waves-effect waves-light red add-words" id="add-words-${countSpanQuest}" style="float:left;"><i class="fa fa-plus"></i></a>
 								<input type="text" class="form-control word-to-be-added"     name="words-span-${countSpanQuest}" >
 								<input type="text" value="" class="form-control word-list-span"     name="words-list-span-${countSpanQuest}" hidden>
 
@@ -1741,14 +1725,13 @@ Common
 						<div class="col-md-12" >
 							<div class="row">
 							  <p class="given text-to-fill-span"    contenteditable="true" readonly="readonly"></p>
-								<input type="text" value="" class="form-control input-text-with-words-span"     name="input-text-with-words-span-${countSpanQuest}" hidden>
+								<input type="text" value="" class="form-control input-text-with-words-span"     name="input-text-with-words-span-${countSpanQuest}" >
 
 							</div>
 
 							<div class="divider"></div>
 							<div class="section">
 							  <section>
-                                Place the words in red above here  <a alt="1" title="Erase"  class="btn-floating btn-small waves-effect waves-light red erase-last-word" > <i class="fa fa-eraser"></i></a>
 								<div class="card blue-grey ">
 								  <div class="card-content white-text">
 									<div class="row">
@@ -1767,11 +1750,11 @@ Common
 								<div class = "file-field input-field">
 									<div class = "btn">
 										<span>Browse</span>
-										<input type = "file" />
+										<input type = "file" name="file-uploaded-span-${countSpanQuest}" />
 									</div>
 
 									<div class = "file-path-wrapper">
-										<input  name="file-uploaded-span-${countSpanQuest}" class = "file-path validate" type = "text"
+										<input   class = "file-path validate" type = "text"
 											   placeholder = "Upload file" />
 									</div>
 								</div>
@@ -1792,108 +1775,115 @@ Common
                             $('.duration-each-input .time-pick').val('00:00:00');
                             $('#whole-duration-pick').show();
                         }
-                        /*$('.time-pick').timepicker({
-
-                            showSeconds: true,
-                            twelveHour: false,
-                            onOpenEnd:function(){
-                                $('.timepicker-span-hours').prepend( "<p>h:m</p>" );
-                            }
-                        });
-
-
-
-                        $('.time-pick').on('change', function() {
-                            let receivedVal = $(this).val();
-                            $(this).val(receivedVal + ":00");
-                        });*/
 
                         $('.time-pick').timepicker({
                             timeFormat: 'HH:mm:ss',
                             showSecond: true
                         });
                         /*section drag and drop*/
-                        $('.w .ui-icon-close').each(function (){
-                            $(this.parent().attr('color','green'))
-                        })
-                        $("p.given").html(chunkWords($("p.given").text()));
-
-                        $("span.given").draggable({
-                            helper: "clone",
-                            revert: "invalid"
-                        });
-
-                        makeDropText($("p.given span.w"));
-
-
-
-                    function textWrapper(str, sp) {
-                        if (sp == undefined) {
-                            sp = [0, 0];
-                        }
-                        var txt = "<span class='w'>" + str + "</span>";
-
-                        if (sp[0]) {
-                            txt = "&nbsp;" + txt;
-                        }
-
-                        if (sp[1]) {
-                            txt = txt + "&nbsp;";
-                        }
-
-                        return txt;
-                    }
-
-                    function chunkWords(p) {
-                        var words = p.split(" ");
-                        words[0] = textWrapper(words[0], [0, 1]);
-                        var i;
-                        for (i = 1; i < words.length; i++) {
-                            if (words[0].indexOf(".")) {
-                                words[i] = textWrapper(words[i], [1, 0]);
-                            } else {
-                                words[i] = textWrapper(words[i], [1, 1]);
+                        $(document).on('keyup', '.text-span', function() {
+                            var textToPut=$(this).val();
+                            //$(this).parent().parent().parent().find('.text-to-fill-span').text();
+                            $(this).parent().parent().parent().find('.text-to-fill-span').html(chunkWords(textToPut));
+                            var arabic = /[\u0600-\u06FF]/;
+                            if(arabic.test(textToPut)){
+                                $(this).parent().parent().parent().find('p.given').css('direction','rtl')
                             }
-                        }
-                        return words.join("");
-                    }
 
-                    function makeBtn(tObj) {
-                        var btn = $("<span>", {
-                            class: "ui-icon ui-icon-close"
-                        }).appendTo(tObj);
-                        btn.click(function(e) {
-                            $(this).parent().remove();
-                        });
-                    }
+                            $("span.given").draggable({
+                                helper: "clone",
+                                revert: "invalid"
+                            });
 
-                    function makeDropText(obj) {
-                        return obj.droppable({
-                            drop: function(e, ui) {
-                                var txt = ui.draggable.text();
-                                var newSpan = textWrapper(txt, [1, 0]);
-                                $(this).after(newSpan);
-                                makeBtn($(this).next("span.w"));
-                                makeDropText($(this).next("span.w"));
-                                $("span.w.ui-state-highlight").removeClass("ui-state-highlight");
-                            },
-                            over: function(e, ui) {
-                                $(this).add($(this).next("span.w")).addClass("ui-state-highlight");
-                            },
-                            out: function() {
-                                $(this).add($(this).next("span.w")).removeClass("ui-state-highlight");
+                            makeDropText($("p.given span.w"));
+
+                            function textWrapper(str, sp) {
+                                if (sp == undefined) {
+                                    sp = [0, 0];
+                                }
+                                var txt = "<span class='w'>" + str + "</span>";
+
+                                if (sp[0]) {
+                                    txt = "&nbsp;" + txt;
+                                }
+
+                                if (sp[1]) {
+                                    txt = txt + "&nbsp;";
+                                }
+
+                                return txt;
                             }
-                        });
-                    }
+
+                            function chunkWordsAdded(p) {
+                                var words = p.split(" ");
+                                console.log('words==',words)
+                                words[0] = textWrapper(words[0], [0, 1]);
+                                var i;
+                                for (i = 1; i < words.length; i++) {
+                                    if (words[0].indexOf(".")) {
+                                        words[i] = textWrapper(words[i], [1, 0]);
+                                    } else {
+                                        words[i] = textWrapper(words[i], [1, 1]);
+                                    }
+                                }
+
+
+                                return words.join("");
+                            }
+
+                            function makeBtn(tObj) {
+                                var btn = $("<span>", {
+                                    class: "ui-icon ui-icon-close"
+                                }).appendTo(tObj);
+                                btn.click(function(e) {
+                                    $(this).parent().remove();
+                                });
+                            }
+
+                            function makeDropText(obj) {
+                                return obj.droppable({
+                                    drop: function(e, ui) {
+                                        var txt = ui.draggable.text();
+                                        var newSpan = textWrapper(txt, [1, 0]);
+                                        $(this).after(newSpan);
+                                        makeBtn($(this).next("span.w"));
+                                        makeDropText($(this).next("span.w"));
+                                        $("span.w.ui-state-highlight").removeClass("ui-state-highlight");
+                                    },
+                                    over: function(e, ui) {
+                                        $(this).add($(this).next("span.w")).addClass("ui-state-highlight");
+                                    },
+                                    out: function() {
+                                        $(this).add($(this).next("span.w")).removeClass("ui-state-highlight");
+                                    }
+                                });
+                            }
+
+
+                        }) ;
                         break;
                 }
             }
         });
+
+
         $( ".time-pick" ).focus(function() {
             this.showPicker();
         });
+        <?php if($durationExam!='00:00:00') { ?>
         $('.duration-each-input').hide();
         $('.duration-each-input .time-pick').val('00:00:00');
+        <?php } ?>
+        <?php if($durationExam=='00:00:00') { ?>
+        $('#whole-duration-pick').hide();
+        $('#whole-duration-pick #timepicker').val('00:00:00');
+        <?php } ?>
+
+        $('.correct-options-list').each(function(){
+            if(($(this).val())=='correct'){
+                $(this).parent().find('.options-list').addClass('correct-input');
+            }
+        });
         $('#select-time-option').change(function (){
             if($('#select-time-option option:selected').attr('id')=='each-question-time'){
                 $('#whole-duration-pick').hide();
@@ -1905,35 +1895,49 @@ Common
                 $('#whole-duration-pick').show();
             }
         });
+        $('.text-to-fill-span').each(function (){
+            $(this).parent().find('.input-text-with-words-span').val(chunkStartingWords($(this).text()))
+        })
+        function chunkStartingWords(p) {
+            var words = p.split(" ");
+            console.log('words==',words)
+            words[0] = textWrapper(words[0], [0, 1]);
+            var i;
+            for (i = 1; i < words.length; i++) {
+                if (words[0].indexOf(".")) {
+                    words[i] = textWrapper(words[i], [1, 0]);
+                } else {
+                    words[i] = textWrapper(words[i], [1, 1]);
+                }
+            }
 
 
-        /*$('.correct-option-btn').click(function (){
-
-            var correctInput=$(this).parent().find('.correct-options-list');
-            var input=$(this).parent().find('.options-list');
-            correctInput.val('correct')
-        });
-        $('.add-option-btn').click(function (){
-
-            var input=$(this).parent().find('.options-list');
-            var minus=$(this).parent().find('.remove-option-btn');
-            input.show();
-            input.val('');
-            $(this).hide();
-            minus.show();
-        });
-        $('.remove-option-btn').click(function (){
-
-            var inputs=$(this).parent().hide();
-            inputs.find('.options-list').val('')
-        });*/
-
-    })
+            return words.join("");
+        }
+})
 
     $(document).on('click', '.close-question', function() {
+        idQuest=$(this).attr('name');
         attrId=$(this).attr('id');
         id=attrId.replace('close-','');
         $('.quest-'+id).remove();
+        typeQuestion= $(this).attr('alt');
+        $.ajax({
+            type: "POST",
+            url: "index.php/teacher/delete-question",
+            data: {
+                'question_id':idQuest,
+                'question_type':typeQuestion,
+                'exam_id':{{$countSteps}}<?php echo $id_exam ;?>
+            },
+            error: function(error){
+                console.log(error);
+            },
+            success: function(data){
+                console.log(data);
+            },
+        })
+
     }) ;
     $(document).on('click', '.correct-option-btn', function() {
 
@@ -1960,15 +1964,12 @@ Common
             correctInput.val('correct');
             input.addClass('correct-input');
         }
-
     }) ;
 
     $(document).on('click', '.add-option-btn', function() {
         var input=$(this).parent().find('.options-list');
         var minus=$(this).parent().find('.remove-option-btn');
-        var check=$(this).parent().find('.correct-option-btn');
         input.show();
-        check.show();
         input.val('');
         $(this).hide();
         minus.show();
@@ -1976,6 +1977,7 @@ Common
     $(document).on('click', '.remove-option-btn', function() {
         var inputs=$(this).parent().hide();
         inputs.find('.options-list').val('')
+        inputs.find('.correct-options-list').val('')
         inputs.find('.options-list').removeClass('correct-input');
 
     }) ;
@@ -1984,7 +1986,6 @@ Common
         $('.quest-'+idQuest+' .options-list').parent().show();
         $('.quest-'+idQuest+' .remove-option-btn').show();
         $('.quest-'+idQuest+' .correct-option-btn').show();
-
         $('.quest-'+idQuest+' .correct-options-list').each(function(){
             $(this).val('');
             $(this).parent().find('.options-list').removeClass('correct-input');
@@ -1994,11 +1995,12 @@ Common
     $(document).on('keyup', '.tawsil-grised', function() {
         $(this).removeClass("tawsil-grised");
     }) ;
+
+
     $(document).on('click', '.erase-last-word', function() {
         var spans = $(this).parent().find('.section-to-add-word span');
         spans.last().remove();
     }) ;
-
     $(document).on('change', '.no-specific-time', function() {
         if($(this).is(':checked')){
             $(this).parent().parent().parent().find('.time-pick').val('00:00:00');
@@ -2006,6 +2008,8 @@ Common
     }) ;
     $(document).on('keyup', '.text-span', function() {
         var textToPut=$(this).val();
+        // .replace(" ", " ") need to replace spaces with nbsp in new written
+
         //$(this).parent().parent().parent().find('.text-to-fill-span').text();
         $(this).parent().parent().parent().find('.text-to-fill-span').html(chunkWords(textToPut));
         var arabic = /[\u0600-\u06FF]/;
@@ -2037,9 +2041,10 @@ Common
 
             return txt;
         }
-
-        function chunkWords(p) {
+        function chunkWordsAdded(p) {
+            //var words = p.split(" ");
             var words = p.split(" ");
+            console.log('words====',words)
             words[0] = textWrapper(words[0], [0, 1]);
             var i;
             for (i = 1; i < words.length; i++) {
@@ -2053,6 +2058,25 @@ Common
 
             return words.join("");
         }
+        function chunkWords(p) {
+            //var words = p.split(" ");
+            var words = p.split(" ");
+            console.log('words====',words)
+            words[0] = textWrapper(words[0], [0, 1]);
+            var i;
+            for (i = 1; i < words.length; i++) {
+                if (words[0].indexOf(".")) {
+                    words[i] = textWrapper(words[i], [1, 0]);
+                } else {
+                    words[i] = textWrapper(words[i], [1, 1]);
+                }
+            }
+
+
+            return words.join("");
+        }
+
+
 
         function makeBtn(tObj) {
             var btn = $("<span>", {
@@ -2081,17 +2105,6 @@ Common
                 }
             });
         }
-
-        /*		$(document).on('click', '.add-words', function() {
-                    var word='-'+$(this).parent().find('.word-to-be-added').val()+'-';
-                    $(this).parent().parent().parent().find('.section-to-add-word > span').last().after('<span class="given btn-flat white-text red lighten-1" rel="5">'+word+'</span>')
-                    $("span.given").draggable({
-                        helper: "clone",
-                        revert: "invalid"
-                    });
-
-                    makeDropText($("p.given span.w"));
-                }) ;*/
     }) ;
     function textWrapper(str, sp) {
         if (sp == undefined) {
@@ -2111,6 +2124,7 @@ Common
     }
 
     function chunkWords(p) {
+        p=(p.trim()).replace(/ +(?= )/g,'');
         var words = p.split(" ");
         words[0] = textWrapper(words[0], [0, 1]);
         var i;
@@ -2121,6 +2135,7 @@ Common
                 words[i] = textWrapper(words[i], [1, 1]);
             }
         }
+        //console.log("joined",words.join(""));
         return words.join("");
     }
 
@@ -2170,153 +2185,17 @@ Common
     function putPtoInput() {
         textToPut=$('.text-to-fill-span');
         $('.text-to-fill-span').each(function (){
-
-            $(this).parent().find('.input-text-with-words-span').val($(this).text())
+            //$(this).parent().find('.input-text-with-words-span').val($(this).text())
+            $(this).parent().find('.input-text-with-words-span').val(chunkWords($(this).text()))
         })
+
+        $('.text-span').each(function(){
+            $(this).val($(this).val().replace('¤',''))
+        });
         //console.log($('.text-to-fill-span').parent().find('input-text-with-words-span'));
 
 
     }
-
-
-    /* script canva draw */
-    var color = $(".selected").css("background-color");
-    var context = $("canvas")[0].getContext("2d");
-    var $canvas = $("canvas");
-    var lastEvent;
-    var mouseDown = false;
-    let canvas = document.getElementById("output");
-    let ctx = canvas.getContext("2d");
-    //when clicking on control list items
-    $(".controls").on("click", "li", function() {
-        //deselect sibling elements
-        $(this).siblings().removeClass("selected");
-        //select clicked element
-        $(this).addClass("selected");
-        //cache current color
-        color = $(this).css("background-color");
-    });
-
-    //when add color is pressed
-    $("#revealColorSelect").click(function() {
-        //show or hide color select
-        changeColor();
-        $("#colorSelect").toggle();
-    });
-
-    //update newcolor span
-    function changeColor() {
-        var r = $("#red").val();
-        var g = $("#green").val();
-        var b = $("#blue").val();
-        $("#newColor").css("background-color", "rgb(" + r + "," + g + "," + b + ")");
-    }
-    //when color sliders changed
-    $("input[type=range]").change(changeColor);
-
-    //when add color is pressed
-    $("#addNewColor").click(function() {
-        //append color to the controls ul
-        var $newColor = $("<li></li>");
-        $newColor.css("background-color", $("#newColor").css("background-color"));
-        $(".controls ul").append($newColor);
-        $newColor.click();
-    });
-
-    //on mouse events on canvas
-    $canvas.mousedown(function(e) {
-        lastEvent = e;
-        mouseDown = true;
-    }).mousemove(function(e) {
-        //Draw lines
-        if (mouseDown) {
-            context.beginPath();
-            context.moveTo(lastEvent.offsetX, lastEvent.offsetY);
-            context.lineTo(e.offsetX, e.offsetY);
-            context.strokeStyle = color;
-            context.stroke();
-            lastEvent = e;
-        }
-    }).mouseup(function() {
-        mouseDown = false;
-    }).mouseleave(function() {
-        $canvas.mouseup();
-        saveCanvas();
-    });
-    function saveCanvas() {
-        const imageURI = $("canvas")[0].toDataURL("image/png");
-        $('#data-file-uploaded-multi-1').val(imageURI)
-
-        /* var img = new Image();
-         img.src = "";
-         var ctx = $("canvas")[1].getContext('2d');
-         img.onload = function() {
-             ctx.drawImage(img, 0, 0);
-         };
-*/
-
-        //el.href = imageURI;
-        //$("body").append(image);
-        /*var file = dataURLtoFile(image.src, 'canvas.png');
-        console.log(file);
-        $('#file-uploaded-multi-1').attr('src', image.src);
-        $('#file-uploaded-multi-1').prop('files', file);*/
-        // Convert the data URL to a Blob object
-        /*var blob = dataURLToBlob(imageURI);
-        console.log(blob)/!*
-        // Create a file object from the Blob
-        var file = new File([blob], "myimage.png", { type: "image/png" });
-         console.log(file)
-        // Set the value of the file input field to the file object*!/
-
-
-
-             // create a new blob URL from the blob
-             var blobUrl = URL.createObjectURL(blob);
-
-             // create a new image element and set its source to the blob URL
-             var img = new Image();
-             img.src = blobUrl;
-
-             // append the image element to the file input label
-             var label = $("label[for='file-uploaded-multi-1']");
-             label.append(img);
-
-             // add an event listener to the file input
-             var fileInput = document.getElementById("file-uploaded-multi-1");
-             fileInput.addEventListener("change", function(event) {
-                 var file = event.target.files[0];
-                 console.log("Selected file: " + file.name);
-             });*/
-
-
-    };
-    // Function to convert data URL to Blob
-    function dataURLToBlob(dataURL) {
-        var parts = dataURL.split(';base64,');
-        var contentType = parts[0].split(':')[1];
-        var raw = window.atob(parts[1]);
-        var rawLength = raw.length;
-        var uInt8Array = new Uint8Array(rawLength);
-
-        for (var i = 0; i < rawLength; ++i) {
-            uInt8Array[i] = raw.charCodeAt(i);
-        }
-
-        return new Blob([uInt8Array], { type: contentType });
-    }
-    function dataURLtoFile(dataURL, filename) {
-        var arr = dataURL.split(',');
-        var mime = arr[0].match(/:(.*?);/)[1];
-        var bstr = atob(arr[1]);
-        var n = bstr.length;
-        var u8arr = new Uint8Array(n);
-        while (n--) {
-            u8arr[n] = bstr.charCodeAt(n);
-        }
-        return new File([u8arr], filename, {type:mime});
-    }
-
 </script>
 <script>
     tinymce.init({

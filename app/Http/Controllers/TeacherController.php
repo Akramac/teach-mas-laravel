@@ -178,6 +178,83 @@ class TeacherController extends Controller
                 return redirect()->route('showExam');
             }
 
+
+    public function editExamByTeacher($idExam='',$idTeacher=''){
+        $data['title'] = 'Student Page By Teacher';
+
+        // Get question multi or single choice
+        $listQuestionsSingleChoice = QuestionMultiChoice::join('exam_question_multi_choice', 'exam_question_multi_choice.question_multi_choice_id', '=', 'question_multi_choice.id')
+            ->join('exams', 'exams.id', '=', 'exam_question_multi_choice.exam_id')
+            ->where('exams.id', $idExam)
+            ->select('question_multi_choice.*')
+            ->get();
+        $data['listQuestionsSingleChoice'] = $listQuestionsSingleChoice;
+
+        // Get question long text
+        $listQuestionsLongText = QuestionLongText::join('exam_question_long_text', 'exam_question_long_text.question_long_text_id', '=', 'question_long_text.id')
+            ->join('exams', 'exams.id', '=', 'exam_question_long_text.exam_id')
+            ->where('exams.id', $idExam)
+            ->select('question_long_text.*')
+            ->get();
+        $data['listQuestionsLongText'] = $listQuestionsLongText;
+
+        // Get question tawsil
+        $listQuestionsTawsil = QuestionTawsil::join('exam_question_tawsil', 'exam_question_tawsil.question_tawsil_id', '=', 'question_tawsil.id')
+            ->join('exams', 'exams.id', '=', 'exam_question_tawsil.exam_id')
+            ->where('exams.id', $idExam)
+            ->select('question_tawsil.*')
+            ->get();
+        $data['listQuestionsTawsil'] = $listQuestionsTawsil;
+
+        // Get question tartib
+        $listQuestionsTartib = QuestionTartib::join('exam_question_tartib', 'exam_question_tartib.question_tartib_id', '=', 'question_tartib.id')
+            ->join('exams', 'exams.id', '=', 'exam_question_tartib.exam_id')
+            ->where('exams.id', $idExam)
+            ->select('question_tartib.*')
+            ->get();
+        $data['listQuestionsTartib'] = $listQuestionsTartib;
+
+        // Get question span
+        $listQuestionsSpan = QuestionSpan::join('exam_question_span', 'exam_question_span.question_span_id', '=', 'question_span.id')
+            ->join('exams', 'exams.id', '=', 'exam_question_span.exam_id')
+            ->where('exams.id', $idExam)
+            ->select('question_span.*')
+            ->get();
+        $data['listQuestionsSpan'] = $listQuestionsSpan;
+
+        // Get exam details
+        $durationExam = Exam::select('id', 'title_exam', 'categorie_id', 'duration_exam', 'allow_screen_record', 'allow_camera_record', 'random_questions', 'no_remake_exam')
+            ->where('id', $idExam)
+            ->first();
+
+        $data['idExam'] = $idExam;
+        $data['idTeacher'] = $idTeacher;
+
+        if ($durationExam) {
+            $data['durationExam'] = $durationExam->duration_exam;
+            $data['title_exam'] = $durationExam->title_exam;
+            $data['categorie_id'] = $durationExam->categorie_id;
+            $data['id_exam'] = $durationExam->id;
+            $data['allowScreenRecord'] = $durationExam->allow_screen_record;
+            $data['allowCameraRecord'] = $durationExam->allow_camera_record;
+            $data['randomQuestions'] = $durationExam->random_questions;
+            $data['noRetakeExam'] = $durationExam->no_remake_exam;
+        } else {
+            $data['durationExam'] = '';
+            $data['allowScreenRecord'] = '';
+            $data['allowCameraRecord'] = '';
+            $data['randomQuestions'] = '';
+            $data['noRetakeExam'] = '';
+        }
+
+        // Get categories
+        $categoriesResult = Categorie::all();
+        $data['categories'] = $categoriesResult;
+
+        // Load the view
+        return view('teacher.teacherEditExam', $data);
+    }
+
             private function handleFileUpload(Request $request, $inputName)
             {
                 if ($request->hasFile($inputName)) {
