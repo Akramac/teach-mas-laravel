@@ -59,6 +59,10 @@ class User extends Authenticatable
     public function responseQuestionTawsil(){
         return $this->hasMany(ResponseQuestionTawsil::class);
     }
+    public function hasRole($role)
+    {
+        return $this->user_level === $role;
+    }
 
     /**
      * The attributes that should be hidden for serialization.

@@ -90,7 +90,19 @@
                                     <div class="box clearfix">
                                         <ul>
                                             <li class="label">Exams</li>
-
+                                            @if (Auth::check() && Auth::user()->hasRole('ROLE_ADMIN'))
+                                                <li><a style="cursor: pointer;" href="{{ url('teacher/teacher-exam') }}">Edit Home page</a></li>
+                                                <li><a style="cursor: pointer;" href="{{ url('teacher/teacher-exam') }}">Edit Footer</a></li>
+                                                <li><a style="cursor: pointer;" href="{{ url('teacher/teacher-exam') }}">Edit Whatsapp</a></li>
+                                                <li><a style="cursor: pointer;" href="{{ url('teacher/teacher-exam') }}">Edit Categories</a></li>
+                                            @endif
+                                            @if (Auth::check() && Auth::user()->hasRole('ROLE_TEACHER'))
+                                                <li><a style="cursor: pointer;" href="{{ url('teacher/teacher-exam') }}">Add Exam</a></li>
+                                                <li><a style="cursor: pointer;" href="{{ url('teacher/list/exam-by-teacher/' . Auth::user()->id) }}">List Exams</a></li>
+                                            @endif
+                                            @if (Auth::check() && Auth::user()->hasRole('ROLE_STUDENT'))
+                                                <li><a style="cursor: pointer;" href="{{ url('teacher/teacher-exam') }}">List Exams</a></li>
+                                            @endif
                                         </ul>
                                     </div>
                                 </div>

@@ -15,6 +15,7 @@ use App\Models\QuestionMultiChoice;
 use App\Models\QuestionSpan;
 use App\Models\QuestionTartib;
 use App\Models\QuestionTawsil;
+use App\Models\Student;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -253,6 +254,72 @@ class TeacherController extends Controller
 
         // Load the view
         return view('teacher.teacherEditExam', $data);
+    }
+
+    public function studentListExamByTeacher($idTeacher = '')
+    {
+
+        $data['title'] = 'Student Page By Teacher';
+
+        // Get list of exams by teacher
+        $examsResult = Exam::where('teacher_id', $idTeacher)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        $data['exams_by_student'] = $examsResult;
+
+        // Get number of students passed the exam by exam
+        $arrayLinksByExam = [];
+        foreach ($examsResult as $exam) {
+            $id_Exam = $exam->id;
+            $resultLinksByExam = HashUrlExam::where('teacher_id', $idTeacher)
+                ->where('exam_id', $id_Exam)
+                ->orderBy('created_at', 'desc')
+                ->distinct()
+                ->limit(1)
+                ->get();
+
+            if ($resultLinksByExam->isNotEmpty()) {
+                $arrayLinksByExam[$id_Exam] = $resultLinksByExam->first();
+            }
+        }
+        $data['arrayLinksByExam'] = $arrayLinksByExam;
+
+        return view('teacher.studentListExamByTeacher', $data);
+    }
+
+    public function administrateExamByTeacher($idExam = '')
+    {
+
+        $data['title'] = 'Student Page By Teacher';
+
+        // Get the teacher's ID based on the authenticated user
+        $teacher = Teacher::where('user_id', Auth::id())->first();
+        $idTeacher = $teacher ? $teacher->id : null;
+
+        // Get all students (you may want to filter this based on the teacher)
+        $studentResult = Student::all();
+        $data['students_by_teacher'] = $studentResult;
+
+        // Get all students who passed the exam
+        $studentsPassedExamResult = Student::whereHas('studentExams', function ($query) use ($idExam) {
+            $query->where('exam_id', $idExam);
+        })->distinct()->get();
+
+        $data['studentsPassedExamResult'] = $studentsPassedExamResult;
+
+        // Get detailed information about students who passed the exam
+        $studResult = Student::whereIn('id', $studentsPassedExamResult->pluck('id'))
+            ->with('responseExams') // Assuming you have a relationship defined for responses
+            ->get();
+
+        $data['studentsPassedExamResult'] = $studResult;
+
+        // Get the exam details
+        $examResult = Exam::find($idExam);
+        $data['exam'] = $examResult;
+
+        return view('teacher.administrateExam', $data);
     }
 
             private function handleFileUpload(Request $request, $inputName)

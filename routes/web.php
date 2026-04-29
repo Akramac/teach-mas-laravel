@@ -32,6 +32,8 @@ Route::post('login/validation', [LoginController::class, 'validation'])->name('l
 Route::middleware(['auth.redirect'])->group(function(){
     Route::get('teacher/teacherExam', [TeacherController::class, 'showExam'])->name('showExam');
     Route::get('teacher/teacherEditExam/{exam}/{teacher}', [TeacherController::class, 'editExamByTeacher'])->name('teacher.teacherEditExam');
+    Route::get('teacher/list/exam-by-teacher/{teacher}', [TeacherController::class, 'studentListExamByTeacher'])->name('teacher.studentListExamByTeacher');
+    Route::get('teacher/adminstrate/exam-by-teacher/{exam}', [TeacherController::class, 'administrateExamByTeacher'])->name('teacher.administrateExam');
     Route::post('teacher/addExamData', [TeacherController::class, 'addExamData'])->name('addExamData');
     Route::get('student/studentExam', [StudentController::class, 'studentExam'])->name('studentExam');
     Route::get('changePassword', [PasswordController::class, 'changePassword'])->name('changePassword');

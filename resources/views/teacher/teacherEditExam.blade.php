@@ -566,7 +566,7 @@ Common
 
         <!-- === Goolge map === -->
 
-        <div id="map" style=""></div>
+        <div id="map" style="background-image:url({{asset('assets/images/backgrounds/wall.jpg')}})"></div>
 
         <div class="container">
             <h2 class="title">Exam</h2>
