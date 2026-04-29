@@ -614,10 +614,10 @@ Common
                                         <a href="javascript:void(0);" data-title="Add to favorites" data-title-added="Added to favorites list"><i class="icon icon-heart"></i></a>
                                     </span>-->
                                     <span>
-                                        <a  href="index.php/teacher/adminstrate/exam-by-teacher/{{$exam->id}}" class="" data-title="Affect the exam"><i class="icon icon-pointer-right"></i></a>
+                                        <a  href="{{ url('teacher/adminstrate/exam-by-teacher/'.$exam->id) }}" class="" data-title="Affect the exam"><i class="icon icon-pointer-right"></i></a>
                                     </span>
                                     <span>
-                                        <a  href="index.php/teacher/edit/exam-by-teacher/{{$exam->id}}/{{$exam->teacher_id}}" class="" data-title="Edit this exam"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                        <a  href="{{ url('teacher/teacherEditExam/'.$exam->id.'/'.Auth::user()->id) }}" class="" data-title="Edit this exam"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                                     </span>
                                     <?php
                                     $hash='';
@@ -634,12 +634,12 @@ Common
                                 </div>
                                 <div class="figure-list">
                                     <div class="image">
-                                        <a   href="index.php/teacher/adminstrate/exam-by-teacher/{{$exam->id}}" class="mfp-open">
+                                        <a   href="{{ url('teacher/adminstrate/exam-by-teacher/'.$exam->id) }}" class="mfp-open">
                                             <img src="{{asset('assets/images/avatars/exam.png')}}" alt="" width="300" style="width: 70% !important;margin-left: 10%;" />
                                         </a>
                                     </div>
                                     <div class="text">
-                                        <h2 class="title h4"><a  href="index.php/teacher/adminstrate/exam-by-teacher/{{$exam->id}}">Exam {{$exam->title_exam}}</a></h2>
+                                        <h2 class="title h4"><a  href="{{ url('teacher/adminstrate/exam-by-teacher/'.$exam->id) }}">Exam {{$exam->title_exam}}</a></h2>
                                         <sup>Date of creation : {{$exam->created_at}} </sup>
                                         <!--											<span class="description clearfix">Gubergren amet dolor ea diam takimata consetetur facilisis blandit et aliquyam lorem ea duo labore diam sit et consetetur nulla</span>
                                         -->										</div>

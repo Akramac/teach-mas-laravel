@@ -97,7 +97,7 @@
                                                 <li><a style="cursor: pointer;" href="{{ url('teacher/teacher-exam') }}">Edit Categories</a></li>
                                             @endif
                                             @if (Auth::check() && Auth::user()->hasRole('ROLE_TEACHER'))
-                                                <li><a style="cursor: pointer;" href="{{ url('teacher/teacher-exam') }}">Add Exam</a></li>
+                                                <li><a style="cursor: pointer;" href="{{ url('teacher/teacherExam') }}">Add Exam</a></li>
                                                 <li><a style="cursor: pointer;" href="{{ url('teacher/list/exam-by-teacher/' . Auth::user()->id) }}">List Exams</a></li>
                                             @endif
                                             @if (Auth::check() && Auth::user()->hasRole('ROLE_STUDENT'))
