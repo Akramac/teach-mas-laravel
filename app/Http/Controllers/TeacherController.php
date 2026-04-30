@@ -16,6 +16,8 @@ use App\Models\QuestionSpan;
 use App\Models\QuestionTartib;
 use App\Models\QuestionTawsil;
 use App\Models\Student;
+use App\Models\StudentExamJunction;
+use App\Models\StudentTeacherJunction;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -320,6 +322,62 @@ class TeacherController extends Controller
         $data['exam'] = $examResult;
 
         return view('teacher.administrateExam', $data);
+    }
+
+    public function affectExamByTeacher($idExam = '')
+    {   $data['title'] = 'Student Page By Teacher';
+
+        // Get the authenticated teacher's ID
+        $teacher = Teacher::where('user_id', Auth::id())->first();
+        $idTeacher = $teacher ? $teacher->id : null;
+
+        // Get all students by the connected teacher
+        $studentsByTeacher = Student::all(); // Adjust this if you want to filter by teacher
+        $data['students_by_teacher'] = $studentsByTeacher;
+
+        // Get all students who passed the exam
+        $studentsPassedExamResult = Student::whereHas('studentExams', function ($query) use ($idExam) {
+            $query->where('exam_id', $idExam);
+        })->distinct()->get();
+
+        $data['studentsPassedExamResult'] = $studentsPassedExamResult;
+
+        // Get the exam details
+        $exam = Exam::find($idExam);
+        $data['exam'] = $exam ? $exam : [];
+
+        return view('teacher.affectationExam', $data);
+    }
+
+    public function affectation(Request $request){
+        $arrayStudents=$request->input('array_students');
+        $idExam=$request->input('exam_id');
+        $idTeacher=$request->input('id_teacher');
+
+
+        foreach ($arrayStudents as $idStudent){
+            $data['student_id']=$idStudent;
+            $data['exam_id']=$idExam;
+            $data['teacher_id']=$idTeacher;
+            //check duplicate
+            $isDuplicated = $this->isDuplicateAffectationStudentExam($data);
+            if(!($isDuplicated)){
+                //Insert data into Review Table
+                $resultAffectation = $this->add_affectation_student_exam(
+                    $idStudent,
+                    $idExam
+                );
+            }
+            $isDuplicated2 = $this->isDuplicateAffectationStudentTeacher($data);
+            if(!($isDuplicated2)){
+                //Insert data into Review Table
+                $resultAffectation = $this->add_affectation_student_teacher(
+                    $idStudent,
+                    $idTeacher
+                );
+            }
+
+        }
     }
 
             private function handleFileUpload(Request $request, $inputName)
@@ -1048,5 +1106,62 @@ class TeacherController extends Controller
         $hashUrl = HashUrlExam::create($dataHash);
 
         return $hashUrl->id;
+    }
+
+    private function add_affectation_student_exam($idStudent,$idExam)
+    {
+        $data = [
+            'student_id' => $idStudent,
+            'exam_id' => $idExam,
+        ];
+
+
+        // Insert the data into the database
+        $result = StudentExamJunction::create($data);
+
+        return $result->id;
+    }
+
+    private function add_affectation_student_teacher($idStudent,$idTeacher)
+    {
+        $data = [
+            'student_id' => $idStudent,
+            'teacher_id' => $idTeacher,
+        ];
+
+
+        // Insert the data into the database
+        $result = StudentTeacherJunction::create($data);
+
+        return $result->id;
+    }
+
+    public function isDuplicateAffectationStudentExam($data)
+    {
+        $results = StudentExamJunction::where([
+            ['student_id', '=', $data['student_id']],
+            ['exam_id', '=', $data['exam_id']],
+        ])->get();
+
+        //If there are rows, means this review is duplicated
+        if($results->isNotEmpty()){
+            return TRUE;
+        }else{
+            return FALSE;
+        }
+    }
+    public function isDuplicateAffectationStudentTeacher($data)
+    {
+        $results = StudentTeacherJunction::where([
+            ['student_id', '=', $data['student_id']],
+            ['teacher_id', '=', $data['teacher_id']],
+        ])->get();
+
+        //If there are rows, means this review is duplicated
+        if($results->isNotEmpty()){
+            return TRUE;
+        }else{
+            return FALSE;
+        }
     }
 }

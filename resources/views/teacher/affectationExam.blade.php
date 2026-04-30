@@ -626,15 +626,30 @@ Common
                                 <!--Teachers-->
                                 <div class="filter-box active">
                                     <div class="title">
-                                        Edit this exam
+                                        students List for affectation
+                                    </div>
+                                    <div class="filter-content">
+                                        @csrf
+                                        <?php foreach($students_by_teacher as $student) { ?>
+                                        <span class="checkbox">
+										<input type="checkbox" class="check-teacher" name="teacher{{$student->id}}" id="teacher{{$student->id}}">
+										<label for="teacher{{$student->id}}">{{$student->name}} <i></i></label>
+                                	</span>
+                                        <?php } ?>
+
+                                        <span class="checkbox">
+                                    <input type="checkbox" id="allTeachers">
+                                    <label for="allTeachers">All students <i></i></label>
+                                </span>
                                     </div>
                                 </div> <!--/filter-box-->
                                 <!--close filters on mobile / update filters class removed .toggle-filters-close-->
-                                <a target="_blank" href="{{ url('teacher/teacherEditExam/'.$exam->id.'/'.Auth::user()->id) }}"><div type="button" class=" btn btn-main" id="edit-exam">
-                                        Edit this exam
-                                    </div></a>
+                                <div type="button" class=" btn btn-main" id="submit-affectation-by-student">
+                                    Affect
+                                </div>
 
                             </div> <!--/filters-->
+
                             <div class="filters">
                                 <!--Teachers-->
                                 <div class="filter-box active">
@@ -648,11 +663,38 @@ Common
 										<label for="student{{$student->id}}">{{$student->name}} <i></i></label>
                                 	</span>
                                         <?php } ?>
+
+                                        <span class="checkbox">
+                                    <input type="checkbox" id="allStudents">
+                                    <label for="allStudents">All students <i></i></label>
+										</span>
                                     </div>
                                 </div> <!--/filter-box-->
                                 <!--close filters on mobile / update filters class removed .toggle-filters-close-->
                                 <div type="button" class=" btn btn-main" id="submit-correction-by-student">
-                                    Correct The answers
+                                    Correct their answers
+                                </div>
+
+                            </div> <!--/filters-->
+                            <div class="filters">
+                                <!--Teachers-->
+                                <div class="filter-box active">
+                                    <div class="title">
+                                        See results by student
+                                    </div>
+                                    <div class="filter-content">
+                                        <?php foreach($studentsPassedExamResult as $student) { ?>
+                                        <span class="checkbox">
+										<input type="radio" class="check-student-result" name="student-result{{$student->id}}" id="student-result{{$student->id}}">
+										<label for="student-result{{$student->id}}">{{$student->name}} <i></i></label>
+                                	</span>
+                                        <?php } ?>
+
+                                    </div>
+                                </div> <!--/filter-box-->
+                                <!--close filters on mobile / update filters class removed .toggle-filters-close-->
+                                <div type="button" class=" btn btn-main" id="see-correction">
+                                    See results
                                 </div>
 
                             </div> <!--/filters-->
@@ -678,31 +720,9 @@ Common
 
                             </div> <!--/filters-->
 
-
-
                         </div>
 
                     </div><!--/row-->
-                    <!--Pagination-->
-                    <!--<div class="pagination-wrapper">
-                        <ul class="pagination">
-                            <li>
-                                <a href="#" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                            <li class="active"><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">5</a></li>
-                            <li>
-                                <a href="#" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>-->
 
                 </div> <!--/product items-->
 
@@ -723,7 +743,7 @@ Common
     <!-- ========================  Instagram ======================== -->
 
 
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     @include('partials/footer')
 
@@ -735,19 +755,19 @@ Common
 
 <script>
     var paginationHandler = function(){
-        /*
-                $('.check-teacher').change(function(){
-                    if(this.checked) {
-                        $('.check-teacher').prop('checked',false);
-                        $(this).prop('checked',true);
-                    }
-
-                });*/
         $('#allTeachers').change(function(){
             if(this.checked) {
                 $('.check-teacher').prop('checked',true);
             }else{
                 $('.check-teacher').prop('checked',false);
+            }
+
+        });
+        $('#allStudents').change(function(){
+            if(this.checked) {
+                $('.check-student').prop('checked',true);
+            }else{
+                $('.check-student').prop('checked',false);
             }
 
         });
@@ -758,17 +778,13 @@ Common
             }
 
         });
-        /*$('#see-correction').click(function(){
+        $('#see-correction').click(function(){
 
             idStudent=$(this).parent().find(".check-student-result:checked").attr('id').replace('student-result','');
             window.location.href='index.php/teacher/result/exam-by-teacher/'+idStudent+'/{{$exam->id}}';
 
 
 
-		});*/
-
-        $('input:checkbox').click(function() {
-            $('input:checkbox').not(this).prop('checked', false);
         });
 
         $('#show-correction').click(function(){
@@ -805,6 +821,12 @@ Common
                     idTeacher=$this.attr('id').replace('teacher','');
                     arrayStudentToAffect.push(idTeacher);
 
+                }
+            });
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
 
@@ -855,16 +877,14 @@ Common
                 },
                 success: function(data){
                     console.log(data);
-                    window.location.href='index.php/teacher/result/exam-by-teacher/{{Auth::user()->id}}/{{$exam->id}}';
-
                 },
             })
-            /*const myTimeout = setTimeout(affectation, 1000);
+            const myTimeout = setTimeout(affectation, 1000);
 
             function affectation() {
                 alert('Affectation with success !');
                 location.reload();
-            }*/
+            }
 
 
         });
