@@ -38,9 +38,11 @@ Route::middleware(['auth.redirect'])->group(function(){
     Route::get('teacher/affect/exam-by-teacher/{exam}', [TeacherController::class, 'affectExamByTeacher'])->name('teacher.affectExamByTeacher');
     Route::post('teacher/affectation', [TeacherController::class, 'affectation'])->name('teacher.affectation');
     Route::get('student/studentExam', [StudentController::class, 'studentExam'])->name('studentExam');
+    Route::get('student/pass/exam/{exam}', [StudentController::class, 'studentExam'])->name('student.studentPassExam');
     Route::get('changePassword', [PasswordController::class, 'changePassword'])->name('changePassword');
     Route::get('editProfile', [ProfileController::class, 'index'])->name('editProfile');
     Route::post('loggedin/change-password', [PasswordController::class, 'changePasswordData'])->name('loggedin/change-password');
     Route::post('loggedin/edit-profile', [ProfileController::class, 'editProfileData'])->name('loggedin/edit-profile');
     Route::get('student/activate-exam/{exam}/{teacher}/{hash}', [StudentController::class, 'activateExamUrl'])->name('student/activate-exam');
+    Route::get('student/studentListExam', [StudentController::class, 'studentListExam'])->name('student.studentListExam');
 });

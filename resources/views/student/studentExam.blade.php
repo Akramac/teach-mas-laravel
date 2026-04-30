@@ -765,7 +765,7 @@ Common
         <!-- === header === -->
 
         <header class="hidden">
-            <h2>Product categories</h2>
+            <h2>Pass exam</h2>
         </header>
         <?php
         if(isset($durationExam) && $durationExam !='00:00:00'){
@@ -791,7 +791,7 @@ Common
 
         <!-- === Goolge map === -->
 
-        <div id="map" style="background-image:url(assets/images/backgrounds/wall.jpg)"></div>
+        <div id="map" style="background-image:url({{asset('assets/images/backgrounds/wall.jpg')}})"></div>
 
         <div class="container">
 
@@ -809,7 +809,7 @@ Common
             <button class="record-btn" id="btn-record-screen" hidden>record</button>
 
             <!--end screen-->
-            <form id="msform" method="post" action="index.php/student/add-exam	">
+            <form id="msform" method="" action="">
                 @csrf
                 <input type="text" value="{{$idExam}}" name="idExam" class="form-control"  hidden>
                 <input type="text" value="{{$idTeacher}}" name="idTeacher" class="form-control"  hidden>
@@ -834,7 +834,7 @@ Common
                             <?php } ?>
                             <?php if($question->image !=null) {?>
                             <div style="margin-left:35%;">
-                                <img alt="no image" src="assets/uploads/$question->image"  style="width:240px;"/>
+                                <img alt="no image" src="{{asset('assets/uploads/'.$question->image)}}"  style="width:240px;"/>
                             </div>
                             <?php } ?>
                             <h5><?php echo $question->title; ?></h5>
@@ -844,28 +844,28 @@ Common
                                 <div class="col-md-6 com-xs-12">
                                     <div class="card red lighten-2  <?php if($question->is_single_choice==false) :?>card-options-multiple<?php else : ?>card-options <?php endif ;?>" id="step-<?php echo $question->quest_multi_id; ?>" alt="<?php echo $question->option_1; ?>" style="height: 90px;">
                                         <div class="card-content white-text card-4-options">
-                                            <p><img src="assets/images/square.png" alt="Alternate Text" style="width:25px;margin-right:5%;" /> <?php echo $question->option_1; ?></p>
+                                            <p><img src="{{asset('assets/images/square.png')}}" alt="Alternate Text" style="width:25px;margin-right:5%;" /> <?php echo $question->option_1; ?></p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6 com-xs-12">
                                     <div class="card blue-grey darken-1 <?php if($question->is_single_choice==false) :?>card-options-multiple<?php else : ?>card-options <?php endif ;?>" id="step-<?php echo $question->quest_multi_id; ?>" alt="<?php echo $question->option_2; ?>" style="height: 90px;">
                                         <div class="card-content white-text card-4-options">
-                                            <p><img src="assets/images/traingle.png" alt="Alternate Text" style="width:25px;margin-right:5%;" />  <?php echo $question->option_2; ?></p>
+                                            <p><img src="{{asset('assets/images/traingle.png')}}" alt="Alternate Text" style="width:25px;margin-right:5%;" />  <?php echo $question->option_2; ?></p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6 com-xs-12">
                                     <div class="card brown lighten-2  <?php if($question->is_single_choice==false) :?>card-options-multiple<?php else : ?>card-options <?php endif ;?>" id="step-<?php echo $question->quest_multi_id; ?>" alt="<?php echo $question->option_3; ?>" style="height: 90px;">
                                         <div class="card-content white-text card-4-options">
-                                            <p><img src="assets/images/cercle.png" alt="Alternate Text" style="width:25px;margin-right:5%;" /> <?php echo $question->option_3; ?></p>
+                                            <p><img src="{{asset('assets/images/cercle.png')}}" alt="Alternate Text" style="width:25px;margin-right:5%;" /> <?php echo $question->option_3; ?></p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6 com-xs-12">
                                     <div class="card  blue lighten-2 <?php if($question->is_single_choice==false) :?>card-options-multiple<?php else : ?>card-options <?php endif ;?>" id="step-<?php echo $question->quest_multi_id; ?>" alt="<?php echo $question->option_4; ?>" style="height: 90px;">
                                         <div class="card-content white-text card-4-options">
-                                            <p><img src="assets/images/xbox.png" alt="Alternate Text" style="width:25px;margin-right:5%;" /> <?php echo $question->option_4; ?></p>
+                                            <p><img src="{{asset('assets/images/xbox.png')}}" alt="Alternate Text" style="width:25px;margin-right:5%;" /> <?php echo $question->option_4; ?></p>
                                         </div>
                                     </div>
                                 </div>
@@ -873,7 +873,7 @@ Common
                                 <div class="col-md-6 com-xs-12">
                                     <div class="card teal accent-2 <?php if($question->is_single_choice==false) :?>card-options-multiple<?php else : ?>card-options <?php endif ;?>" id="step-<?php echo $question->quest_multi_id; ?>" alt="<?php echo $question->option_5; ?>" style="height: 90px;">
                                         <div class="card-content white-text card-4-options">
-                                            <p><img src="assets/images/xbox.png" alt="Alternate Text" style="width:25px;margin-right:5%;" /> <?php echo $question->option_5; ?></p>
+                                            <p><img src="{{asset('assets/images/xbox.png')}}" alt="Alternate Text" style="width:25px;margin-right:5%;" /> <?php echo $question->option_5; ?></p>
                                         </div>
                                     </div>
                                 </div>
@@ -882,7 +882,7 @@ Common
                                 <div class="col-md-6 com-xs-12">
                                     <div class="card  blue-grey lighten-5 <?php if($question->is_single_choice==false) :?>card-options-multiple<?php else : ?>card-options <?php endif ;?>" id="step-<?php echo $question->quest_multi_id; ?>" alt="<?php echo $question->option_6; ?>" style="height: 90px;">
                                         <div class="card-content white-text card-4-options">
-                                            <p><img src="assets/images/xbox.png" alt="Alternate Text" style="width:25px;margin-right:5%;" /> <?php echo $question->option_6; ?></p>
+                                            <p><img src="{{asset('assets/images/xbox.png')}}" alt="Alternate Text" style="width:25px;margin-right:5%;" /> <?php echo $question->option_6; ?></p>
                                         </div>
                                     </div>
                                 </div>
@@ -961,7 +961,7 @@ Common
                             <?php } ?>
                             <?php if($question->image !=null) {?>
                             <div style="margin-left:35%;">
-                                <img alt="no image" src="assets/uploads/.$question->image"  style="width:240px;"/>
+                                <img alt="no image" src="{{asset('assets/uploads/'.$question->image)}}"  style="width:240px;"/>
                             </div>
                             <?php } ?>
                             <div class="row">
@@ -996,7 +996,7 @@ Common
                             <?php } ?>
                             <?php if($question->image !=null) {?>
                             <div style="margin-left:35%;">
-                                <img alt="no image" src="assets/uploads/.$question->image"  style="width:240px;"/>
+                                <img alt="no image" src="{{asset('assets/uploads/'.$question->image)}}"  style="width:240px;"/>
                             </div>
                             <?php } ?>
                             <div class="row" >
@@ -1006,8 +1006,8 @@ Common
 
                                     <div style="margin-top: 7%;">
                                         <div class="row">
-                                            <img src="assets/images/dragg.png" alt="Alternate Text" style="width:35px;" />
-                                            <img src="assets/images/link.png" alt="Alternate Text" style="width:25px;float:right;"/>
+                                            <img src="{{asset('assets/images/dragg.png')}}" alt="Alternate Text" style="width:35px;height: 35px;" />
+                                            <img src="{{asset('assets/images/link.png')}}" alt="Alternate Text" style="width:25px;height: 35px;float:right;"/>
                                             <ul id="sortlist<?php echo $question->quest_tawsil_id; ?>" class="col-md-6 col-xs-6 sortlist" style="margin-top:30px;">
                                                 <li alt="<?php echo $question->option_1; ?>">
 
@@ -1087,11 +1087,11 @@ Common
                             <h5><?php echo $question->title; ?></h5>
                             <?php if($question->image !=null) {?>
                             <div style="margin-left:35%;">
-                                <img alt="no image" src="assets/uploads/.$question->image"  style="width:240px;"/>
+                                <img alt="no image" src="{{asset('assets/uploads/'.$question->image)}}"  style="width:240px;"/>
                             </div>
                             <?php } ?>
                             <label>Order this cards correctly :</label>
-                            <div class="row justify-content-center"><img src="assets/images/dragg.png" alt="Alternate Text" style="width:45px;float:right;"/>
+                            <div class="row justify-content-center"><img src="{{asset('assets/images/dragg.png')}}" alt="Alternate Text" style="width:45px;float:right;"/>
                                 <ul id="sortlistOrder<?php echo $question->quest_tartib_id; ?>" class="col-md-6 col-xs-12 sortlistOrder" >
                                 <!--<img src="<?php /*echo base_url(); */?>assets/images/dragg.png" alt="Alternate Text" style="width:25px;float:right;"/>-->
                                     <li alt="<?php echo $question->option_to_order_1; ?>">
@@ -1151,7 +1151,7 @@ Common
                             <?php } ?>
                             <?php if($question->image !=null) {?>
                             <div style="margin-left:35%;">
-                                <img alt="no image" src="assets/uploads/.$question->image"  style="width:240px;"/>
+                                <img alt="no image" src="{{asset('assets/uploads/'.$question->image)}}"  style="width:240px;"/>
                             </div>
                             <?php } ?>
                             <div class="row">
@@ -1588,7 +1588,7 @@ Common
 
             const myTimeout = setTimeout(waitME, 2000);
             function waitME (){
-                $('#submit-form').click();
+                //$('#submit-form').click();
             }
         })
         /*$('.sortlistOrder').each(function (){
@@ -1619,7 +1619,7 @@ Common
             days: 'Days',
             hideOnComplete: true
         }, function (container) {
-            $('#submit-form').click();
+            //$('#submit-form').click();
         });
         <?php } ?>
 

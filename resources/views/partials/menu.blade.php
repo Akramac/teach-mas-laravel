@@ -251,7 +251,7 @@
 
                         <div class="cart-block cart-block-item clearfix">
                             <div class="image">
-                                <a href="product.html"><img src="assets/images/product-1.png" alt="" /></a>
+                                <a href="product.html"><img src="{{asset('assets/images/product-1.png')}}" alt="" /></a>
                             </div>
                             <div class="title">
                                 <div><a href="product.html">Product item</a></div>
@@ -272,7 +272,7 @@
 
                         <div class="cart-block cart-block-item clearfix">
                             <div class="image">
-                                <a href="product.html"><img src="assets/images/product-2.png" alt="" /></a>
+                                <a href="product.html"><img src="{{asset('assets/images/product-2.png')}}" alt="" /></a>
                             </div>
                             <div class="title">
                                 <div><a href="product.html">Product item</a></div>
@@ -293,7 +293,7 @@
 
                         <div class="cart-block cart-block-item clearfix">
                             <div class="image">
-                                <a href="product.html"><img src="assets/images/product-3.png" alt="" /></a>
+                                <a href="product.html"><img src="{{asset('assets/images/product-3.png')}}" alt="" /></a>
                             </div>
                             <div class="title">
                                 <div><a href="product.html">Product item</a></div>
@@ -314,7 +314,7 @@
 
                         <div class="cart-block cart-block-item clearfix">
                             <div class="image">
-                                <a href="product.html"><img src="assets/images/product-4.png" alt="" /></a>
+                                <a href="product.html"><img src="{{asset('assets/images/product-4.png')}}" alt="" /></a>
                             </div>
                             <div class="title">
                                 <div><a href="product.html">Product item</a></div>

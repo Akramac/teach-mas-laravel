@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Categorie;
 use App\Models\HashUrlExam;
+use App\Models\ResponseExam;
 use App\Models\Student;
 use App\Models\StudentExamJunction;
 use App\Models\StudentTeacherJunction;
+use App\Models\Teacher;
 use Illuminate\Http\Request;
 use App\Models\Exam; // Assuming you have an Exam model
 use App\Models\QuestionMultiChoice;
@@ -15,6 +17,7 @@ use App\Models\QuestionTawsil;
 use App\Models\QuestionTartib;
 use App\Models\QuestionSpan;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class StudentController extends Controller
@@ -156,6 +159,67 @@ class StudentController extends Controller
         return redirect()->route('showExam');
     }
 
+    public function studentListExam($idTeacher = '')
+    {
+        // Set the language (if using localization)
+        Session::put('site_lang', 'english');
+
+        $data['title'] = 'Student Page';
+
+        // List of categories
+        $data['allCategories'] = Categorie::limit(6)->get();
+
+        // Get the authenticated student's ID
+        $student = Student::where('user_id', Auth::id())->first();
+        $idStudent = $student ? $student->id : null;
+        $data['idStudent'] = $idStudent;
+
+        // Get the teacher IDs associated with the student
+        $arrayTeachers = [];
+        if ($idStudent) {
+            $teacherStudentResult = DB::table('student_teacher')
+                ->where('student_id', $idStudent)
+                ->pluck('teacher_id');
+
+            $arrayTeachers = $teacherStudentResult->toArray();
+        }
+
+        // Get the list of teachers for the student
+        if (!empty($arrayTeachers)) {
+            $data['listTeachers'] = Teacher::whereIn('id', $arrayTeachers)
+                ->distinct()
+                ->get(['name', 'id']);
+        } else {
+            $data['listTeachers'] = [];
+        }
+
+        // List of response exams by student
+        $data['listreponsesExam'] = ResponseExam::where('student_id', $idStudent)
+            ->distinct()
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        // Get exams based on the teacher filter
+        if ($idTeacher != '' && $idTeacher != 'all') {
+            $data['listExams'] = Exam::join('student_exam', 'student_exam.exam_id', '=', 'exams.id')
+                ->where('student_exam.student_id', $idStudent)
+                ->where('teacher_id', $idTeacher)
+                ->orderBy('exams.created_at', 'desc')
+                ->get();
+        } elseif ($idTeacher == 'all' || $idTeacher == '') {
+            if (!empty($arrayTeachers)) {
+                $data['listExams'] = Exam::join('student_exam', 'student_exam.exam_id', '=', 'exams.id')
+                    ->where('student_exam.student_id', $idStudent)
+                    ->whereIn('teacher_id', $arrayTeachers)
+                    ->orderBy('exams.created_at', 'desc')
+                    ->get();
+            } else {
+                $data['listExams'] = [];
+            }
+        }
+
+        return view('student.studentListExam', $data);
+    }
     public function isAllowed($data)
     {
         // Check if a record exists with the given exam_id, teacher_id, and hash
@@ -181,7 +245,7 @@ class StudentController extends Controller
             'exam_id' => $idExam,
         ];
 
-        // Insert the data into the student_exam_junction table
+        // Insert the data into the student_exam table
         StudentExamJunction::create($dataJunction);
 
         return $idExam;
@@ -200,7 +264,7 @@ class StudentController extends Controller
         'teacher_id' => $idTeacher,
         ];
 
-        // Insert the data into the student_exam_junction table
+        // Insert the data into the student_exam table
         StudentTeacherJunction::create($dataJunction);
 
         return $idTeacher;
