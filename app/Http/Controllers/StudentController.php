@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Categorie;
 use App\Models\HashUrlExam;
 use App\Models\ResponseExam;
+use App\Models\ResponseQuestionLongText;
+use App\Models\ResponseQuestionMultiChoice;
+use App\Models\ResponseQuestionSpan;
+use App\Models\ResponseQuestionTartib;
+use App\Models\ResponseQuestionTawsil;
 use App\Models\Student;
 use App\Models\StudentExamJunction;
 use App\Models\StudentTeacherJunction;
@@ -19,6 +24,7 @@ use App\Models\QuestionSpan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 
 class StudentController extends Controller
 {
@@ -220,6 +226,180 @@ class StudentController extends Controller
 
         return view('student.studentListExam', $data);
     }
+
+    public function studentAddExamToDB(Request $request)
+    {
+        // Set the language (if using localization)
+        Session::put('site_lang', 'english');
+        // Load language files if necessary (Laravel handles localization differently)
+
+        $data['title'] = 'Student Page';
+
+        $idUser = Auth::id();
+        // Get the student ID
+        $student = Student::where('user_id', $idUser)->first();
+        $idStudent = $student ? $student->id : null;
+
+        // Validate the request
+        $validator = Validator::make($request->all(), [
+            'idExam' => 'required',
+            'idTeacher' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        foreach ($request->all() as $key => $value) {
+            $numbers = range(0, 9);
+            $result = str_replace($numbers, "", $key);
+
+            // Get the teacher ID
+            $exam = Exam::find($request->input('idExam'));
+            $idTeacher = $exam ? $exam->teacher_id : null;
+
+            switch ($result) {
+                case 'select-options-cards-':
+                    $pieces = explode("-", $key);
+                    $idQuest = $pieces[3];
+
+                    if (!is_array($request->input($key))) {
+                        $response = $request->input($key);
+                        $this->insert_options_choices(
+                            Auth::id(),
+                            $idTeacher,
+                            $idStudent,
+                            $idQuest,
+                            $request->input('idExam'),
+                            $response,
+                            $response,
+                            $response,
+                            $response,
+                            $response,
+                            $response
+                        );
+                    } else {
+                        $responses = $request->input($key);
+                        $this->insert_options_choices(
+                            Auth::id(),
+                            $idTeacher,
+                            $idStudent,
+                            $idQuest,
+                            $request->input('idExam'),
+                            ...array_pad($responses, 6, null) // Pad the array to ensure 6 responses
+                        );
+                    }
+                    break;
+
+                case 'long-text-':
+                    $pieces = explode("-", $key);
+                    $idQuest = $pieces[2];
+
+                    $questLongText = DB::table('question_long_text')->where('id', $idQuest)->first();
+                    if ($questLongText) {
+                        $this->insert_long_text(
+                            Auth::id(),
+                            $idTeacher,
+                            $idStudent,
+                            $idQuest,
+                            $request->input('idExam'),
+                            $questLongText->correct_long_text,
+                            $request->input($key)
+                        );
+                    }
+                    break;
+
+                case 'tawsil-input-':
+                    $pieces = explode("-", $key);
+                    $idQuest = $pieces[2];
+
+                    $questTawsil = DB::table('question_tawsil')->where('id', $idQuest)->first();
+                    if ($questTawsil) {
+                        $pieces = explode(";", $request->input($key));
+                        $this->insert_tawsil(
+                            Auth::id(),
+                            $idTeacher,
+                            $idStudent,
+                            $idQuest,
+                            $request->input('idExam'),
+                            $questTawsil->option_1,
+                            $pieces[1] ?? null,
+                            $questTawsil->option_2,
+                            $pieces[2] ?? null,
+                            $questTawsil->option_3,
+                            $pieces[3] ?? null,
+                            $questTawsil->option_4,
+                            $pieces[4] ?? null,
+                            $questTawsil->option_5,
+                            $pieces[5] ?? null,
+                            $questTawsil->option_6,
+                            $pieces[6] ?? null
+                        );
+                    }
+                    break;
+
+                case 'tartib-input-':
+                    $pieces = explode("-", $key);
+                    $idQuest = $pieces[2];
+
+                    $questTartib = DB::table('question_tartib')->where('id', $idQuest)->first();
+                    if ($questTartib) {
+                        $pieces = explode(";", $request->input($key));
+                        $this->insert_tartib(
+                            Auth::id(),
+                            $idTeacher,
+                            $idStudent,
+                            $idQuest,
+                            $request->input('idExam'),
+                            $questTartib->option_to_order_1,
+                            $pieces[1] ?? null,
+                            $questTartib->option_to_order_2,
+                            $pieces[2] ?? null,
+                            $questTartib->option_to_order_3,
+                            $pieces[3] ?? null,
+                            $questTartib->option_to_order_4,
+                            $pieces[4] ?? null,
+                            $questTartib->option_to_order_5,
+                            $pieces[5] ?? null,
+                            $questTartib->option_to_order_6,
+                            $pieces[6] ?? null
+                        );
+                    }
+                    break;
+
+                case 'input-text-with-words-span-':
+                    $pieces = explode("-", $key);
+                    $idQuest = $pieces[5];
+
+                    $questSpan = DB::table('question_span')->where('id', $idQuest)->first();
+                    if ($questSpan) {
+                        $this->insert_span(
+                            Auth::id(),
+                            $idTeacher,
+                            $idStudent,
+                            $idQuest,
+                            $request->input('idExam'),
+                            $questSpan->span_text,
+                            $request->input($key)
+                        );
+                    }
+                    break;
+            }
+        }
+
+        // Mark exam as passed
+        $this->mark_exam_as_passed(
+            $idTeacher,
+            $idStudent,
+            $request->input('idExam'),
+            $request->input('screen-url-input'),
+            $request->input('video-url-input')
+        );
+
+        Session::flash('success', 'You have registered your exam successfully!');
+        return redirect()->route('studentExam');
+    }
+
     public function isAllowed($data)
     {
         // Check if a record exists with the given exam_id, teacher_id, and hash
@@ -268,5 +448,133 @@ class StudentController extends Controller
         StudentTeacherJunction::create($dataJunction);
 
         return $idTeacher;
+    }
+
+    function insert_options_choices($userID,$teacherID,$studentID, $questID,$examID,$responseOption1,$responseOption2,$responseOption3,$responseOption4,$responseOption5,$responseOption6)
+    {
+
+        $data['user_id']=$userID;
+        $data['teacher_id']=$teacherID;
+        $data['student_id']=$studentID;
+        $data['question_multi_id']=$questID;
+        $data['exam_id']=$examID;
+        $data['response_option_1']=$responseOption1;
+        $data['response_option_2']=$responseOption2;
+        $data['response_option_3']=$responseOption3;
+        $data['response_option_4']=$responseOption4;
+        $data['response_option_5']=$responseOption5;
+        $data['response_option_6']=$responseOption6;
+
+        // Insert the data into the database
+        $question = ResponseQuestionMultiChoice::create($data);
+
+        // Return the ID of the newly created question
+        return $question->id;
+    }
+    function insert_long_text($userID,$teacherID,$studentID, $questID,$examID,$correctText,$responseText)
+    {
+
+        $data['user_id']=$userID;
+        $data['teacher_id']=$teacherID;
+        $data['student_id']=$studentID;
+        $data['question_long_id']=$questID;
+        $data['exam_id']=$examID;
+        $data['reponse_long_text']=$responseText;
+        $data['correct_long_text']=$correctText;
+
+        // Insert the data into the database
+        $question = ResponseQuestionLongText::create($data);
+
+        // Return the ID of the newly created question
+        return $question->id;
+    }
+
+    function insert_tawsil($userID,$teacherID,$studentID, $questID,$examID,$option1,$responseOption1,$option2,$responseOption2,$option3,$responseOption3,$option4,$responseOption4,$option5,$responseOption5,$option6,$responseOption6)
+    {
+
+        $data['user_id']=$userID;
+        $data['teacher_id']=$teacherID;
+        $data['student_id']=$studentID;
+        $data['question_tawsil_id']=$questID;
+        $data['exam_id']=$examID;
+        $data['response_option_1']=$responseOption1;
+        $data['correct_option_1']=$option1;
+        $data['response_option_2']=$responseOption2;
+        $data['correct_option_2']=$option2;
+        $data['response_option_3']=$responseOption3;
+        $data['correct_option_3']=$option3;
+        $data['response_option_4']=$responseOption4;
+        $data['correct_option_4']=$option4;
+        $data['response_option_5']=$responseOption5;
+        $data['correct_option_5']=$option5;
+        $data['response_option_6']=$responseOption6;
+        $data['correct_option_6']=$option6;
+
+        // Insert the data into the database
+        $question = ResponseQuestionTawsil::create($data);
+
+        // Return the ID of the newly created question
+        return $question->id;
+    }
+    function insert_tartib($userID,$teacherID,$studentID, $questID,$examID,$option1,$responseOption1,$option2,$responseOption2,$option3,$responseOption3,$option4,$responseOption4,$option5,$responseOption5,$option6,$responseOption6)
+    {
+
+        $data['user_id']=$userID;
+        $data['teacher_id']=$teacherID;
+        $data['student_id']=$studentID;
+        $data['question_tartib_id']=$questID;
+        $data['exam_id']=$examID;
+        $data['reponse_option_to_order_1']=$responseOption1;
+        $data['correct_order_1']=$option1;
+        $data['reponse_option_to_order_2']=$responseOption2;
+        $data['correct_order_2']=$option2;
+        $data['reponse_option_to_order_3']=$responseOption3;
+        $data['correct_order_3']=$option3;
+        $data['reponse_option_to_order_4']=$responseOption4;
+        $data['correct_order_4']=$option4;
+        $data['reponse_option_to_order_5']=$responseOption5;
+        $data['correct_order_5']=$option5;
+        $data['reponse_option_to_order_6']=$responseOption6;
+        $data['correct_order_6']=$option6;
+
+        // Insert the data into the database
+        $question = ResponseQuestionTartib::create($data);
+
+        // Return the ID of the newly created question
+        return $question->id;
+    }
+    function insert_span($userID,$teacherID,$studentID, $questID,$examID,$correctText,$responseText)
+    {
+
+        $data['user_id']=$userID;
+        $data['teacher_id']=$teacherID;
+        $data['student_id']=$studentID;
+        $data['question_span_id']=$questID;
+        $data['exam_id']=$examID;
+        $data['reponse_span']=$responseText;
+        $data['correct_span']=$correctText;
+
+        // Insert the data into the database
+        $question = ResponseQuestionSpan::create($data);
+
+        // Return the ID of the newly created question
+        return $question->id;
+
+    }
+    function mark_exam_as_passed($teacherID,$studentID,$examID,$fileScreen,$fileVideo)
+    {
+
+        $data['teacher_id']=$teacherID;
+        $data['student_id']=$studentID;
+        $data['exam_id']=$examID;
+        $data['file_screen']=$fileScreen;
+        $data['file_video']=$fileVideo;
+
+        // Insert the data into the database
+        $question = ResponseExam::create($data);
+
+        // Return the ID of the newly created question
+        return $question->id;
+
     }
 }

@@ -809,7 +809,7 @@ Common
             <button class="record-btn" id="btn-record-screen" hidden>record</button>
 
             <!--end screen-->
-            <form id="msform" method="" action="">
+            <form id="msform" method="post" action="{{url('student/add-exam')}}">
                 @csrf
                 <input type="text" value="{{$idExam}}" name="idExam" class="form-control"  hidden>
                 <input type="text" value="{{$idTeacher}}" name="idTeacher" class="form-control"  hidden>
