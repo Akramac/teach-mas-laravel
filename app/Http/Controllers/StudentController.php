@@ -216,7 +216,7 @@ class StudentController extends Controller
             if (!empty($arrayTeachers)) {
                 $data['listExams'] = Exam::join('student_exam', 'student_exam.exam_id', '=', 'exams.id')
                     ->where('student_exam.student_id', $idStudent)
-                    ->whereIn('teacher_id', $arrayTeachers)
+                    ->whereIn('exams.teacher_id', $arrayTeachers)
                     ->orderBy('exams.created_at', 'desc')
                     ->get();
             } else {

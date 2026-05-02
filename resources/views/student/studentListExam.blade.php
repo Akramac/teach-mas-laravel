@@ -688,18 +688,18 @@ Common
                         <?php foreach($listExams as $exam) { ?>
                         <div class="col-md-12 ">
 
-                            <article data-page="{{($exam->id % 5)+1}}"  >
+                            <article data-page="{{($exam->exam_id % 5)+1}}"  >
                                 <div class="info">
                                     <!--<span class="add-favorite">
                                         <a href="javascript:void(0);" data-title="Add to favorites" data-title-added="Added to favorites list"><i class="icon icon-heart"></i></a>
                                     </span>-->
                                     <span>
-                                        <a target="_blank" href="index.php/student/notes/exam/{{$exam->id}}/{{$idStudent}}" class="" data-title="See results"><i class="fa fa fa-envelope-open-o" aria-hidden="true"></i></a>
+                                        <a target="_blank" href="index.php/student/notes/exam/{{$exam->exam_id}}/{{$idStudent}}" class="" data-title="See results"><i class="fa fa fa-envelope-open-o" aria-hidden="true"></i></a>
                                     </span>
                                     <?php if($exam->no_remake_exam==false) {
                                     ?>
                                     <span>
-											<a target="_blank" href="index.php/student/pass/exam/{{$exam->id}}" class="" data-title="Pass the exam"><i class="icon icon-eye"></i></a>
+											<a target="_blank" href="{{url('student/pass/exam/'.$exam->exam_id)}}" class="" data-title="Pass the exam"><i class="icon icon-eye"></i></a>
 										</span>
                                     <?php
                                     }else{
@@ -707,7 +707,7 @@ Common
                                     if(!empty($arrayneverTakenExam)) {
                                         foreach ($arrayneverTakenExam as $key => $nevrTakenExam) {
 
-                                            if ($key == $exam->id) {
+                                            if ($key == $exam->exam_id) {
                                                 if ($nevrTakenExam > 0) {
                                                     $booleanNeverTaken = true;
                                                 }
@@ -716,12 +716,12 @@ Common
                                     }
                                     if($booleanNeverTaken==false){?>
                                     <span>
-											<a target="_blank" href="index.php/student/pass/exam/{{$exam->id}}" class="" data-title="Pass the exam"><i class="icon icon-eye"></i></a>
+											<a target="_blank" href="{{url('student/pass/exam/'.$exam->exam_id)}}" class="" data-title="Pass the exam"><i class="icon icon-eye"></i></a>
 										</span>
                                     <?php } }?>
                                     <?php if($exam->show_results==true) { ?>
                                     <span>
-                                        <a target="_blank" href="index.php/student/correction/exam/{{$exam->id}}/{{$idStudent}}" class="" data-title="See correction"><i class="fa fa-address-card" aria-hidden="true"></i></a>
+                                        <a target="_blank" href="index.php/student/correction/exam/{{$exam->exam_id}}/{{$idStudent}}" class="" data-title="See correction"><i class="fa fa-address-card" aria-hidden="true"></i></a>
                                     </span>
                                     <?php } ?>
                                 </div>
@@ -731,7 +731,7 @@ Common
                                         <a  target="_blank" <?php
 
                                         if($exam->no_remake_exam==false) {
-                                        ?> href="index.php/student/pass/exam/{{$exam->id}}"
+                                        ?> href="index.php/student/pass/exam/{{$exam->exam_id}}"
 
                                             <?php }else{
                                             $booleanNeverTaken=false;
@@ -740,32 +740,32 @@ Common
 
                                                 foreach ($arrayneverTakenExam as $key =>$nevrTakenExam){
 
-                                                    if($key==$exam->id) {
+                                                    if($key==$exam->exam_id) {
                                                         if ($nevrTakenExam > 0) {
                                                             $booleanNeverTaken = true;
                                                         }
                                                     }}
                                             }
-                                            if($booleanNeverTaken==false){ ?>href="index.php/student/pass/exam/{{$exam->id}}" <?php }} ?> class="mfp-open">
+                                            if($booleanNeverTaken==false){ ?>href="index.php/student/pass/exam/{{$exam->exam_id}}" <?php }} ?> class="mfp-open">
                                             <img src="{{asset('assets/images/avatars/exam.png')}}" alt="" width="300" style="width: 70% !important;margin-left: 10%;" />
                                         </a>
 
                                     </div>
                                     <div class="text">
-                                        <h2 class="title h4"><a target="_blank" <?php if($exam->no_remake_exam==false) { ?>  href="index.php/student/pass/exam/{{$exam->id}}" <?php
+                                        <h2 class="title h4"><a target="_blank" <?php if($exam->no_remake_exam==false) { ?>  href="index.php/student/pass/exam/{{$exam->exam_id}}" <?php
                                             }else{
                                             $booleanNeverTaken=false;
                                             if(!empty($arrayneverTakenExam)) {
                                                 foreach ($arrayneverTakenExam as $key => $nevrTakenExam) {
 
-                                                    if ($key == $exam->id) {
+                                                    if ($key == $exam->exam_id) {
                                                         if ($nevrTakenExam > 0) {
                                                             $booleanNeverTaken = true;
                                                         }
                                                     }
                                                 }
                                             }
-                                            if($booleanNeverTaken==false){?>href="index.php/student/pass/exam/{{$exam->id}}"  <?php }} ?>>Exam {{$exam->title_exam}}</a></h2>
+                                            if($booleanNeverTaken==false){?>href="index.php/student/pass/exam/{{$exam->exam_id}}"  <?php }} ?>>Exam {{$exam->title_exam}}</a></h2>
                                         <?php foreach($listreponsesExam as $response) { ?>
                                         <?php if($response->exam_id==$exam->exam_id){ ?>
                                         <?php if($response->show_notes==true){ ?>
