@@ -820,7 +820,7 @@ Common
                 <ul class="stepper horizontal " id="horizontal">
 
                     <?php foreach($listQuestionsSingleChoice as $question) { ?>
-                    <li class="step step-to-shuffle step-<?php echo $question->quest_multi_id; ?> draw">
+                    <li class="step step-to-shuffle step-{{$question->question_multi_choice_id}} draw">
                         <div class="step-title waves-effect waves-dark"></div>
                         <div class="step-content">
                             <div class="countdown" style="zoom:0.2;">
@@ -837,52 +837,52 @@ Common
                                 <img alt="no image" src="{{asset('assets/uploads/'.$question->image)}}"  style="width:240px;"/>
                             </div>
                             <?php } ?>
-                            <h5><?php echo $question->title; ?></h5>
+                            <h5>{{$question->title}}</h5>
                             <label>Select the correct answer</label>
                             <div class="row">
 
                                 <div class="col-md-6 com-xs-12">
-                                    <div class="card red lighten-2  <?php if($question->is_single_choice==false) :?>card-options-multiple<?php else : ?>card-options <?php endif ;?>" id="step-<?php echo $question->quest_multi_id; ?>" alt="<?php echo $question->option_1; ?>" style="height: 90px;">
+                                    <div class="card red lighten-2  <?php if($question->is_single_choice==false) :?>card-options-multiple<?php else : ?>card-options <?php endif ;?>" id="step-{{$question->question_multi_choice_id}}" alt="{{$question->option_1}}" style="height: 90px;">
                                         <div class="card-content white-text card-4-options">
-                                            <p><img src="{{asset('assets/images/square.png')}}" alt="Alternate Text" style="width:25px;margin-right:5%;" /> <?php echo $question->option_1; ?></p>
+                                            <p><img src="{{asset('assets/images/square.png')}}" alt="Alternate Text" style="width:25px;margin-right:5%;" /> {{$question->option_1}}</p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6 com-xs-12">
-                                    <div class="card blue-grey darken-1 <?php if($question->is_single_choice==false) :?>card-options-multiple<?php else : ?>card-options <?php endif ;?>" id="step-<?php echo $question->quest_multi_id; ?>" alt="<?php echo $question->option_2; ?>" style="height: 90px;">
+                                    <div class="card blue-grey darken-1 <?php if($question->is_single_choice==false) :?>card-options-multiple<?php else : ?>card-options <?php endif ;?>" id="step-{{$question->question_multi_choice_id}}" alt="{{$question->option_2}}" style="height: 90px;">
                                         <div class="card-content white-text card-4-options">
-                                            <p><img src="{{asset('assets/images/traingle.png')}}" alt="Alternate Text" style="width:25px;margin-right:5%;" />  <?php echo $question->option_2; ?></p>
+                                            <p><img src="{{asset('assets/images/traingle.png')}}" alt="Alternate Text" style="width:25px;margin-right:5%;" />  {{$question->option_2}}</p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6 com-xs-12">
-                                    <div class="card brown lighten-2  <?php if($question->is_single_choice==false) :?>card-options-multiple<?php else : ?>card-options <?php endif ;?>" id="step-<?php echo $question->quest_multi_id; ?>" alt="<?php echo $question->option_3; ?>" style="height: 90px;">
+                                    <div class="card brown lighten-2  <?php if($question->is_single_choice==false) :?>card-options-multiple<?php else : ?>card-options <?php endif ;?>" id="step-{{$question->question_multi_choice_id}}" alt="{{$question->option_3}}" style="height: 90px;">
                                         <div class="card-content white-text card-4-options">
-                                            <p><img src="{{asset('assets/images/cercle.png')}}" alt="Alternate Text" style="width:25px;margin-right:5%;" /> <?php echo $question->option_3; ?></p>
+                                            <p><img src="{{asset('assets/images/cercle.png')}}" alt="Alternate Text" style="width:25px;margin-right:5%;" /> {{$question->option_3}}</p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6 com-xs-12">
-                                    <div class="card  blue lighten-2 <?php if($question->is_single_choice==false) :?>card-options-multiple<?php else : ?>card-options <?php endif ;?>" id="step-<?php echo $question->quest_multi_id; ?>" alt="<?php echo $question->option_4; ?>" style="height: 90px;">
+                                    <div class="card  blue lighten-2 <?php if($question->is_single_choice==false) :?>card-options-multiple<?php else : ?>card-options <?php endif ;?>" id="step-{{$question->question_multi_choice_id}}" alt="{{$question->option_4}}" style="height: 90px;">
                                         <div class="card-content white-text card-4-options">
-                                            <p><img src="{{asset('assets/images/xbox.png')}}" alt="Alternate Text" style="width:25px;margin-right:5%;" /> <?php echo $question->option_4; ?></p>
+                                            <p><img src="{{asset('assets/images/xbox.png')}}" alt="Alternate Text" style="width:25px;margin-right:5%;" /> {{$question->option_4}}</p>
                                         </div>
                                     </div>
                                 </div>
                                 <?php if($question->option_5) :?>
                                 <div class="col-md-6 com-xs-12">
-                                    <div class="card teal accent-2 <?php if($question->is_single_choice==false) :?>card-options-multiple<?php else : ?>card-options <?php endif ;?>" id="step-<?php echo $question->quest_multi_id; ?>" alt="<?php echo $question->option_5; ?>" style="height: 90px;">
+                                    <div class="card teal accent-2 <?php if($question->is_single_choice==false) :?>card-options-multiple<?php else : ?>card-options <?php endif ;?>" id="step-{{$question->question_multi_choice_id}}" alt="{{$question->option_5}}" style="height: 90px;">
                                         <div class="card-content white-text card-4-options">
-                                            <p><img src="{{asset('assets/images/xbox.png')}}" alt="Alternate Text" style="width:25px;margin-right:5%;" /> <?php echo $question->option_5; ?></p>
+                                            <p><img src="{{asset('assets/images/xbox.png')}}" alt="Alternate Text" style="width:25px;margin-right:5%;" /> {{$question->option_5}}</p>
                                         </div>
                                     </div>
                                 </div>
                                 <?php endif ?>
                                 <?php if($question->option_6) : ?>
                                 <div class="col-md-6 com-xs-12">
-                                    <div class="card  blue-grey lighten-5 <?php if($question->is_single_choice==false) :?>card-options-multiple<?php else : ?>card-options <?php endif ;?>" id="step-<?php echo $question->quest_multi_id; ?>" alt="<?php echo $question->option_6; ?>" style="height: 90px;">
+                                    <div class="card  blue-grey lighten-5 <?php if($question->is_single_choice==false) :?>card-options-multiple<?php else : ?>card-options <?php endif ;?>" id="step-{{$question->question_multi_choice_id}}" alt="{{$question->option_6}}" style="height: 90px;">
                                         <div class="card-content white-text card-4-options">
-                                            <p><img src="{{asset('assets/images/xbox.png')}}" alt="Alternate Text" style="width:25px;margin-right:5%;" /> <?php echo $question->option_6; ?></p>
+                                            <p><img src="{{asset('assets/images/xbox.png')}}" alt="Alternate Text" style="width:25px;margin-right:5%;" /> {{$question->option_6}}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -891,20 +891,20 @@ Common
 
                                 <div class="input-field col s12" >
 
-                                    <select class="browser-default " name="select-options-cards-<?php echo $question->quest_multi_id; ?><?php if($question->is_single_choice==false) :?>[]<?php endif ?>" id="select-options-cards"  alt="<?php echo $question->quest_multi_id; ?>" style="margin-top:7%;opacity:0;" <?php if($question->is_single_choice==false) :?>multiple<?php endif ?>>
+                                    <select class="browser-default " name="select-options-cards-{{$question->question_multi_choice_id}}<?php if($question->is_single_choice==false) :?>[]<?php endif ?>" id="select-options-cards"  alt="{{$question->question_multi_choice_id}}" style="margin-top:7%;opacity:0;" <?php if($question->is_single_choice==false) :?>multiple<?php endif ?>>
                                         <option value=""  disabled selected>Choose the type of question</option>
-                                        <option value="<?php echo $question->option_1; ?>"><?php echo $question->option_1; ?></option>
-                                        <option value="<?php echo $question->option_2; ?>"><?php echo $question->option_2; ?></option>
-                                        <option value="<?php echo $question->option_3; ?>"><?php echo $question->option_3; ?></option>
-                                        <option value="<?php echo $question->option_4; ?>"><?php echo $question->option_4; ?></option>
-                                        <option value="<?php echo $question->option_5; ?>"><?php echo $question->option_5; ?></option>
-                                        <option value="<?php echo $question->option_6; ?>"><?php echo $question->option_6; ?></option>
+                                        <option value="{{$question->option_1}}">{{$question->option_1}}</option>
+                                        <option value="{{$question->option_2}}">{{$question->option_2}}</option>
+                                        <option value="{{$question->option_3}}">{{$question->option_3}}</option>
+                                        <option value="{{$question->option_4}}">{{$question->option_4}}</option>
+                                        <option value="{{$question->option_5}}">{{$question->option_5}}</option>
+                                        <option value="{{$question->option_6}}">{{$question->option_6}}</option>
                                     </select>
 
                                 </div>
                             </div>
 
-                            <p id="src-draw-me" hidden><?php echo $question->data_file; ?></p>
+                            <p id="src-draw-me" hidden>{{$question->data_file}}</p>
                             <canvas width="600" height="400" id="draw-me"></canvas>
                             <canvas width="600" height="400" id="draw-new"></canvas>
                             <div class="controls">
@@ -968,8 +968,8 @@ Common
                                 <div class="input-field col s12">
                                     <div class="col-md-12" >
                                         <div class="form-group">
-                                            <label style="text-align:left"><?php echo $question->title; ?></label>
-                                            <input type="text" name="long-text-<?php echo $question->quest_long_text_id; ?>" class="form-control" placeholder="Your answer" >
+                                            <label style="text-align:left">{{$question->title}}</label>
+                                            <input type="text" name="long-text-{{$question->question_long_text_id}}" class="form-control" placeholder="Your answer" >
                                         </div>
                                     </div>
                                 </div>
@@ -1008,49 +1008,49 @@ Common
                                         <div class="row">
                                             <img src="{{asset('assets/images/dragg.png')}}" alt="Alternate Text" style="width:35px;height: 35px;" />
                                             <img src="{{asset('assets/images/link.png')}}" alt="Alternate Text" style="width:25px;height: 35px;float:right;"/>
-                                            <ul id="sortlist<?php echo $question->quest_tawsil_id; ?>" class="col-md-6 col-xs-6 sortlist" style="margin-top:30px;">
-                                                <li alt="<?php echo $question->option_1; ?>">
+                                            <ul id="sortlist{{$question->question_tawsil_id}}" class="col-md-6 col-xs-6 sortlist" style="margin-top:30px;">
+                                                <li alt="{{$question->option_1}}">
 
-                                                    <?php echo $question->option_1; ?>
+                                                    {{$question->option_1}}
                                                 </li>
-                                                <li alt="<?php echo $question->option_2; ?>">
-                                                    <?php echo $question->option_2; ?>
+                                                <li alt="{{$question->option_2}}">
+                                                    {{$question->option_2}}
                                                 </li>
-                                                <li alt="<?php echo $question->option_3; ?>">
-                                                    <?php echo $question->option_3; ?>
+                                                <li alt="{{$question->option_3}}">
+                                                    {{$question->option_3}}
                                                 </li>
-                                                <li alt="<?php echo $question->option_4; ?>">
-                                                    <?php echo $question->option_4; ?>
+                                                <li alt="{{$question->option_4}}">
+                                                    {{$question->option_4}}
                                                 </li>
                                                 <?php if(!empty($question->option_5)) :?>
-                                                <li alt="<?php echo $question->option_5; ?>">
-                                                    <?php echo $question->option_5; ?>
+                                                <li alt="{{$question->option_5}}">
+                                                    {{$question->option_5}}
 
                                                 </li>
                                                 <?php endif;?>
                                                 <?php if(!empty($question->option_6)) :?>
-                                                <li alt="<?php echo $question->option_6; ?>">
-                                                    <?php echo $question->option_6; ?>
+                                                <li alt="{{$question->option_6}}">
+                                                    {{$question->option_6}}
                                                 </li>
                                                 <?php endif;?>
                                             </ul>
 
                                             <ul id="correspList"  class="correspList col-md-6 col-xs-6">
                                                 <li>
-                                                    <?php echo $question->link_option_1; ?>
+                                                    {{$question->link_option_1}}
                                                 </li>
-                                                <li><?php echo $question->link_option_2; ?></li>
-                                                <li><?php echo $question->link_option_3; ?></li>
-                                                <li><?php echo $question->link_option_4; ?></li>
+                                                <li>{{$question->link_option_2}}</li>
+                                                <li>{{$question->link_option_3}}</li>
+                                                <li>{{$question->link_option_4}}</li>
                                                 <?php if(!empty($question->link_option_5)) :?>
-                                                <li><?php echo $question->link_option_5; ?></li>
+                                                <li>{{$question->link_option_5}}</li>
                                                 <?php endif;?>
                                                 <?php if(!empty($question->link_option_6)) :?>
-                                                <li><?php echo $question->link_option_6; ?></li>
+                                                <li>{{$question->link_option_6}}</li>
                                                 <?php endif;?>
                                             </ul>
 
-                                            <input type="text" value="1;2;3;4;5;6" name="tawsil-input-<?php echo $question->quest_tawsil_id	; ?>" class="form-control tawsil-input"  style="opacity:0;">
+                                            <input type="text" value="1;2;3;4;5;6" name="tawsil-input-{{$question->question_tawsil_id}}" class="form-control tawsil-input"  style="opacity:0;">
 
                                         </div>
 
@@ -1084,7 +1084,7 @@ Common
                             <?php if($durationExam=='00:00:00'){ ?>
                             <div class="countdown2" alt="<?php if($question->no_specific_time==true ){echo '10:00:00';}else{echo $question->duration;} ?>" style="text-align: center"></div>
                             <?php } ?>
-                            <h5><?php echo $question->title; ?></h5>
+                            <h5>{{$question->title}}</h5>
                             <?php if($question->image !=null) {?>
                             <div style="margin-left:35%;">
                                 <img alt="no image" src="{{asset('assets/uploads/'.$question->image)}}"  style="width:240px;"/>
@@ -1092,37 +1092,37 @@ Common
                             <?php } ?>
                             <label>Order this cards correctly :</label>
                             <div class="row justify-content-center"><img src="{{asset('assets/images/dragg.png')}}" alt="Alternate Text" style="width:45px;float:right;"/>
-                                <ul id="sortlistOrder<?php echo $question->quest_tartib_id; ?>" class="col-md-6 col-xs-12 sortlistOrder" >
+                                <ul id="sortlistOrder{{$question->question_tartib_id}}" class="col-md-6 col-xs-12 sortlistOrder" >
                                 <!--<img src="<?php /*echo base_url(); */?>assets/images/dragg.png" alt="Alternate Text" style="width:25px;float:right;"/>-->
-                                    <li alt="<?php echo $question->option_to_order_1; ?>">
-                                        <?php echo $question->option_to_order_1; ?>
+                                    <li alt="{{$question->option_to_order_1;}}">
+                                        {{$question->option_to_order_1;}}
                                     </li>
-                                    <li alt="<?php echo $question->option_to_order_2; ?>">
-                                        <?php echo $question->option_to_order_2; ?>
+                                    <li alt="{{$question->option_to_order_2;}}">
+                                        {{$question->option_to_order_2;}}
 
                                     </li>
-                                    <li alt="<?php echo $question->option_to_order_3; ?>">
-                                        <?php echo $question->option_to_order_3; ?>
+                                    <li alt="{{$question->option_to_order_3;}}">
+                                        {{$question->option_to_order_3;}}
 
                                     </li>
-                                    <li alt="<?php echo $question->option_to_order_4; ?>">
-                                        <?php echo $question->option_to_order_4; ?>
+                                    <li alt="{{$question->option_to_order_4;}}">
+                                        {{$question->option_to_order_4;}}
 
                                     </li>
                                     <?php if(!empty($question->option_to_order_5)) :?>
-                                    <li alt="<?php echo $question->option_to_order_5; ?>">
-                                        <?php echo $question->option_to_order_5; ?>
+                                    <li alt="{{$question->option_to_order_5;}}">
+                                        {{$question->option_to_order_5;}}
 
                                     </li>
                                     <?php endif ;?>
                                     <?php if(!empty($question->option_to_order_6)) :?>
-                                    <li alt="<?php echo $question->option_to_order_6; ?>">
-                                        <?php echo $question->option_to_order_6; ?>
+                                    <li alt="{{$question->option_to_order_6;}}">
+                                        {{$question->option_to_order_6;}}
 
                                     </li>
                                     <?php endif ;?>
                                 </ul>
-                                <input type="text" value="1;2;3;4;5;6" name="tartib-input-<?php echo $question->quest_tartib_id; ?>" class="form-control tartib-input"  style="opacity:0;">
+                                <input type="text" value="1;2;3;4;5;6" name="tartib-input-{{$question->question_tartib_id;}}" class="form-control tartib-input"  style="opacity:0;">
 
                             </div>
 
@@ -1158,7 +1158,7 @@ Common
                                 <div class="input-field col s12">
                                     <div class="col-md-12" >
                                         <div class="form-group">
-                                            <label style="text-align:left"><?php echo $question->title; ?></label>
+                                            <label style="text-align:left">{{$question->title}}</label>
                                             <div class="row">
                                                 <p class="given text-to-fill-span" contenteditable="true">
                                                     <?php
@@ -1202,11 +1202,11 @@ Common
                                                     if($parts[$i]!=$fullstring){
 
                                                     ?>
-                                                    <span class="w ui-droppable"> <?php echo $parts[$i] ;?> </span>&nbsp;
+                                                    <span class="w ui-droppable"> {{$parts[$i]}} </span>&nbsp;
                                                     <?php }} ?>
                                                 </p>
 
-                                                <input type="text" value="" class="form-control input-text-with-words-span"     name="input-text-with-words-span-<?php echo $question->quest_span_id; ?>" hidden>
+                                                <input type="text" value="" class="form-control input-text-with-words-span"     name="input-text-with-words-span-{{$question->question_span_id}}" hidden>
 
                                             </div>
 
@@ -1222,7 +1222,7 @@ Common
                                                                     $pieces=explode(';',$wordsConcat);
                                                                     for($i=0;$i<$num;$i++){
                                                                     ?>
-                                                                    <span class="given btn-flat white-text red lighten-1" rel="<?php  echo $i+1;?>>"><?php echo $pieces[$i+1]  ?></span>
+                                                                    <span class="given btn-flat white-text red lighten-1" rel="<?php  echo $i+1;?>>">{{$pieces[$i+1]}}</span>
                                                                     <?php } ?>
                                                                 </div>
                                                             </div>
@@ -1248,7 +1248,7 @@ Common
                             Finish!
                             <div class="step-actions">
                                 <a class="waves-effect waves-dark btn blue" type="button" id="submit-form-shown" >SUBMIT</a>
-                                <button class="waves-effect waves-dark btn blue" id="submit-form" type="submit" style="opacity: 0;">SUBMIT Reeel</button>
+                                <button class="waves-effect waves-dark btn blue" id="submit-form" type="submit" style="">SUBMIT Reeel</button>
                             </div>
                         </div>
                     </li>
@@ -1613,7 +1613,7 @@ Common
         $newDate = date('m/d/Y H:i:s', strtotime($date. ' +'.$durationSeconds.' seconds'));
         ?>
         $('#global').countdown({
-            date: '<?php echo $newDate;?>',
+            date: '{{$newDate}}',
             offset: +1,
             day: 'Day',
             days: 'Days',
@@ -2043,6 +2043,54 @@ Common
         var g = $("#green").val();
         var b = $("#blue").val();
         $("#newColor").css("background-color", "rgb(" + r + "," + g + "," + b + ")");
+    }
+    function saveCanvas() {
+        const imageURI = $("canvas")[0].toDataURL("image/png");
+        $('#data-file-uploaded-multi-1').val(imageURI)
+
+        /* var img = new Image();
+         img.src = "";
+         var ctx = $("canvas")[1].getContext('2d');
+         img.onload = function() {
+             ctx.drawImage(img, 0, 0);
+         };
+*/
+
+        //el.href = imageURI;
+        //$("body").append(image);
+        /*var file = dataURLtoFile(image.src, 'canvas.png');
+        console.log(file);
+        $('#file-uploaded-multi-1').attr('src', image.src);
+        $('#file-uploaded-multi-1').prop('files', file);*/
+        // Convert the data URL to a Blob object
+        /*var blob = dataURLToBlob(imageURI);
+        console.log(blob)/!*
+        // Create a file object from the Blob
+        var file = new File([blob], "myimage.png", { type: "image/png" });
+         console.log(file)
+        // Set the value of the file input field to the file object*!/
+
+
+
+             // create a new blob URL from the blob
+             var blobUrl = URL.createObjectURL(blob);
+
+             // create a new image element and set its source to the blob URL
+             var img = new Image();
+             img.src = blobUrl;
+
+             // append the image element to the file input label
+             var label = $("label[for='file-uploaded-multi-1']");
+             label.append(img);
+
+             // add an event listener to the file input
+             var fileInput = document.getElementById("file-uploaded-multi-1");
+             fileInput.addEventListener("change", function(event) {
+                 var file = event.target.files[0];
+                 console.log("Selected file: " + file.name);
+             });*/
+
+
     }
     //when color sliders changed
     $("input[type=range]").change(changeColor);

@@ -78,7 +78,7 @@ class StudentController extends Controller
         $data['listQuestionsSpan'] = $listQuestionsSpan;
 
         //get teacher id
-        $exam=Exam::select('teacher_id')->where('id',$idExam)->first();
+        $exam=Exam::select('teacher_id','id')->where('id',$idExam)->first();
         $data['idExam'] = $exam ? $exam->id : '';
         $data['idTeacher'] = $exam ? $exam->teacher_id : '';
 
@@ -91,7 +91,6 @@ class StudentController extends Controller
         $data['allowScreenRecord'] = $durationExam ? $durationExam->allow_screen_record : '';
         $data['allowCameraRecord'] = $durationExam ? $durationExam->allow_camera_record : '';
         $data['randomQuestions'] = $durationExam ? $durationExam->random_questions : '';
-
 
         // Return the view with the data
         return view('student.studentExam', $data);
@@ -262,7 +261,6 @@ class StudentController extends Controller
                 case 'select-options-cards-':
                     $pieces = explode("-", $key);
                     $idQuest = $pieces[3];
-
                     if (!is_array($request->input($key))) {
                         $response = $request->input($key);
                         $this->insert_options_choices(
@@ -397,7 +395,7 @@ class StudentController extends Controller
         );
 
         Session::flash('success', 'You have registered your exam successfully!');
-        return redirect()->route('studentExam');
+        //return redirect()->route('studentExam');
     }
 
     public function isAllowed($data)
