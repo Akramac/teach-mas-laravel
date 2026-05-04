@@ -578,6 +578,167 @@ class TeacherController extends Controller
      }
     }
 
+    public function studentResultExamByTeacher($idStudent = '', $idExam = '')
+    {
+        $data['title'] = 'Student Page By Teacher';
+
+        // Get the teacher's ID
+        $teacher = Teacher::where('user_id',Auth::user()->id)->first();
+
+        $idTeacher = $teacher ? $teacher->id : null;
+
+        // Get all students assigned to the connected teacher
+        $students = Student::distinct()
+            ->join('student_teacher', 'student_teacher.student_id', '=', 'students.id')
+            ->join('teachers', 'teachers.id', '=', 'student_teacher.teacher_id')
+            ->where('teachers.id', $idTeacher)
+            ->get();
+
+        $data['students_by_teacher'] = $students;
+
+        // Get data for the student and exam
+        $listQuestMulti = ExamQuestMultiChoiceJunction::where('exam_id', $idExam)->get();
+        $data['respones_multi_quest'] = [];
+        $data['quets_multi_quest'] = [];
+        $data['idExam'] = $idExam;
+        $data['idStudent'] = $idStudent;
+
+        foreach ($listQuestMulti as $multiQuest) {
+            // Get the response for the multi-choice question
+            $reponseMutliQuest = ResponseQuestionMultiChoice::where('exam_id', $idExam)
+                ->where('question_multi_id', $multiQuest->question_multi_id)
+                ->where('student_id', $idStudent)
+                ->orderBy('id', 'desc')
+                ->first();
+
+            if ($reponseMutliQuest) {
+                $data['respones_multi_quest'][] = $reponseMutliQuest;
+            }
+
+            // Get the question details
+            $examssResult = QuestionMultiChoice::find($multiQuest->question_multi_id);
+            if ($examssResult) {
+                $data['quets_multi_quest'][] = $examssResult;
+            }
+        }
+
+        // Show note Long text
+        $listQuesLongL = ExamQuestLongTextJunction::where('exam_id', $idExam)->get();
+        $data['respones_longL_quest'] = [];
+
+        foreach ($listQuesLongL as $longLQuest) {
+            $reponseLongLQuest = ResponseQuestionLongText::where('exam_id', $idExam)
+                ->where('question_long_id', $longLQuest->question_long_text_id)
+                ->where('student_id', $idStudent)
+                ->orderBy('id', 'desc')
+                ->first();
+
+            if ($reponseLongLQuest) {
+                $data['respones_longL_quest'][] = $reponseLongLQuest;
+            }
+        }
+
+        // Show note Tawsil
+        $listQuestTawsil = ExamQuestTawsilJunction::where('exam_id', $idExam)->get();
+        $data['respones_tawsil_quest'] = [];
+        $data['quets_tawsil_quest'] = [];
+
+        foreach ($listQuestTawsil as $tawsilQuest) {
+            $reponseTawsilQuest = ResponseQuestionTawsil::where('exam_id', $idExam)
+                ->where('question_tawsil_id', $tawsilQuest->question_tawsil_id)
+                ->orderBy('id', 'desc')
+                ->first();
+
+            if ($reponseTawsilQuest) {
+                $data['respones_tawsil_quest'][] = $reponseTawsilQuest;
+            }
+
+            $examssTawsilResult = QuestionTawsil::find($tawsilQuest->question_tawsil_id);
+            if ($examssTawsilResult) {
+                $data['quets_tawsil_quest'][] = $examssTawsilResult;
+            }
+        }
+
+        // Show note Tartib
+        $listQuestTartib = ExamQuestTartibJunction::where('exam_id', $idExam)->get();
+        $data['respones_tartib_quest'] = [];
+
+        foreach ($listQuestTartib as $tartibQuest) {
+            $reponseTartibQuest = ResponseQuestionTartib::where('exam_id', $idExam)
+                ->where('question_tartib_id', $tartibQuest->question_tartib_id)
+                ->where('student_id', $idStudent)
+                ->orderBy('id', 'desc')
+                ->first();
+
+            if ($reponseTartibQuest) {
+                $data['respones_tartib_quest'][] = $reponseTartibQuest;
+            }
+        }
+
+        // Long text questions
+        $listQuestLong = ExamQuestLongTextJunction::where('exam_id', $idExam)->get();
+        $data['respones_long_quest'] = [];
+        $data['quets_long_quest'] = [];
+
+        foreach ($listQuestLong as $longQuest) {
+            $reponseLongQuest = ResponseQuestionLongText::where('exam_id', $idExam)
+                ->where('question_long_id', $longQuest->question_long_text_id)
+                ->orderBy('id', 'desc')
+                ->first();
+
+            if ($reponseLongQuest) {
+                $data['respones_long_quest'][] = $reponseLongQuest;
+            }
+
+            $examssLongResult = QuestionLongText::find($longQuest->question_long_text_id);
+            if ($examssLongResult) {
+                $data['quets_long_quest'][] = $examssLongResult;
+            }
+        }
+
+        // Span words drag and drop correction
+        $listQuestSpan = ExamQuestSpanJunction::where('exam_id', $idExam)->get();
+        $data['respones_span_quest'] = [];
+        $data['quets_span_quest'] = [];
+
+        foreach ($listQuestSpan as $spanQuest) {
+            $reponseSpanQuest = ResponseQuestionSpan::where('exam_id', $idExam)
+                ->where('question_span_id', $spanQuest->question_span_id)
+                ->orderBy('id', 'desc')
+                ->first();
+
+            if ($reponseSpanQuest) {
+                $data['respones_span_quest'][] = $reponseSpanQuest;
+            }
+
+            $examssSpanResult = QuestionSpan::find($spanQuest->question_span_id);
+            if ($examssSpanResult) {
+                $data['quets_span_quest'][] = $examssSpanResult;
+            }
+        }
+
+        // Get videos
+        $data['idExam'] = $idExam;
+        $examVideos = ResponseExam::where('exam_id', $idExam)
+            ->where('student_id', $idStudent)
+            ->orderBy('created_at', 'desc')
+            ->distinct()
+            ->first();
+
+        $data['linkScreenVideo'] = '';
+        $data['linkCameraVideo'] = '';
+        $data['idResponsesExam'] = '';
+
+        if ($examVideos) {
+            $data['linkScreenVideo'] = $examVideos->file_screen;
+            $data['linkCameraVideo'] = $examVideos->file_video;
+            $data['idResponsesExam'] = $examVideos->id;
+        }
+
+        return view('teacher.studentResultExamByTeacher', $data);
+    }
+
+
     public function affectation(Request $request){
         $arrayStudents=$request->input('array_students');
         $idExam=$request->input('exam_id');
