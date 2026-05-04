@@ -15,6 +15,12 @@ use App\Models\QuestionMultiChoice;
 use App\Models\QuestionSpan;
 use App\Models\QuestionTartib;
 use App\Models\QuestionTawsil;
+use App\Models\ResponseExam;
+use App\Models\ResponseQuestionLongText;
+use App\Models\ResponseQuestionMultiChoice;
+use App\Models\ResponseQuestionSpan;
+use App\Models\ResponseQuestionTartib;
+use App\Models\ResponseQuestionTawsil;
 use App\Models\Student;
 use App\Models\StudentExamJunction;
 use App\Models\StudentTeacherJunction;
@@ -347,6 +353,229 @@ class TeacherController extends Controller
         $data['exam'] = $exam ? $exam : [];
 
         return view('teacher.affectationExam', $data);
+    }
+
+    public function correction(Request $request){
+        $arrayStudents = $request->input('array_students');
+        $idExam = $request->input('exam_id');
+        $noteFinale = 0;
+
+        foreach ($arrayStudents as $idStudent) {
+            $data = [
+                'student_id' => $idStudent,
+                'exam_id' => $idExam,
+            ];
+
+            // Correct multi-choice questions
+            $listQuestMulti = ExamQuestMultiChoiceJunction::where('exam_id', $idExam)->get();
+
+            foreach ($listQuestMulti as $multiQuest) {
+                $reponseMutliQuest = ResponseQuestionMultiChoice::where('exam_id', $idExam)
+                    ->where('question_multi_id', $multiQuest->question_multi_choice_id)
+                    ->orderBy('id', 'desc')
+                    ->first();
+
+                $questMutliQuest = QuestionMultiChoice::find($multiQuest->question_multi_choice_id);
+
+                // Make correction
+                if ($questMutliQuest && $reponseMutliQuest) {
+                    $arrayAnswers = array_filter([
+                        $reponseMutliQuest->response_option_1,
+                        $reponseMutliQuest->response_option_2,
+                        $reponseMutliQuest->response_option_3,
+                        $reponseMutliQuest->response_option_4,
+                        $reponseMutliQuest->response_option_5,
+                        $reponseMutliQuest->response_option_6,
+                    ]);
+
+                    $arrayCorrectAnswers = array_filter([
+                        $questMutliQuest->correct_option_1 == 'correct' ? $questMutliQuest->option_1 : null,
+                        $questMutliQuest->correct_option_2 == 'correct' ? $questMutliQuest->option_2 : null,
+                        $questMutliQuest->correct_option_3 == 'correct' ? $questMutliQuest->option_3 : null,
+                        $questMutliQuest->correct_option_4 == 'correct' ? $questMutliQuest->option_4 : null,
+                    ]);
+
+                    // Add note
+                    $diffArrays = array_diff($arrayAnswers, $arrayCorrectAnswers);
+                    if (empty($diffArrays)) {
+                        $noteFinale += $questMutliQuest->points;
+                        $reponseMutliQuest->note_by_teacher = $questMutliQuest->points;
+                    } else {
+                        $reponseMutliQuest->note_by_teacher = 0;
+                    }
+                    $reponseMutliQuest->save();
+                }
+            }
+
+            // Correct long text questions
+            $listQuestLongText = ExamQuestLongTextJunction::where('exam_id', $idExam)->get();
+
+            foreach ($listQuestLongText as $longQuest) {
+                $reponseLongQuest = ResponseQuestionLongText::where('exam_id', $idExam)
+                    ->where('question_long_id', $longQuest->question_long_text_id)
+                    ->orderBy('id', 'desc')
+                    ->first();
+
+                $quest= QuestionLongText::where('id', $longQuest->question_long_text_id)
+                    ->first();
+                if ($reponseLongQuest->reponse_long_text === $reponseLongQuest->correct_long_text) {
+                    $reponseLongQuest->note_by_teacher = $quest->points;
+                    $noteFinale += $reponseLongQuest->note_by_teacher;
+                }else{
+                    $reponseLongQuest->note_by_teacher = 0;
+                }
+                $reponseLongQuest->save();
+            }
+
+
+        // Correct tawsil
+        $listQuestTawsil = ExamQuestTawsilJunction::where('exam_id', $idExam)->get();
+
+        foreach ($listQuestTawsil as $tawsilQuest) {
+            $reponseTawsilQuest = ResponseQuestionTawsil::where('exam_id', $idExam)
+                ->where('question_tawsil_id', $tawsilQuest->question_tawsil_id)
+                ->orderBy('id', 'desc')
+                ->first();
+
+            $questTawsilQuest = QuestionTawsil::find($tawsilQuest->question_tawsil_id);
+
+            // Make correction
+            if ($questTawsilQuest && $reponseTawsilQuest) {
+                // Check if the answers are correct
+                $isAnsweredWrong = true;
+
+                if ($reponseTawsilQuest->response_option_1 == $reponseTawsilQuest->correct_option_1) {
+                    $isAnsweredWrong = false;
+                }
+                if ($reponseTawsilQuest->response_option_2 == $reponseTawsilQuest->correct_option_2) {
+                    $isAnsweredWrong = false;
+                }
+                if ($reponseTawsilQuest->response_option_3 == $reponseTawsilQuest->correct_option_3) {
+                    $isAnsweredWrong = false;
+                }
+                if ($reponseTawsilQuest->response_option_4 == $reponseTawsilQuest->correct_option_4) {
+                    $isAnsweredWrong = false;
+                }
+                if ($reponseTawsilQuest->response_option_5 == $reponseTawsilQuest->correct_option_5) {
+                    $isAnsweredWrong = false;
+                }
+                if ($reponseTawsilQuest->response_option_6 == $reponseTawsilQuest->correct_option_6) {
+                    $isAnsweredWrong = false;
+                }
+
+                // Update the note based on whether the answer was correct
+                if ($isAnsweredWrong) {
+                    $noteFinale += $questTawsilQuest->points;
+                    $reponseTawsilQuest->note_by_teacher = $questTawsilQuest->points;
+                } else {
+                    $reponseTawsilQuest->note_by_teacher = 0;
+                }
+
+                $reponseTawsilQuest->save();
+            }
+        }
+
+        // Correct TARTIB
+        $listQuestTartib = ExamQuestTartibJunction::where('exam_id', $idExam)->get();
+
+        foreach ($listQuestTartib as $tartibQuest) {
+            $reponseTartibQuest = ResponseQuestionTartib::where('exam_id', $idExam)
+                ->where('question_tartib_id', $tartibQuest->question_tartib_id)
+                ->orderBy('id', 'desc')
+                ->first();
+
+            $questTartibQuest = QuestionTartib::find($tartibQuest->question_tartib_id);
+
+            // Make correction
+            if ($questTartibQuest && $reponseTartibQuest) {
+                // Check if the answers are correct
+                $isAnsweredWrong = true;
+
+                if ($reponseTartibQuest->reponse_option_to_order_1 == $reponseTartibQuest->correct_order_1) {
+                    $isAnsweredWrong = false;
+                }
+                if ($reponseTartibQuest->reponse_option_to_order_2 == $reponseTartibQuest->correct_order_2) {
+                    $isAnsweredWrong = false;
+                }
+                if ($reponseTartibQuest->reponse_option_to_order_3 == $reponseTartibQuest->correct_order_3) {
+                    $isAnsweredWrong = false;
+                }
+                if ($reponseTartibQuest->reponse_option_to_order_4 == $reponseTartibQuest->correct_order_4) {
+                    $isAnsweredWrong = false;
+                }
+                if ($reponseTartibQuest->reponse_option_to_order_5 == $reponseTartibQuest->correct_order_5) {
+                    $isAnsweredWrong = false;
+                }
+                if ($reponseTartibQuest->reponse_option_to_order_6 == $reponseTartibQuest->correct_order_6) {
+                    $isAnsweredWrong = false;
+                }
+
+                // Update the note based on whether the answer was correct
+                if ($isAnsweredWrong) {
+                    $noteFinale += $questTartibQuest->points;
+                    $reponseTartibQuest->note_by_teacher = $questTartibQuest->points;
+                } else {
+                    $reponseTartibQuest->note_by_teacher = 0;
+                }
+
+                $reponseTartibQuest->save();
+            }
+        }
+        // Correct Span words
+        $listQuestSpan = ExamQuestSpanJunction::where('exam_id', $idExam)->get();
+
+        foreach ($listQuestSpan as $spanQuest) {
+            $reponseSpanQuest = ResponseQuestionSpan::where('exam_id', $idExam)
+                ->where('question_span_id', $spanQuest->question_span_id)
+                ->orderBy('id', 'desc')
+                ->first();
+
+            $questSpanQuest = QuestionSpan::find($spanQuest->question_span_id);
+
+            // Make correction
+            if ($questSpanQuest && $reponseSpanQuest) {
+                // Prepare answers for comparison
+                $isAnsweredWrong = true;
+
+                // Clean up the correct answer
+                $trimedAndReplaced = str_replace("¤", "", $reponseSpanQuest->correct_span);
+                $trimedAndReplaced = preg_replace("/\s+/", "", $trimedAndReplaced);
+                $trimedAndReplaced = str_replace("&nbsp;", "", $trimedAndReplaced);
+                $trimedAndReplacedCorrection = str_replace(" ", "", $trimedAndReplaced);
+
+                // Clean up the response
+                $trimedAndReplacedReponse = preg_replace("/\s+/", "", $reponseSpanQuest->reponse_span);
+                $trimedAndReplacedReponse = str_replace("&nbsp;", "", $trimedAndReplacedReponse);
+                $trimedAndReplacedReponse = str_replace(" ", "", $trimedAndReplacedReponse);
+
+                // Compare the cleaned responses
+                if ($trimedAndReplacedReponse != $trimedAndReplacedCorrection) {
+                    $isAnsweredWrong = false;
+                }
+
+                // Update the note based on whether the answer was correct
+                if ($isAnsweredWrong) {
+                    $noteFinale += $questSpanQuest->points;
+                    $reponseSpanQuest->note_by_teacher = $questSpanQuest->points;
+                } else {
+                    $reponseSpanQuest->note_by_teacher = 0;
+                }
+
+                $reponseSpanQuest->save();
+            }
+        }
+
+        // Update the final note in the response exam
+        $responseExam = ResponseExam::where('exam_id', $idExam)
+            ->where('student_id', $idStudent)
+            ->orderBy('created_at', 'desc')
+            ->first();
+
+        if ($responseExam) {
+            $responseExam->note_by_teacher = $noteFinale;
+            $responseExam->save();
+        }
+     }
     }
 
     public function affectation(Request $request){

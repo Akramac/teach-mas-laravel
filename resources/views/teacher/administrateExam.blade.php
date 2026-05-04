@@ -723,7 +723,7 @@ Common
     <!-- ========================  Instagram ======================== -->
 
 
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     @include('partials/footer')
 
@@ -844,12 +844,18 @@ Common
                 }
             });
 
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
             $.ajax({
                 type: "POST",
-                url: "index.php/teacher/correction",
+                url: "{{url('teacher/correction')}}",
                 data: {
-                    'array_students' : arrayStudentToAffect ,
-                    'exam_id':{{$exam->id}}},
+                    'array_students': arrayStudentToAffect,
+                    'exam_id': {{$exam->id}},
+                },
                 error: function(error){
                     console.log(error);
                 },
