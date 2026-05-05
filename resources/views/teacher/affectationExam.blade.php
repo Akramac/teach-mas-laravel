@@ -781,7 +781,7 @@ Common
         $('#see-correction').click(function(){
 
             idStudent=$(this).parent().find(".check-student-result:checked").attr('id').replace('student-result','');
-            window.location.href='index.php/teacher/result/exam-by-teacher/'+idStudent+'/{{$exam->id}}';
+            window.location.href='{{url("teacher/result/exam-by-teacher")}}/'+idStudent+'/{{$exam->id}}';
 
 
 

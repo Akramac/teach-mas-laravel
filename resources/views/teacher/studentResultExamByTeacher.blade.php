@@ -911,7 +911,7 @@ Common
     <!-- ========================  Instagram ======================== -->
 
 
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     @include('partials/footer')
 
@@ -1047,13 +1047,20 @@ Common
         $('.submit_note_by_long').click(function(){
             var note=$(this).parent().find('.note_by_long').val();
             var response_long_id=$(this).parent().find('.note_by_long').attr('alt');
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
             $.ajax({
                 type: "POST",
-                url: "index.php/teacher/give-note-long-question",
+                url: "{{url('teacher/giveNote')}}",
                 data: {
                     'response_long_id':response_long_id,
                     'note':note,
-                    'idExam':{{$idResponsesExam}},
+                    'idExam':{{$idExam}},
                     'idStudent':{{$idStudent}}},
                 error: function(error){
                     console.log(error);
@@ -1068,9 +1075,16 @@ Common
 
         $('#show-results-to-student').click(function(){
 
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            console.log({
+                'idResponseExam':{{$idResponsesExam}}})
             $.ajax({
                 type: "POST",
-                url: "index.php/teacher/show-notes-to-student",
+                url: "{{url('teacher/show-notes-to-student')}}",
                 data: {
                     'idResponseExam':{{$idResponsesExam}}},
                 error: function(error){

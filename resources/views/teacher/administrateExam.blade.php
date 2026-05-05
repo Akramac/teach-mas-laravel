@@ -675,6 +675,11 @@ Common
                                 <div type="button" class=" btn btn-main" id="show-correction">
                                     Show results
                                 </div>
+                                <br>
+                                <br>
+                                <a type="button" href="{{url('teacher/affect/exam-by-teacher/'.$exam->id)}}" class=" btn btn-main" id="affectation">
+                                    Affectation Section
+                                </a>
 
                             </div> <!--/filters-->
 
@@ -773,10 +778,15 @@ Common
 
         $('#show-correction').click(function(){
 
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
             idStudent=$(this).parent().find(".check-show-student-result:checked").attr('id').replace('student-show-result','');
             $.ajax({
                 type: "POST",
-                url: "index.php/teacher/show-correction",
+                url: "{{url('teacher/show-correction')}}",
                 data: {
                     'exam_id':{{$exam->id}}},
                 error: function(error){

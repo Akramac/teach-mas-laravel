@@ -26,6 +26,7 @@ use App\Models\StudentExamJunction;
 use App\Models\StudentTeacherJunction;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
@@ -82,7 +83,7 @@ class TeacherController extends Controller
                     'allow_camera_record' => $allowCameraRecord,
                     'random_questions' => $randomQuestions,
                     'no_remake_exam' => $noRemakeExam,
-                    'show_results' => true,
+                    'show_results' => false,
                     'categorie_id' => $request->input('select-category'),
                 ]);
 
@@ -578,6 +579,21 @@ class TeacherController extends Controller
      }
     }
 
+    public function showCorrectionTostudents(Request $request)
+    {
+        $idExam = $request->input('exam_id');
+
+        // Prepare the data for update
+        $dataToUpdate = [
+            'show_results' => true,
+        ];
+
+        // Update the exams table
+        DB::table('exams')
+            ->where('id', $idExam)
+            ->update($dataToUpdate);
+    }
+
     public function studentResultExamByTeacher($idStudent = '', $idExam = '')
     {
         $data['title'] = 'Student Page By Teacher';
@@ -738,6 +754,59 @@ class TeacherController extends Controller
         return view('teacher.studentResultExamByTeacher', $data);
     }
 
+
+    public function giveNoteLongText(Request $request){
+        $data['title'] = 'Student Page By Teacher';
+
+        // Get input values
+        $idResponseLong = $request->input('response_long_id');
+        $note = $request->input('note');
+        $idExam = $request->input('idExam');
+        $idStudent = $request->input('idStudent');
+
+        // Fetch the response question long text
+        $responseExamOne = DB::table('response_question_long_text')
+            ->where('id', $idResponseLong)
+            ->first();
+
+        // Calculate the difference
+        $diff = $note - $responseExamOne->note_by_teacher;
+
+        // Update the response question long text
+        DB::table('response_question_long_text')
+            ->where('id', $idResponseLong)
+            ->update(['note_by_teacher' => $note]);
+
+        // Fetch the latest response exam
+        $responseExam = DB::table('response_exam')
+            ->where('exam_id', $idExam)
+            ->where('student_id', $idStudent)
+            ->orderBy('created_at', 'desc')
+            ->first();
+
+        // Calculate the final note
+        $noteFinale = $responseExam->note_by_teacher;
+
+        // Update the response exam
+        DB::table('response_exam')
+            ->where('id', $responseExam->id)
+            ->update(['note_by_teacher' => $noteFinale + $diff]);
+    }
+
+    public function showNotesToStudent(Request $request){
+
+        $data['title'] = 'Student Page By Teacher';
+
+        $idResponseLong = $request->input('idResponseExam');
+
+        $dataToUpdate = [
+            'show_notes' => true,
+        ];
+
+        DB::table('response_exam')
+            ->where('id', $idResponseLong)
+            ->update($dataToUpdate);
+    }
 
     public function affectation(Request $request){
         $arrayStudents=$request->input('array_students');
