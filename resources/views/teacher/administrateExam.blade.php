@@ -871,7 +871,7 @@ Common
                 },
                 success: function(data){
                     console.log(data);
-                    window.location.href='index.php/teacher/result/exam-by-teacher/{{Auth::user()->id}}/{{$exam->id}}';
+                    window.location.href="{{url('teacher/result/exam-by-teacher')}}/"+'{{Auth::user()->id}}/{{$exam->id}}'
 
                 },
             })

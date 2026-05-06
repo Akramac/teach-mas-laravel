@@ -1,7 +1,8 @@
 
-@include('partials.header')
+@include('partials/header')
 <!-- Compiled and minified CSS -->
 <link rel="stylesheet" media="all" href="https://unpkg.com/materialize-stepper@3.1.0/dist/css/mstepper.min.css" />
+<link rel="stylesheet" media="all" href="{{asset('assets/css/dataTables.bootstrap.min.css')}}" />
 <style>
     @import url("{{asset('assets/css/materialize.css')}}");
     @import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css);
@@ -559,6 +560,16 @@ Common
     .div-after-label{
         margin-top: 15%;
     }
+
+    .highlited-word{
+        color:purple;
+    }
+    .response-span-to-highlight{
+        width: auto;
+    }
+    .correction-span-to-highlight{
+        width: auto;
+    }
 </style>
 <div class="page-loader"></div>
 
@@ -570,34 +581,6 @@ Common
 <!-- ========================  Tabsy wrapper ======================== -->
 
     <!-- ========================  Icons slider ======================== -->
-
-    <section class="owl-icons-wrapper">
-
-        <!-- === header === -->
-
-        <header class="hidden">
-            <h2>Product categories</h2>
-        </header>
-
-        <div class="clearfix">
-
-            <div class="owl-icons owl-icons-rounded ">
-
-                <?php foreach($listTeachers as $teacher) { ?>
-                <a href="#">
-                    <figure>
-                        <img src="{{asset('assets/images/avatars/teacher'.($teacher->id % 4 +1).'.jpg')}}" alt="Alternate Text" />
-                        <figcaption>{{$teacher->name}}</figcaption>
-                    </figure>
-                </a>
-                <?php } ?>
-
-
-
-            </div> <!--/owl-icons-->
-        </div> <!--/container-->
-    </section>
-    <!-- ========================  Block banner category ======================== -->
 
     <!-- ========================  Best seller ======================== -->
 
@@ -613,56 +596,7 @@ Common
                 <!-- === product-filters === -->
 
                 <div class="col-md-3 col-xs-12">
-                    <div class="filters">
-                        <!--Teachers-->
-                        <div class="filter-box active">
-                            <div class="title">
-                                Teachers List
-                            </div>
-                            <div class="filter-content">
-                                <?php foreach($listTeachers as $teacher) { ?>
-                                <span class="checkbox">
-										<input type="radio" class="check-teacher" name="teacher{{$teacher->id}}" id="teacher{{$teacher->id}}">
-										<label for="teacher{{$teacher->id}}">{{$teacher->name}} <i></i></label>
-                                	</span>
-                                <?php } ?>
-
-                                <span class="checkbox">
-                                    <input type="checkbox" id="allTeachers">
-                                    <label for="allTeachers">All Professors <i></i></label>
-                                </span>
-                            </div>
-                        </div> <!--/filter-box-->
-                        <!--close filters on mobile / update filters class removed .toggle-filters-close-->
-                        <div type="button" class=" btn btn-main" id="submit-search-by-teachers">
-                            Update search
-                        </div>
-
-                    </div> <!--/filters-->
-
-
-                    <div class="filters">
-                        <!--Teachers-->
-                        <div class="filter-box active">
-                            <div class="title">
-                                Categories List
-                            </div>
-                            <div class="filter-content">
-                                <?php foreach($allCategories as $key => $categorie) { ?>
-                                <span class="checkbox">
-										<input type="radio" class="check-category" name="category{{$categorie->id}}" id="category{{$categorie->id}}">
-										<label for="category{{$categorie->id}}">{{$categorie->name}} <i></i></label>
-                                	</span>
-                                <?php } ?>
-
-                                <span class="checkbox">
-                                    <input type="checkbox" id="allCategories">
-                                    <label for="allCategories">All Categories <i></i></label>
-									</span>
-                            </div>
-                        </div> <!--/filter-box-->
-                        <!--close filters on mobile / update filters class removed .toggle-filters-close-->
-                        <input type="submit" class=" btn btn-main" value="UPDATE CATEGORY" id="submit-category">
+                    <div class="filters" hidden>
 
                     </div> <!--/filters-->
                 </div>
@@ -673,7 +607,7 @@ Common
 
                     <div class="sort-bar clearfix">
                         <div class="sort-options pull-right">
-                            <span class="hidden-xs">List of Exams by teachers</span>
+                            <span class="hidden-xs">List of Exams by students</span>
                             <!--Grid-list view-->
                             <span class="grid-list" hidden>
                                 <a href="products-grid.html" > <i class="fa fa-th-large"></i></a>
@@ -681,123 +615,67 @@ Common
                         </div>
                     </div>
 
-                    <div class="row row-clean pagination-container">
+                    <div class="row row-clean">
 
                         <!--product-item-->
 
-                        <?php foreach($listExams as $exam) { ?>
                         <div class="col-md-12 ">
+                            <h5>Videos: </h5>
+                            <p>Link to Screen Record : <a target="_blank" href="{{asset('assets/uploads/'.$linkScreenVideo)}}">{{$linkScreenVideo}}</a></p>
+                            <p>Link to Camera Record : <a target="_blank" href="{{asset('assets/uploads/'.$linkCameraVideo)}}">{{$linkCameraVideo}}</a></p>
 
-                            <article data-page="{{($exam->exam_id % 5)+1}}"  >
-                                <div class="info">
-                                    <!--<span class="add-favorite">
-                                        <a href="javascript:void(0);" data-title="Add to favorites" data-title-added="Added to favorites list"><i class="icon icon-heart"></i></a>
-                                    </span>-->
-                                    <span>
-                                        <a target="_blank" href="{{url('student/notes-exam/'.$exam->exam_id.'/'.$idStudent)}}" class="" data-title="See results"><i class="fa fa fa-envelope-open-o" aria-hidden="true"></i></a>
-                                    </span>
-                                    <?php if($exam->no_remake_exam==false) {
-                                    ?>
-                                    <span>
-											<a target="_blank" href="{{url('student/pass/exam/'.$exam->exam_id)}}" class="" data-title="Pass the exam"><i class="icon icon-eye"></i></a>
-										</span>
-                                    <?php
-                                    }else{
-                                    $booleanNeverTaken=false;
-                                    if(!empty($arrayneverTakenExam)) {
-                                        foreach ($arrayneverTakenExam as $key => $nevrTakenExam) {
-
-                                            if ($key == $exam->exam_id) {
-                                                if ($nevrTakenExam > 0) {
-                                                    $booleanNeverTaken = true;
-                                                }
-                                            }
-                                        }
-                                    }
-                                    if($booleanNeverTaken==false){?>
-                                    <span>
-											<a target="_blank" href="{{url('student/pass/exam/'.$exam->exam_id)}}" class="" data-title="Pass the exam"><i class="icon icon-eye"></i></a>
-										</span>
-                                    <?php } }?>
-                                    <?php if($exam->show_results==true) { ?>
-                                    <span>
-                                        <a target="_blank" href="{{url('student/results/'.$exam->exam_id.'/'.$idStudent)}}" class="" data-title="See correction"><i class="fa fa-address-card" aria-hidden="true"></i></a>
-                                    </span>
-                                    <?php } ?>
-                                </div>
-                                <div class="figure-list">
-                                    <div class="image">
-
-                                        <a  target="_blank" <?php
-
-                                        if($exam->no_remake_exam==false) {
-                                        ?> href="index.php/student/pass/exam/{{$exam->exam_id}}"
-
-                                            <?php }else{
-                                            $booleanNeverTaken=false;
-                                            if(!empty($arrayneverTakenExam)){
-
-
-                                                foreach ($arrayneverTakenExam as $key =>$nevrTakenExam){
-
-                                                    if($key==$exam->exam_id) {
-                                                        if ($nevrTakenExam > 0) {
-                                                            $booleanNeverTaken = true;
-                                                        }
-                                                    }}
-                                            }
-                                            if($booleanNeverTaken==false){ ?>href="{{url('student/pass/exam/'.$exam->exam_id)}}" <?php }} ?> class="mfp-open">
-                                            <img src="{{asset('assets/images/avatars/exam.png')}}" alt="" width="300" style="width: 70% !important;margin-left: 10%;" />
-                                        </a>
-
-                                    </div>
-                                    <div class="text">
-                                        <h2 class="title h4"><a target="_blank" <?php if($exam->no_remake_exam==false) { ?>  href="index.php/student/pass/exam/{{$exam->exam_id}}" <?php
-                                            }else{
-                                            $booleanNeverTaken=false;
-                                            if(!empty($arrayneverTakenExam)) {
-                                                foreach ($arrayneverTakenExam as $key => $nevrTakenExam) {
-
-                                                    if ($key == $exam->exam_id) {
-                                                        if ($nevrTakenExam > 0) {
-                                                            $booleanNeverTaken = true;
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                            if($booleanNeverTaken==false){?>href="{{url('student/pass/exam/'.$exam->exam_id)}}"  <?php }} ?>>Exam {{$exam->title_exam}}</a></h2>
-                                        <?php foreach($listreponsesExam as $response) { ?>
-                                        <?php if($response->exam_id==$exam->exam_id){ ?>
-                                        <?php if($response->show_notes==true){ ?>
-                                        <sup>Note : <?php if($response->note_by_teacher>=10){ ?><a style="color:green;font-weight: bold;"> {{$response->note_by_teacher}} </a> <?php  }else{ ?> <a style="color:red;font-weight: bold;"> {{$response->note_by_teacher}} </a> <?php }?></sup><br>
-                                        <?php } ?>
-                                        <?php } ?>
-                                        <?php } ?>
-                                        <sup>Date of creation : {{$exam->created_at}}</sup>
-                                        <!--											<span class="description clearfix">Gubergren amet dolor ea diam takimata consetetur facilisis blandit et aliquyam lorem ea duo labore diam sit et consetetur nulla</span>
-                                        -->										</div>
-                                </div>
-                            </article>
-
-
+                            <h5>Notes </h5>
+                            <table id="example" class="table table-striped table-bordered" style="width:100%">
+                                <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Note</th>
+                                    <th>Date</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php $total=0;?>
+                                <?php foreach($respones_multi_quest as $mutli) { ?>
+                                <tr>
+                                    <td>Multi Question</td>
+                                    <td>{{$mutli->note_by_teacher}}</td>
+                                    <?php $total+=$mutli->note_by_teacher;?>
+                                    <td>{{$mutli->created_at}}</td>
+                                </tr>
+                                <?php } ?>
+                                <?php foreach($respones_tawsil_quest as $tawsil) { ?>
+                                <tr>
+                                    <td>Tawsil</td>
+                                    <td>{{$tawsil->note_by_teacher}}</td>
+                                    <?php $total+=$tawsil->note_by_teacher;?>
+                                    <td>{{$tawsil->created_at}}</td>
+                                </tr>
+                                <?php } ?>
+                                <?php foreach($respones_tartib_quest as $tartib) { ?>
+                                <tr>
+                                    <td>Tartib</td>
+                                    <td>{{$tartib->note_by_teacher}}</td>
+                                    <?php $total+=$tartib->note_by_teacher;?>
+                                    <td>{{$tartib->created_at}}</td>
+                                </tr>
+                                <?php } ?>
+                                <?php foreach($respones_span_quest as $span) { ?>
+                                <tr>
+                                    <td>Drag words</td>
+                                    <td>{{$span->note_by_teacher}}</td>
+                                    <?php $total+=$span->note_by_teacher;?>
+                                    <td>{{$span->created_at}}</td>
+                                </tr>
+                                <?php } ?>
+                                <tr style="color:red;">
+                                    <td>Total</td>
+                                    <td>{{$total}}</td>
+                                    <td></td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </div>
-                        <?php } ?>
 
-
-                        <br><br><br>
-                        <div class="pagination pagination-centered pagination-large" style="position:absolute; bottom:0;">
-                            <ul class="page_control ">
-                                <li data-page="-" ><a href="#" >&lt;</a></li>
-                                <li class="active" data-page="1">
-                                    <a href="#" >1</a>
-                                </li>
-                                <li data-page="2"><a href="#" >2</a></li>
-                                <li data-page="3"><a href="#" >3</a></li>
-                                <li data-page="4"><a href="#" >4</a></li>
-                                <li data-page="5"><a href="#" >5</a></li>
-                                <li data-page="+"><a href="#" >&gt;</a></li>
-                            </ul>
-                        </div>
                     </div><!--/row-->
                     <!--Pagination-->
                     <!--<div class="pagination-wrapper">
@@ -820,6 +698,164 @@ Common
                         </ul>
                     </div>-->
 
+
+                    <div class="row row-clean">
+                        <div class="col-md-12 ">
+                            <h5>Answers by Student </h5>
+                            <br>
+                            <table id="example" class="table table-striped table-bordered" style="width:100%">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Type</th>
+                                    <th>Note</th>
+                                    <th>Response 1</th>
+                                    <th>Response 2</th>
+                                    <th>Response 3</th>
+                                    <th>Response 4</th>
+                                    <th>Response 5</th>
+                                    <th>Response 6</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php foreach($respones_multi_quest as $mutli) { ?>
+                                <tr>
+                                    <td>{{$mutli->question_multi_id}}</td>
+                                    <td>Multi Question</td>
+                                    <td>{{$mutli->note_by_teacher}}</td>
+                                    <td>{{$mutli->response_option_1}}</td>
+                                    <td>{{$mutli->response_option_2}}</td>
+                                    <td>{{$mutli->response_option_3}}</td>
+                                    <td>{{$mutli->response_option_4}}</td>
+                                    <td>{{$mutli->response_option_5}}</td>
+                                    <td>{{$mutli->response_option_6}}</td>
+                                </tr>
+                                <?php foreach($quets_multi_quest as $orginalquest) { ?>
+                                <?php if($orginalquest->id==$mutli->question_multi_id){ ?>
+                                <tr style="color: forestgreen">
+                                    <td>{{$orginalquest->id}}</td>
+                                    <td>Correction</td>
+                                    <td></td>
+                                    <?php if($orginalquest->correct_option_1=='correct'){ ?>
+
+                                    <td>{{$orginalquest->option_1}}</td>
+
+                                    <?php }else{ ?>
+                                    <td></td>
+                                    <?php } ?>
+                                    <?php if($orginalquest->correct_option_2=='correct'){ ?>
+
+                                    <td>{{$orginalquest->option_2}}</td>
+
+                                    <?php }else{ ?>
+                                    <td></td>
+                                    <?php } ?>
+                                    <?php if($orginalquest->correct_option_3=='correct'){ ?>
+
+                                    <td>{{$orginalquest->option_3}}</td>
+
+                                    <?php }else{ ?>
+                                    <td></td>
+                                    <?php } ?>
+                                    <?php if($orginalquest->correct_option_4=='correct'){ ?>
+
+                                    <td>{{$orginalquest->option_4}}</td>
+
+                                    <?php }else{ ?>
+                                    <td></td>
+                                    <?php } ?>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <?php } ?>
+                                <?php } ?>
+                                <?php } ?>
+
+                                <?php foreach($respones_tawsil_quest as $tawsil) { ?>
+                                <tr>
+                                    <td>{{$tawsil->question_tawsil_id}}<?php echo  $tawsil->question_tawsil_id;?></td>
+                                    <td>Tawsil</td>
+                                    <td>{{$tawsil->note_by_teacher}}</td>
+                                    <td>{{$tawsil->response_option_1}}</td>
+                                    <td>{{$tawsil->response_option_2}}</td>
+                                    <td>{{$tawsil->response_option_3}}</td>
+                                    <td>{{$tawsil->response_option_4}}</td>
+                                    <td>{{$tawsil->response_option_5}}</td>
+                                    <td>{{$tawsil->response_option_6}}</td>
+                                </tr>
+                                <tr style="color: forestgreen">
+                                    <td>{{$tawsil->question_tawsil_id}}</td>
+                                    <td>Correction</td>
+                                    <td></td>
+                                    <td>1. {{$tawsil->correct_option_1}}</td>
+                                    <td>2. {{$tawsil->correct_option_2}}</td>
+                                    <td>3. {{$tawsil->correct_option_3}}</td>
+                                    <td>4. {{$tawsil->correct_option_4}}</td>
+                                    <td>5. {{$tawsil->correct_option_5}}</td>
+                                    <td>6. {{$tawsil->correct_option_6}}</td>
+                                </tr>
+                                <?php } ?>
+
+                                <?php foreach($respones_tartib_quest as $tartib) { ?>
+                                <tr>
+                                    <td>{{$tartib->question_tartib_id}}</td>
+                                    <td>Tartib</td>
+                                    <td>{{$tartib->note_by_teacher}}</td>
+                                    <td>{{$tartib->reponse_option_to_order_1}}</td>
+                                    <td>{{$tartib->reponse_option_to_order_2}}</td>
+                                    <td>{{$tartib->reponse_option_to_order_3}}</td>
+                                    <td>{{$tartib->reponse_option_to_order_4}}</td>
+                                    <td>{{$tartib->reponse_option_to_order_5}}</td>
+                                    <td>{{$tartib->reponse_option_to_order_6}}</td>
+                                </tr>
+                                <tr style="color: forestgreen">
+                                    <td>{{$tartib->question_tartib_id}}</td>
+                                    <td>Correction</td>
+                                    <td></td>
+                                    <td>1. {{$tartib->correct_order_1}}</td>
+                                    <td>2. {{$tartib->correct_order_2}}</td>
+                                    <td>3. {{$tartib->correct_order_3}}</td>
+                                    <td>4. {{$tartib->correct_order_4}}</td>
+                                    <td>5. {{$tartib->correct_order_5}}></td>
+                                    <td>6. {{$tartib->correct_order_6}}</td>
+                                </tr>
+                                <?php } ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+                    <div class="row row-clean">
+                        <div class="col-md-12 ">
+
+                            <?php foreach($respones_long_quest as $long) { ?>
+                            <h5>Makal </h5>
+                            <br>
+                            <label>Response :</label>
+                            <textarea>{{$long->reponse_long_text}}</textarea>
+                            <label style="color:forestgreen">Correct Answer :</label>
+                            <textarea style="color:forestgreen">{{$long->correct_long_text}}</textarea>
+
+                            <?php } ?>
+                        </div>
+                    </div>
+
+                    <div class="row row-clean">
+                        <div class="col-md-12 ">
+                            <h5>Words to drag and drop </h5>
+                            <br>
+                            <?php foreach($respones_span_quest as $key => $span) { ?>
+                            <label>Response :</label>
+                            <span class="response-span-to-highlight" style="display:block;width:auto;word-wrap:break-word;">{{$span->reponse_span}}</span>
+
+                            <label style="color:forestgreen">Correct Answer :</label>
+                            <span  class="correction-span-to-highlight" style="display:block;width:auto;word-wrap:break-word;color:forestgreen">{{$span->correct_span}}</span>
+                            <label for="note_by_long">Give note :</label>
+                            <input type="number" name="note_by_long" class="form-control value="" />
+                            <?php } ?>
+                        </div>
+                    </div>
                 </div> <!--/product items-->
 
             </div><!--/row-->
@@ -847,9 +883,12 @@ Common
 <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-steps/1.0.0/jquery.steps.js"></script>-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script src="https://unpkg.com/materialize-stepper@3.1.0/dist/js/mstepper.min.js"></script>
+<script src="{{asset('assets/js/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('assets/js/dataTables.bootstrap.min.js')}}"></script>
 
 <script>
     var paginationHandler = function(){
+        $('#example').DataTable();
         // store pagination container so we only select it once
         var $paginationContainer = $(".pagination-container"),
             $pagination = $paginationContainer.find('.pagination ul');
@@ -909,7 +948,7 @@ Common
 
                 if($this.is(":checked")){
                     idTeacher=$this.attr('id').replace('teacher','');
-                    window.location.href="index.php/student/list/exam/"+idTeacher;
+                    window.location.href='{{url("student/list-exam")}}/'+idTeacher;
                 }else{
                     console.log('unchecker');
                 }
@@ -918,32 +957,55 @@ Common
                 var $this = $(this);
 
                 if($this.is(":checked")){
-                    window.location.href="index.php/student/list/exam/all";
+                    window.location.href='{{url("student/list-exam/all")}}/';
                 }else{
                     console.log('unchecker');
                 }
             });
         });
 
-        $('#submit-category').click(function(){
-            $(".check-category:radio").each(function(){
-                var $this = $(this);
+        $(".response-span-to-highlight").each(function (){
 
-                if($this.is(":checked")){
-                    idCategory=$this.attr('id').replace('category','');
-                    window.location.href="index.php/student/list/exam-by-category/"+idCategory;
-                }
-            });
-            $("#allCategories:checkbox").each(function(){
-                var $this = $(this);
 
-                if($this.is(":checked")){
-                    window.location.href="index.php/student/list/exam-by-category/all";
-                }else{
-                    console.log('unchecker');
-                }
-            });
-        });
+            <?php foreach($respones_span_quest as $key => $span) { ?>
+            <?php $pieces=explode(';',$quets_span_quest[$key]->words);?>
+            <?php foreach($pieces as $k => $word) { ?>
+            <?php if ($k!=0){ ?>
+            var src_str = $(this).html();
+            var term = "{{$word}}";
+            term = term.replace(/(\s+)/,"(<[^>]+>)*$1(<[^>]+>)*");
+            var pattern = new RegExp("("+term+")", "i");
+
+            src_str = src_str.replace(pattern, "<mark>$1</mark>");
+            src_str = src_str.replace(/(<mark>[^<>]*)((<[^>]+>)+)([^<>]*<\/mark>)/,"$1</mark>$2<mark>$4");
+
+            $(this).html(src_str);
+            <?php } }?>
+            <?php }?>
+
+
+        })
+        $(".correction-span-to-highlight").each(function (){
+
+
+            <?php foreach($respones_span_quest as $key => $span) { ?>
+            <?php $pieces=explode(';',$quets_span_quest[$key]->words);?>
+            <?php foreach($pieces as $k => $word) { ?>
+            <?php if ($k!=0){ ?>
+            var src_str = $(this).html();
+            var term = "{{$word}}";
+            term = term.replace(/(\s+)/,"(<[^>]+>)*$1(<[^>]+>)*");
+            var pattern = new RegExp("("+term+")", "i");
+
+            src_str = src_str.replace(pattern, "<mark>$1</mark>");
+            src_str = src_str.replace(/(<mark>[^<>]*)((<[^>]+>)+)([^<>]*<\/mark>)/,"$1</mark>$2<mark>$4");
+
+            $(this).html(src_str);
+            <?php } }?>
+            <?php }?>
+
+
+        })
     };
     $( document ).ready( paginationHandler );
 

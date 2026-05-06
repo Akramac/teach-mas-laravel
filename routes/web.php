@@ -45,6 +45,8 @@ Route::middleware(['auth.redirect'])->group(function(){
     Route::get('student/studentExam', [StudentController::class, 'studentExam'])->name('studentExam');
     Route::get('student/pass/exam/{exam}', [StudentController::class, 'studentExam'])->name('student.studentPassExam');
     Route::get('student/list-exam', [StudentController::class, 'studentListExam'])->name('student.studentListExam');
+    Route::get('student/notes-exam/{exam}/{student}', [StudentController::class, 'studentNotesExam'])->name('student.studentNotesExam');
+    Route::get('student/results/{exam}/{student}', [StudentController::class, 'studentResultsExam'])->name('student.studentResultsExam');
     Route::post('student/add-exam', [StudentController::class, 'studentAddExamToDB'])->name('student.addExam');
     Route::get('changePassword', [PasswordController::class, 'changePassword'])->name('changePassword');
     Route::get('editProfile', [ProfileController::class, 'index'])->name('editProfile');

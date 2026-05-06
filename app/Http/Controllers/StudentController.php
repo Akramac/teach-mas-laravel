@@ -448,6 +448,338 @@ class StudentController extends Controller
         return $idTeacher;
     }
 
+    public function studentNotesExam($idExam='',$idStudent=''){
+        $data['student_id'] = $idStudent;
+        $data['exam_id'] = $idExam;
+        $data['title'] = 'Student Page Result';
+
+        // Get data student and exam in one table
+        $listQuestMulti = DB::table('exam_question_multi_choice')
+            ->where('exam_id', $idExam)
+            ->get();
+
+        $data['respones_multi_quest'] = [];
+        $data['quets_multi_quest'] = [];
+
+        foreach ($listQuestMulti as $multiQuest) {
+            $reponseMutliQuest = DB::table('response_question_mutli_choice')
+                ->where('exam_id', $idExam)
+                ->where('question_multi_id', $multiQuest->question_multi_choice_id)
+                ->where('student_id', $idStudent)
+                ->orderBy('id', 'desc')
+                ->limit(1)
+                ->get();
+
+            if ($reponseMutliQuest->isNotEmpty()) {
+                $data['respones_multi_quest'][] = $reponseMutliQuest[0];
+            }
+
+            $examssResult = DB::table('question_multi_choice')
+                ->where('id', $multiQuest->question_multi_choice_id)
+                ->distinct()
+                ->get();
+
+            if ($examssResult->isNotEmpty()) {
+                $data['quets_multi_quest'][] = $examssResult[0];
+            }
+        }
+
+        $listQuestTawsil = DB::table('exam_question_tawsil')
+            ->where('exam_id', $idExam)
+            ->get();
+
+        $data['respones_tawsil_quest'] = [];
+        $data['quets_tawsil_quest'] = [];
+
+        foreach ($listQuestTawsil as $tawsilQuest) {
+            $reponseTawsilQuest = DB::table('response_question_tawsil')
+                ->where('exam_id', $idExam)
+                ->where('question_tawsil_id', $tawsilQuest->question_tawsil_id)
+                ->orderBy('id', 'desc')
+                ->limit(1)
+                ->get();
+
+            if ($reponseTawsilQuest->isNotEmpty()) {
+                $data['respones_tawsil_quest'][] = $reponseTawsilQuest[0];
+            }
+
+            $examssTawsilResult = DB::table('question_tawsil')
+                ->where('id', $tawsilQuest->question_tawsil_id)
+                ->distinct()
+                ->get();
+
+            if ($examssTawsilResult->isNotEmpty()) {
+                $data['quets_tawsil_quest'][] = $examssTawsilResult[0];
+            }
+        }
+
+        $listQuestTartib = DB::table('exam_question_tartib')
+            ->where('exam_id', $idExam)
+            ->get();
+
+        $data['respones_tartib_quest'] = [];
+
+        foreach ($listQuestTartib as $tartibQuest) {
+            $reponseTartibQuest = DB::table('response_question_tartib')
+                ->where('exam_id', $idExam)
+                ->where('question_tartib_id', $tartibQuest->question_tartib_id)
+                ->where('student_id', $idStudent)
+                ->orderBy('id', 'desc')
+                ->limit(1)
+                ->get();
+
+            if ($reponseTartibQuest->isNotEmpty()) {
+                $data['respones_tartib_quest'][] = $reponseTartibQuest[0];
+            }
+        }
+
+        // Makal long text
+        $listQuestLong = DB::table('exam_question_long_text')
+            ->where('exam_id', $idExam)
+            ->get();
+
+        $data['respones_long_quest'] = [];
+        $data['quets_long_quest'] = [];
+
+        foreach ($listQuestLong as $longQuest) {
+            $reponseLongQuest = DB::table('response_question_long_text')
+                ->where('exam_id', $idExam)
+                ->where('question_long_id', $longQuest->question_long_text_id)
+                ->orderBy('id', 'desc')
+                ->limit(1)
+                ->get();
+
+            if ($reponseLongQuest->isNotEmpty()) {
+                $data['respones_long_quest'][] = $reponseLongQuest[0];
+            }
+
+            $examssLongResult = DB::table('question_long_text')
+                ->where('id', $longQuest->question_long_text_id)
+                ->distinct()
+                ->get();
+
+            if ($examssLongResult->isNotEmpty()) {
+                $data['quets_long_quest'][] = $examssLongResult[0];
+            }
+        }
+
+        // Span words drag and drop correction
+        $listQuestSpan = DB::table('exam_question_span')
+            ->where('exam_id', $idExam)
+            ->get();
+
+        $data['respones_span_quest'] = [];
+        $data['quets_span_quest'] = [];
+
+        foreach ($listQuestSpan as $spanQuest) {
+            $reponseSpanQuest = DB::table('response_question_span')
+                ->where('exam_id', $idExam)
+                ->where('question_span_id', $spanQuest->question_span_id)
+                ->orderBy('id', 'desc')
+                ->limit(1)
+                ->get();
+
+            if ($reponseSpanQuest->isNotEmpty()) {
+                $data['respones_span_quest'][] = $reponseSpanQuest[0];
+            }
+
+            $examssSpanResult = DB::table('question_span')
+                ->where('id', $spanQuest->question_span_id)
+                ->distinct()
+                ->get();
+
+            if ($examssSpanResult->isNotEmpty()) {
+                $data['quets_span_quest'][] = $examssSpanResult[0];
+            }
+        }
+
+        // Get videos
+        $data['idExam'] = $idExam;
+        $examVideos = DB::table('response_exam')
+            ->where('exam_id', $idExam)
+            ->where('student_id', $idStudent)
+            ->orderBy('created_at', 'desc')
+            ->distinct()
+            ->limit(1)
+            ->get();
+
+        $data['linkScreenVideo'] = '';
+        $data['linkCameraVideo'] = '';
+
+        if ($examVideos->isNotEmpty()) {
+            $data['linkScreenVideo'] = $examVideos[0]->file_screen;
+            $data['linkCameraVideo'] = $examVideos[0]->file_video;
+        }
+
+        return view('student.studentNotesExam', $data);
+    }
+    public function studentResultsExam($idExam='',$idStudent=''){
+        $data['student_id'] = $idStudent;
+        $data['exam_id'] = $idExam;
+        $data['title'] = 'Student Page Result';
+
+        // Get data student and exam in one table
+        $listQuestMulti = DB::table('exam_question_multi_choice')
+            ->where('exam_id', $idExam)
+            ->get();
+
+        $data['respones_multi_quest'] = [];
+        $data['quets_multi_quest'] = [];
+
+        foreach ($listQuestMulti as $multiQuest) {
+            $reponseMutliQuest = DB::table('response_question_mutli_choice')
+                ->where('exam_id', $idExam)
+                ->where('question_multi_id', $multiQuest->question_multi_choice_id)
+                ->where('student_id', $idStudent)
+                ->orderBy('id', 'desc')
+                ->limit(1)
+                ->get();
+
+            if ($reponseMutliQuest->isNotEmpty()) {
+                $data['respones_multi_quest'][] = $reponseMutliQuest[0];
+            }
+
+            $examssResult = DB::table('question_multi_choice')
+                ->where('id', $multiQuest->question_multi_choice_id)
+                ->distinct()
+                ->get();
+
+            if ($examssResult->isNotEmpty()) {
+                $data['quets_multi_quest'][] = $examssResult[0];
+            }
+        }
+
+        $listQuestTawsil = DB::table('exam_question_tawsil')
+            ->where('exam_id', $idExam)
+            ->get();
+
+        $data['respones_tawsil_quest'] = [];
+        $data['quets_tawsil_quest'] = [];
+
+        foreach ($listQuestTawsil as $tawsilQuest) {
+            $reponseTawsilQuest = DB::table('response_question_tawsil')
+                ->where('exam_id', $idExam)
+                ->where('question_tawsil_id', $tawsilQuest->question_tawsil_id)
+                ->orderBy('id', 'desc')
+                ->limit(1)
+                ->get();
+
+            if ($reponseTawsilQuest->isNotEmpty()) {
+                $data['respones_tawsil_quest'][] = $reponseTawsilQuest[0];
+            }
+
+            $examssTawsilResult = DB::table('question_tawsil')
+                ->where('id', $tawsilQuest->question_tawsil_id)
+                ->distinct()
+                ->get();
+
+            if ($examssTawsilResult->isNotEmpty()) {
+                $data['quets_tawsil_quest'][] = $examssTawsilResult[0];
+            }
+        }
+
+        $listQuestTartib = DB::table('exam_question_tartib')
+            ->where('exam_id', $idExam)
+            ->get();
+
+        $data['respones_tartib_quest'] = [];
+
+        foreach ($listQuestTartib as $tartibQuest) {
+            $reponseTartibQuest = DB::table('response_question_tartib')
+                ->where('exam_id', $idExam)
+                ->where('question_tartib_id', $tartibQuest->question_tartib_id)
+                ->where('student_id', $idStudent)
+                ->orderBy('id', 'desc')
+                ->limit(1)
+                ->get();
+
+            if ($reponseTartibQuest->isNotEmpty()) {
+                $data['respones_tartib_quest'][] = $reponseTartibQuest[0];
+            }
+        }
+
+        // Makal long text
+        $listQuestLong = DB::table('exam_question_long_text')
+            ->where('exam_id', $idExam)
+            ->get();
+
+        $data['respones_long_quest'] = [];
+        $data['quets_long_quest'] = [];
+
+        foreach ($listQuestLong as $longQuest) {
+            $reponseLongQuest = DB::table('response_question_long_text')
+                ->where('exam_id', $idExam)
+                ->where('question_long_id', $longQuest->question_long_text_id)
+                ->orderBy('id', 'desc')
+                ->limit(1)
+                ->get();
+
+            if ($reponseLongQuest->isNotEmpty()) {
+                $data['respones_long_quest'][] = $reponseLongQuest[0];
+            }
+
+            $examssLongResult = DB::table('question_long_text')
+                ->where('id', $longQuest->question_long_text_id)
+                ->distinct()
+                ->get();
+
+            if ($examssLongResult->isNotEmpty()) {
+                $data['quets_long_quest'][] = $examssLongResult[0];
+            }
+        }
+
+        // Span words drag and drop correction
+        $listQuestSpan = DB::table('exam_question_span')
+            ->where('exam_id', $idExam)
+            ->get();
+
+        $data['respones_span_quest'] = [];
+        $data['quets_span_quest'] = [];
+
+        foreach ($listQuestSpan as $spanQuest) {
+            $reponseSpanQuest = DB::table('response_question_span')
+                ->where('exam_id', $idExam)
+                ->where('question_span_id', $spanQuest->question_span_id)
+                ->orderBy('id', 'desc')
+                ->limit(1)
+                ->get();
+
+            if ($reponseSpanQuest->isNotEmpty()) {
+                $data['respones_span_quest'][] = $reponseSpanQuest[0];
+            }
+
+            $examssSpanResult = DB::table('question_span')
+                ->where('id', $spanQuest->question_span_id)
+                ->distinct()
+                ->get();
+
+            if ($examssSpanResult->isNotEmpty()) {
+                $data['quets_span_quest'][] = $examssSpanResult[0];
+            }
+        }
+
+        // Get videos
+        $data['idExam'] = $idExam;
+        $examVideos = DB::table('response_exam')
+            ->where('exam_id', $idExam)
+            ->where('student_id', $idStudent)
+            ->orderBy('created_at', 'desc')
+            ->distinct()
+            ->limit(1)
+            ->get();
+
+        $data['linkScreenVideo'] = '';
+        $data['linkCameraVideo'] = '';
+
+        if ($examVideos->isNotEmpty()) {
+            $data['linkScreenVideo'] = $examVideos[0]->file_screen;
+            $data['linkCameraVideo'] = $examVideos[0]->file_video;
+        }
+
+        return view('student.studentResultsExam', $data);
+    }
+
+
     function insert_options_choices($userID,$teacherID,$studentID, $questID,$examID,$responseOption1,$responseOption2,$responseOption3,$responseOption4,$responseOption5,$responseOption6)
     {
 
