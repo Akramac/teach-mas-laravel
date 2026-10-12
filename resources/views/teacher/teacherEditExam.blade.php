@@ -573,7 +573,8 @@ Common
             <p>
                 Make your questions by adding part by part and adding the time and also pictures
             </p>
-            <form id="msform-teacher" method="POST" action="index.php/teacher/edit-exam" enctype='multipart/form-data'>
+            <form id="msform-teacher" method="POST" action="{{url('teacher/editExamData')}}" enctype='multipart/form-data'>
+                @csrf
                 <div class="form-group">
                     <label style="text-align:left">Title of the exam</label>
                     <input type="text"  name="title_exam" value="{{$title_exam}}" required>

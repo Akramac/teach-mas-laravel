@@ -265,6 +265,149 @@ class TeacherController extends Controller
         return view('teacher.teacherEditExam', $data);
     }
 
+    public function editExamData(Request $request){
+                // Validate the incoming request
+                $validator = Validator::make($request->all(), [
+                    'title_exam' => 'required|string'
+                ]);
+
+                if ($validator->fails()) {
+                    return redirect()->back()->withErrors($validator)->withInput();
+                }
+
+                // Get the authenticated user's ID
+                $userId = Auth::id();
+
+                // Get the teacher ID based on the authenticated user
+                $teacher = Teacher::find($userId);
+                $idTeacher = $teacher ? $teacher->id : null;
+
+                //id exam to edit
+                $idExam = $request->request->get('id_exam');
+                $exam = Exam::find($idExam);
+
+                // Retrieve input values
+                $titleExam = $request->input('title_exam');
+                $durationExam = $request->input('usr_time_exam');
+
+                // Handle boolean inputs
+                $allowScreenRecord = $request->has('record-screen') && $request->input('record-screen') === 'on';
+                $allowCameraRecord = $request->has('record-camera') && $request->input('record-camera') === 'on';
+                $randomQuestions = $request->has('check-random-questions') && $request->input('check-random-questions') === 'on';
+                $noRemakeExam = $request->has('check-no-retake-exam') && $request->input('check-no-retake-exam') === 'on';
+
+                if (!$exam) {
+                    return redirect()->back()->with('error', 'Error Adding Exam')->withInput();
+                }
+
+                $exam->update([
+                    'title_exam'           => $titleExam,         
+                    'duration_exam'        => $durationExam,      
+                    'teacher_id'           => $idTeacher,         
+                    'categorie_id'          => $selectCategory,    
+                    'allow_screen_record'  => $allowScreenRecord, 
+                    'allow_camera_record'  => $allowCameraRecord, 
+                    'random_questions'     => $randomQuestions,   
+                    'no_remake_exam'       => $noRemakeExam,      
+                ]);
+
+                // Handle multiple choice questions
+                $numQuestMulti = $request->input('count-quest-mutli');
+                for ($i = 1; $i <= $numQuestMulti; $i++) {
+                    if ($request->input('quest_mutliple-' . $i) == 'quest_mutliple') {
+                        $fileName = $this->handleFileUpload($request, "file-uploaded-multi-" . $i);
+                        $noSpecificTime = $request->has('no-specific-time-multi-' . $i) && $request->input('no-specific-time-multi-' . $i) == 'on';
+
+                        $resultId = $this->addMultipleChoiceQuestion($request, $i, $fileName, $noSpecificTime);
+                        if ($resultId) {
+                            $this->add_mutli_choice_junction($resultId, $exam->id);
+                        } else {
+                            return redirect()->back()->with('error', 'Error Adding question Multi with choices')->withInput();
+                        }
+                    }
+                }
+
+                // Handle long text questions
+                $numQuestLong = $request->input('count-quest-long-text');
+                for ($i = 1; $i <= $numQuestLong; $i++) {
+                    if ($request->input('quest_long_text-' . $i) == 'quest_long_text') {
+                        $fileName = $this->handleFileUpload($request, "file-uploaded-long-" . $i);
+                        $noSpecificTime = $request->has('no-specific-time-long-' . $i) && $request->input('no-specific-time-long-' . $i) == 'on';
+
+                        $resultId = $this->addLongTextQuestion($request, $i, $fileName, $noSpecificTime);
+                        if ($resultId) {
+                            $this->add_long_text_junction($resultId, $exam->id);
+                        } else {
+                            return redirect()->back()->with('error', 'Error Adding Long Text question')->withInput();
+                        }
+                    }
+                }
+
+
+                $numQuestTartib = $request->input('count-quest-tartib');
+                for ($i = 1; $i <= $numQuestTartib; $i++) {
+                    if ($request->input('quest_tartib-' . $i) == 'quest_tartib') {
+                        $fileName = $this->handleFileUpload($request, "file-uploaded-tartib-" . $i);
+
+                        // No specific time for question
+                        $noSpecificTime = $request->has('no-specific-time-tartib-' . $i) && $request->input('no-specific-time-tartib-' . $i) == 'on';
+
+                        $resultId = $this->addTartibQuestion($request, $i, $fileName, $noSpecificTime);
+                        if ($resultId) {
+                            $this->add_tartib_junction($resultId, $exam->id);
+                        } else {
+                            return redirect()->back()->with('error', 'Error Adding Tartib question')->withInput();
+                        }
+                    }
+                }
+
+                $numQuestSpan = $request->input('count-quest-span');
+                for ($i = 1; $i <= $numQuestSpan; $i++) {
+                    if ($request->input('quest_span-' . $i) == 'quest_span') {
+                        $fileName = $this->handleFileUpload($request, "file-uploaded-span-" . $i);
+
+                        // No specific time for question
+                        $noSpecificTime = $request->has('no-specific-time-span-' . $i) && $request->input('no-specific-time-span-' . $i) == 'on';
+
+                        $resultId = $this->addSpanQuestion($request, $i, $fileName, $noSpecificTime);
+                        if ($resultId) {
+                            $this->add_span_junction($resultId, $exam->id);
+                        } else {
+                            return redirect()->back()->with('error', 'Error Adding Long Text question')->withInput();
+                        }
+                    }
+                }
+
+                $numQuestTawsil = $request->input('count-quest-tawsil');
+                for ($i = 1; $i <= $numQuestTawsil; $i++) {
+                    if ($request->input('quest_tawsil-' . $i) == 'quest_tawsil') {
+                        $fileName = $this->handleFileUpload($request, "file-uploaded-tawsil-" . $i);
+
+                        // No specific time for question
+                        $noSpecificTime = $request->has('no-specific-time-tawsil-' . $i) && $request->input('no-specific-time-tawsil-' . $i) == 'on';
+
+                        $resultId = $this->addTawsilQuestion($request, $i, $fileName, $noSpecificTime);
+                        if ($resultId) {
+                            $this->add_tawsil_junction($resultId, $exam->id);
+                        } else {
+                            return redirect()->back()->with('error', 'Error Adding Long Text question')->withInput();
+                        }
+                    }
+                }
+
+                // Generate URL for student to show their exam
+
+                $hash= Str::random(10);
+                $url = route('student/activate-exam', [$exam->id, $idTeacher, $hash]);
+                session()->flash('showUrl', $url);
+                session()->flash('success', 'Exam added successfully');
+
+                // Save the hash URL
+                $this->add_hash_url(null, $exam->id, $idTeacher, $hash);
+
+                return redirect()->route('showExam');
+    }
+
     public function studentListExamByTeacher($idTeacher = '')
     {
 

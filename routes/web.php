@@ -37,6 +37,7 @@ Route::middleware(['auth.redirect'])->group(function(){
     Route::get('teacher/result/exam-by-teacher/{student}/{exam}', [TeacherController::class, 'studentResultExamByTeacher'])->name('teacher.studentResultExamByTeacher');
     Route::post('teacher/giveNote', [TeacherController::class, 'giveNoteLongText'])->name('teacher.giveNoteLongText');
     Route::post('teacher/addExamData', [TeacherController::class, 'addExamData'])->name('addExamData');
+    Route::post('teacher/editExamData', [TeacherController::class, 'editExamData'])->name('editExamData');
     Route::post('teacher/show-notes-to-student', [TeacherController::class, 'showNotesToStudent'])->name('teacher.showNotesToStudent');
     Route::post('teacher/show-correction', [TeacherController::class, 'showCorrectionTostudents'])->name('teacher.showCorrectionTostudents');
     Route::get('teacher/affect/exam-by-teacher/{exam}', [TeacherController::class, 'affectExamByTeacher'])->name('teacher.affectExamByTeacher');
