@@ -632,10 +632,12 @@ Common
 						<label for="check-no-retake-exam"> <i></i>Do not Retake the exam</label>
 					</span>
                 </div>
+                <!--
                 <div class="col-md-12" >
                     <h5> Copy paste equations from this editor</h5>
                     <textarea id="editor"></textarea>
                 </div>
+                !-->
                 <div class="quest-0 quest--list">
                 </div>
                 <?php $countMultiQuest=0;$countSteps=1;?>
@@ -645,7 +647,7 @@ Common
                 <div class="quest-{{$countSteps}} quest--list">
                     <input type="text" name="quest_mutliple-{{$countMultiQuest}}" value="quest_mutliple" hidden>
                     <input type="text" name="count-quest-mutli" value="{{$countMultiQuest}}" hidden>
-                    <input type="text" name="id-quest-multi-{{$countMultiQuest}}" value="{{$question->quest_multi_id}}" hidden>
+                    <input type="text" name="id-quest-multi-{{$countMultiQuest}}" value="{{$question->id}}" hidden>
                     <a class="btn-floating btn-large waves-effect waves-light red close-question" name="{{$question->quest_multi_id}}" alt="quest_mutliple"  id="close-{{$countSteps}}" style="float:right;"><i class="fa fa-times"></i></a>
                     <div data-step-label="" class="step-title waves-effect waves-dark">Question {{$countSteps}}</div>
                     <div class="step-content">
@@ -771,7 +773,7 @@ Common
                 <div class="quest-{{$countSteps}} quest--list">
                     <input type="text" name="quest_long_text-{{$countLongQuest}}" value="quest_long_text" hidden>
                     <input type="text" name="count-quest-long-text" value="{{$countLongQuest}}" hidden>
-                    <input type="text" name="id-quest-long-{{$countLongQuest}}" value="{{$question->quest_long_text_id}}" hidden>
+                    <input type="text" name="id-quest-long-{{$countLongQuest}}" value="{{$question->id}}" hidden>
                     <a class="btn-floating btn-large waves-effect waves-light red close-question" name="{{$question->quest_long_text_id}}" alt="quest_long_text" id="close-{{$countSteps}}" style="float:right;"><i class="fa fa-times"></i></a>
                     <div data-step-label="" class="step-title waves-effect waves-dark">Question {{$countSteps}}</div>
                     <div class="step-content">
@@ -838,7 +840,7 @@ Common
                 <div class="quest-{{$countSteps}} quest--list">
                     <input type="text" name="quest_tawsil-{{$countTawsilQuest}}" value="quest_tawsil" hidden>
                     <input type="text" name="count-quest-tawsil" value="{{$countTawsilQuest}}" hidden>
-                    <input type="text" name="id-quest-tawsil-{{$countTawsilQuest}}" value="{{$question->quest_tawsil_id}}" hidden>
+                    <input type="text" name="id-quest-tawsil-{{$countTawsilQuest}}" value="{{$question->id}}" hidden>
                     <a class="btn-floating btn-large waves-effect waves-light red close-question"  name="{{$question->quest_tawsil_id}}" alt="quest_tawsil" id="close-{{$countSteps}}" style="float:right;"><i class="fa fa-times"></i></a>
                     <div data-step-label="" class="step-title waves-effect waves-dark">Question {{$countSteps}}</div>
                     <div class="step-content">
@@ -962,7 +964,7 @@ Common
                 <div class="quest-{{$countSteps}} quest--list">
                     <input type="text" name="quest_tartib-{{$countTartibQuest}}" value="quest_tartib" hidden>
                     <input type="text" name="count-quest-tartib" value="{{$countTartibQuest}}" hidden>
-                    <input type="text" name="id-quest-tartib-{{$countTartibQuest}}" value="{{$question->quest_tartib_id}}" hidden>
+                    <input type="text" name="id-quest-tartib-{{$countTartibQuest}}" value="{{$question->id}}" hidden>
                     <a class="btn-floating btn-large waves-effect waves-light red close-question"  name="{{$question->quest_tartib_id}}"  alt="quest_tartib" id="close-{{$countSteps}}" style="float:right;"><i class="fa fa-times"></i></a>
                     <div data-step-label="" class="step-title waves-effect waves-dark">Question {{$countSteps}}</div>
                     <div class="step-content">
@@ -1047,7 +1049,7 @@ Common
                 <div class="quest-{{$countSteps}} quest--list">
                     <input type="text" name="quest_span-{{$countSpanQuest}}" value="quest_span" hidden>
                     <input type="text" name="count-quest-span" value="{{$countSpanQuest}}" hidden>
-                    <input type="text" name="id-quest-span-{{$countSpanQuest}}" value="{{$question->quest_span_id}}" hidden>
+                    <input type="text" name="id-quest-span-{{$countSpanQuest}}" value="{{$question->id}}" hidden>
                     <a class="btn-floating btn-large waves-effect waves-light red close-question"  name="{{$question->quest_span_id}}" alt="quest_span" id="close-{{$countSteps}}" style="float:right;"><i class="fa fa-times"></i></a>
                     <div data-step-label="" class="step-title waves-effect waves-dark">Question {{$countSteps}}</div>
                     <div class="step-content">

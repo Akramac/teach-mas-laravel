@@ -290,6 +290,8 @@ class TeacherController extends Controller
                 $titleExam = $request->input('title_exam');
                 $durationExam = $request->input('usr_time_exam');
 
+                $selectCategory = $request->input('select-category') ;
+
                 // Handle boolean inputs
                 $allowScreenRecord = $request->has('record-screen') && $request->input('record-screen') === 'on';
                 $allowCameraRecord = $request->has('record-camera') && $request->input('record-camera') === 'on';
@@ -318,11 +320,13 @@ class TeacherController extends Controller
                         $fileName = $this->handleFileUpload($request, "file-uploaded-multi-" . $i);
                         $noSpecificTime = $request->has('no-specific-time-multi-' . $i) && $request->input('no-specific-time-multi-' . $i) == 'on';
 
-                        $resultId = $this->addMultipleChoiceQuestion($request, $i, $fileName, $noSpecificTime);
+                    $idQuestionChoices=$request->request->get('id-quest-multi-'.$i);
+
+                    $resultId = $this->addMultipleChoiceQuestion($request, $i, $fileName, $noSpecificTime);
                         if ($resultId) {
                             $this->add_mutli_choice_junction($resultId, $exam->id);
                         } else {
-                            return redirect()->back()->with('error', 'Error Adding question Multi with choices')->withInput();
+                            session()->flash('success', 'Exam edited successfully');
                         }
                     }
                 }
@@ -338,7 +342,7 @@ class TeacherController extends Controller
                         if ($resultId) {
                             $this->add_long_text_junction($resultId, $exam->id);
                         } else {
-                            return redirect()->back()->with('error', 'Error Adding Long Text question')->withInput();
+                            session()->flash('success', 'Exam edited successfully');
                         }
                     }
                 }
@@ -356,7 +360,7 @@ class TeacherController extends Controller
                         if ($resultId) {
                             $this->add_tartib_junction($resultId, $exam->id);
                         } else {
-                            return redirect()->back()->with('error', 'Error Adding Tartib question')->withInput();
+                            session()->flash('success', 'Exam edited successfully');
                         }
                     }
                 }
@@ -373,7 +377,7 @@ class TeacherController extends Controller
                         if ($resultId) {
                             $this->add_span_junction($resultId, $exam->id);
                         } else {
-                            return redirect()->back()->with('error', 'Error Adding Long Text question')->withInput();
+                            session()->flash('success', 'Exam edited successfully');
                         }
                     }
                 }
@@ -390,7 +394,7 @@ class TeacherController extends Controller
                         if ($resultId) {
                             $this->add_tawsil_junction($resultId, $exam->id);
                         } else {
-                            return redirect()->back()->with('error', 'Error Adding Long Text question')->withInput();
+                            session()->flash('success', 'Exam edited successfully');
                         }
                     }
                 }

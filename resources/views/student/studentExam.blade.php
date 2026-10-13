@@ -510,11 +510,12 @@
                 </ul>
             </form>
 
-
+            <!--
             <div class="col-md-12" >
                 <h5> Copy paste equations from this editor</h5>
                 <textarea id="editor"></textarea>
             </div>
+            !-->
 
         </div><!--/container-->
 

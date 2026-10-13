@@ -891,10 +891,11 @@ Common
 						<label for="check-no-retake-exam"> <i></i>Do not Retake the exam</label>
 					</span>
                 </div>
-                <div class="col-md-12" >
+                <!-- <div class="col-md-12" >
                     <h5> Copy paste equations from this editor</h5>
                     <textarea id="editor"></textarea>
                 </div>
+                !-->
                 <div class="quest-0 quest--list">
                 </div>
                 <div class="quest-1 quest--list">
