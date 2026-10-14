@@ -561,6 +561,10 @@ Common
     .div-after-label{
         margin-top: 15%;
     }
+
+    .trash-delete-exam{
+        cursor: pointer;
+    }
 </style>
 <div class="page-loader"></div>
 
@@ -642,7 +646,10 @@ Common
                                         <h2 class="title h4"><a  href="{{ url('teacher/adminstrate/exam-by-teacher/'.$exam->id) }}">Exam {{$exam->title_exam}}</a></h2>
                                         <sup>Date of creation : {{$exam->created_at}} </sup>
                                         <!--											<span class="description clearfix">Gubergren amet dolor ea diam takimata consetetur facilisis blandit et aliquyam lorem ea duo labore diam sit et consetetur nulla</span>
-                                        -->										</div>
+                                        -->	
+                                        <br>
+                                        Delete exam : <i class="fa fa-trash trash-delete-exam delete-exam-{{$exam->id}}" aria-hidden="true" style="color:red"></i>									
+                                    </div>
                                 </div>
                             </article>
 
@@ -794,6 +801,10 @@ Common
         });
     };
     $( document ).ready( paginationHandler );
+
+    $('.trash-delete-exam').click(function(){
+    window.location.href="{{ url('teacher/deleteExam/'.$exam->id) }}";
+    })
 
 </script>
 <script>

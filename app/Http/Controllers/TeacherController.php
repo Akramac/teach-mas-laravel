@@ -411,7 +411,19 @@ class TeacherController extends Controller
 
                 return redirect()->route('showExam');
     }
+    
+    public function deleteExam($idExam=''){
 
+    $examResult = Exam::find($idExam);
+    if($examResult){
+        $examResult->delete();
+        session()->flash('success', 'Exam deleted successfully');
+        return redirect()->back()->with('success', 'Exam deleted succesfully')->withInput();
+        } else {
+            session()->flash('error', 'Exam not found');
+            return redirect()->back()->with('error', 'Exam not found')->withInput();
+        }
+    }
     public function studentListExamByTeacher($idTeacher = '')
     {
 
