@@ -79,6 +79,15 @@
         $('.toast').last().toast('show')
     }
 
+    $(document).ready(function(){
+        setTimeout(() => {
+            $('.toast').removeClass('show')
+        }, 8000);
+    })
+    $(document).on('click', '#toast-container .close', function(e) {
+        $('.toast').removeClass('show')
+        
+    });
 
     // Show success or error messages from session
     @if(session('success'))
