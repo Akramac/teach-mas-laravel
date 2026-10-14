@@ -1132,12 +1132,12 @@ class TeacherController extends Controller
                 }else{
                     $result = $this->update_data_long_text(
                         $idQuestionLong,
-                        $this->session->userdata('id'),
-                        $this->input->post('title-question-long-'.$i),
-                        $this->input->post('correct-question-long-'.$i),
-                        $this->input->post('usr_time-long-'.$i),
-                        $this->input->post('file-uploaded-long-'.$i),
-                        $this->input->post('points-long-'.$i),
+                        Auth::id(),
+                        $request->input('title-question-long-'.$i),
+                        $request->input('correct-question-long-'.$i),
+                        $request->input('usr_time-long-'.$i),
+                        $request->input('file-uploaded-long-'.$i),
+                        $request->input('points-long-'.$i),
                         $fileName,
                         $noSpecificTime
 

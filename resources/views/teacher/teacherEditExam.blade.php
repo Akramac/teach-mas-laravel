@@ -1122,7 +1122,13 @@ Common
                                                 <div class="card-content white-text">
                                                     <div class="row">
                                                         <div class="col s12 section-to-add-word">
-                                                            <span class="given btn-flat white-text red lighten-1" rel="1" style="display:none;">the Santee, thDakota</span>
+                                                            <?php  
+                                                            $fullWords =$question->words;
+                                                            $words= explode(';',$fullWords);
+                                                            array_shift($words);
+                                                            foreach ($words as $word){ ?>
+                                                                <span class="given btn-flat white-text red lighten-1" rel="1" >{{$word}}</span>
+                                                            <?php } ?>
                                                         </div>
                                                     </div>
                                                 </div>
