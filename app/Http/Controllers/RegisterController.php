@@ -6,6 +6,7 @@ use App\Models\Student;
 use App\Models\Teacher;
 use App\Models\User;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -13,18 +14,23 @@ use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $data['title'] = 'Register';
 
+        $user = Auth::user();
+        $data['user_level'] = $user ? $user->user_level : null;
+        $userType=$request->query->get('user');
+        $data['user_type']= $userType;
         // Return the view with the data
         return view('security.register', $data);
     }
 
-    public function register(Request $request)
+    public function registerData(Request $request)
     {
         $validator  = $this->validator($request->all());
         $userType=$request->input('user_type');
+        
         $userLevel='';
         if ($userType === 'teacher') {
             $userLevel = 'ROLE_TEACHER';

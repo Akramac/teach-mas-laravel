@@ -38,13 +38,13 @@
             <br />
 
             <div class="panel panel-default">
-                <div class="panel-heading">Register as {{request('user')}}</div>
+                <div class="panel-heading">Register as {{$user_type}}</div>
                 <div class="panel-body">
-                    <form method="post" action="{{route('registerData')}}">
+                    <form method="post" action="{{url('registerData')}}">
                         @csrf
                         <div class="form-group" hidden>
                             <label>Type</label>
-                            <input type="text" id="type" name="user_type" class="form-control" value="{{request('user')}}"  />
+                            <input type="text" id="type" name="user_type" class="form-control" value="{{$user_type}}"  />
                         </div>
 
                         <div class="form-group">
