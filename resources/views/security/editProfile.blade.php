@@ -65,6 +65,10 @@
                             <label>Change profile photo</label>
                             <input type='file' name='image' class="form-control" size='20' />
                             <span class="text-danger" style="color:red;"></span>
+                            <!-- Display the existing uploaded photo from your server/database -->
+                            <div class="mb-2">
+                                <img id="profilePreview" src="{{ asset('storage/uploads/' . session('image')) }}" alt="Current Profile Photo" style="width: 80px; height: 80px; object-fit: cover; border-radius: 50%; border: 1px solid #ccc;" />
+                            </div>
                         </div>
                         <div class="form-group col-md-12">
                             <input type="submit" name="login" value="Submit" class="btn btn-info" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--<a style="float:right;" href="<?php /*echo base_url(); */?>register">Forgot password ?</a>-->

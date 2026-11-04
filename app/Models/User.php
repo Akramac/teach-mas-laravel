@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -82,4 +83,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-}
+
+    protected function levelName():Attribute{
+         return Attribute::make(
+            get: fn () => match ($this->user_level){
+                'ROLE_TEACHER' => 'ROLE TEACHER',
+                'ROLE_STUDENT' => 'ROLE STUDENT',
+                'ROLE_ADMIN' =>'ROLE ADMIN'
+            }
+         );
+    }
+    }
