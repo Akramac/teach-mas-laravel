@@ -217,12 +217,12 @@
                 <div class="inner-div">
                     <div class="front">
                         <div class="front__bkg-photo"></div>
-                        <div class="front__face-photo"  ><img src="{{ asset('storage/uploads/' . session('image')) }}" style="width:100%"/></div>
+                        <div class="front__face-photo"  ><img src="{{ asset('storage/uploads/' . Auth::user()?->image) }}" style="width:100%"/></div>
                         <div class="front__text">
-                            <h3 class="front__text-header">{{Auth::user()->name}}</h3>
+                            <h3 class="front__text-header">{{Auth::user()->name ?? 'Guest'}}</h3>
                             <p class="front__text-para"><i class="fas fa-map-marker-alt front-icons"></i></p>
 
-                            <span class="front__text-hover">{{Auth::user()->levelName}}</span>
+                            <span class="front__text-hover">{{Auth::user()->levelName ?? 'Role Guest'}}</span>
                         </div>
                     </div>
                     <div class="back">

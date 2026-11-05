@@ -82,10 +82,12 @@
     $(document).ready(function(){
         setTimeout(() => {
             $('.toast').removeClass('show')
+            $('.toast').addClass('hide')
         }, 8000);
     })
     $(document).on('click', '#toast-container .close', function(e) {
         $('.toast').removeClass('show')
+        $('.toast').addClass('hide')
         
     });
 
