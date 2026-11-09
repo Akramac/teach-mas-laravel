@@ -461,6 +461,14 @@ class TeacherController extends Controller
 
         $data['title'] = 'Student Page By Teacher';
 
+        $data['teacher']= Auth::id();
+        $exam = Exam::where('id', $idExam)->first();
+        if($exam == null ){
+            session()->flash('error', 'Exam not found!');
+            return redirect()->route('teacher.studentListExamByTeacher', $data);
+        }
+
+        
         // Get the teacher's ID based on the authenticated user
         $teacher = Teacher::where('user_id', Auth::id())->first();
         $idTeacher = $teacher ? $teacher->id : null;
