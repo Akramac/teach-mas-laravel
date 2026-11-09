@@ -648,7 +648,7 @@ Common
                                         <!--											<span class="description clearfix">Gubergren amet dolor ea diam takimata consetetur facilisis blandit et aliquyam lorem ea duo labore diam sit et consetetur nulla</span>
                                         -->	
                                         <br>
-                                        Delete exam : <i class="fa fa-trash trash-delete-exam delete-exam-{{$exam->id}}" aria-hidden="true" style="color:red"></i>									
+                                        Delete exam : <a  href="{{ url('teacher/deleteExam/'.$exam->id) }}"><i class="fa fa-trash trash-delete-exam delete-exam-{{$exam->id}}" aria-hidden="true" style="color:red"></i></a>									
                                     </div>
                                 </div>
                             </article>
