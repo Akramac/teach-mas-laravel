@@ -662,7 +662,7 @@ Common
                             </div>
                         </div> <!--/filter-box-->
                         <!--close filters on mobile / update filters class removed .toggle-filters-close-->
-                        <input type="submit" class=" btn btn-main" value="UPDATE CATEGORY" id="submit-category">
+                        <input type="submit" class=" btn btn-main" value="UPDATE CATEGORY" data-url="{{ url('student/list-exam-by-categorie') }}" id="submit-category">
 
                     </div> <!--/filters-->
                 </div>
@@ -768,7 +768,7 @@ Common
                                             if($booleanNeverTaken==false){?>href="{{url('student/pass/exam/'.$exam->exam_id)}}"  <?php }} ?>>Exam {{$exam->title_exam}}</a></h2>
                                         <?php foreach($listreponsesExam as $response) { ?>
                                         <?php if($response->exam_id==$exam->exam_id){ ?>
-                                        <?php if($response->show_notes==true){ ?>
+                                        <?php if(!empty($response->show_notes) && $response->show_notes==true){ ?>
                                         <sup>Note : <?php if($response->note_by_teacher>=10){ ?><a style="color:green;font-weight: bold;"> {{$response->note_by_teacher}} </a> <?php  }else{ ?> <a style="color:red;font-weight: bold;"> {{$response->note_by_teacher}} </a> <?php }?></sup><br>
                                         <?php } ?>
                                         <?php } ?>
@@ -931,7 +931,8 @@ Common
 
                 if($this.is(":checked")){
                     idCategory=$this.attr('id').replace('category','');
-                    window.location.href="index.php/student/list/exam-by-category/"+idCategory;
+                    var baseUrl = $('#submit-category').data('url');
+                    window.location.href = baseUrl + "/" + idCategory;
                 }
             });
             $("#allCategories:checkbox").each(function(){

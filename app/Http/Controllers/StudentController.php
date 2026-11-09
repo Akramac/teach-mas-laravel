@@ -226,6 +226,91 @@ class StudentController extends Controller
         return view('student.studentListExam', $data);
     }
 
+    public function studentListExamByCategory($idCategory = '')
+    {
+        // Set the language (if using localization)
+        Session::put('site_lang', 'english');
+
+        $data['title'] = 'Student Page';
+
+        // List of categories
+        $data['allCategories'] = Categorie::limit(6)->get();
+
+        // Get the authenticated student's ID
+        $student = Student::where('user_id', Auth::id())->first();
+        $idStudent = $student ? $student->id : null;
+        $data['idStudent'] = $idStudent;
+
+        // Get the teacher IDs associated with the student
+        $arrayTeachers = [];
+        if ($idStudent) {
+            $teacherStudentResult = DB::table('student_teacher')
+                ->where('student_id', $idStudent)
+                ->pluck('teacher_id');
+
+            $teacherIds = $teacherStudentResult->toArray();
+        }
+        $arrayTeachers = array_merge(['0'], $teacherIds);
+
+        // List of teachers by student
+        if (!empty($teacherIds)) {
+            $data['listTeachers'] = DB::table('teachers')
+                ->join('student_teacher', 'student_teacher.teacher_id', '=', 'teachers.id')
+                ->whereIn('student_teacher.teacher_id', $arrayTeachers)
+                ->select('teachers.name', 'teachers.id')
+                ->distinct()
+                ->get();
+        } else {
+            $data['listTeachers'] = collect();
+        }
+
+
+
+        // List of exams based on category condition
+        $examByTeacherResult = collect();
+        
+        if (!empty($teacherIds)) {
+            $query = DB::table('exams')
+                ->join('student_exam', 'student_exam.exam_id', '=', 'exams.id')
+                ->where('student_exam.student_id', $idStudent)
+                ->whereIn('exams.teacher_id', $arrayTeachers);
+
+            // Apply category filter if provided and not 'all'
+            if ($idCategory !== '' && $idCategory !== 'all') {
+                $query->where('categorie_id', $idCategory);
+            }
+
+            $examByTeacherResult = $query->orderBy('exams.created_at', 'desc')->get();
+        }
+        
+        $data['listExams'] = $examByTeacherResult;
+
+        // Get exams response count (never taken)
+        $arrayneverTakenExam = [];
+        foreach ($examByTeacherResult as $exam) {
+            $id_Exam = $exam->id;
+            $examsResponseResults = DB::table('response_exam')
+                ->where('exam_id', $id_Exam)
+                ->where('student_id', $idStudent)
+                ->whereIn('teacher_id', $arrayTeachers)
+                ->distinct()
+                ->get();
+                
+            $arrayneverTakenExam[$id_Exam] = count($examsResponseResults);
+        }
+        $data['arrayneverTakenExam'] = $arrayneverTakenExam;
+
+        // List of response exams by student
+        $data['listreponsesExam'] = DB::table('response_exam')
+            ->where('student_id', $idStudent)
+            ->groupBy('exam_id')
+            ->orderBy('created_at', 'desc')
+            ->select( 'exam_id')
+            ->get();
+
+        return view('student.studentListExam', $data);
+    }
+
     public function studentAddExamToDB(Request $request)
     {
         // Set the language (if using localization)
