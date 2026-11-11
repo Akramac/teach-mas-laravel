@@ -643,6 +643,14 @@ Common
                                     <td>{{$mutli->created_at}}</td>
                                 </tr>
                                 <?php } ?>
+                                <?php foreach($respones_long_quest as $longText) { ?>
+                                <tr>
+                                    <td>Makal Question</td>
+                                    <td>{{$longText->note_by_teacher}}</td>
+                                    <?php $total+=$longText->note_by_teacher;?>
+                                    <td>{{$longText->created_at}}</td>
+                                </tr>
+                                <?php } ?>
                                 <?php foreach($respones_tawsil_quest as $tawsil) { ?>
                                 <tr>
                                     <td>Tawsil</td>
@@ -843,9 +851,9 @@ Common
 
                     <div class="row row-clean">
                         <div class="col-md-12 ">
-                            <h5>Words to drag and drop </h5>
                             <br>
                             <?php foreach($respones_span_quest as $key => $span) { ?>
+                            <h5>Words to drag and drop </h5>
                             <label>Response :</label>
                             <span class="response-span-to-highlight" style="display:block;width:auto;word-wrap:break-word;">{{$span->reponse_span}}</span>
 
