@@ -752,7 +752,7 @@ Common
 
                                     </div>
                                     <div class="text">
-                                        <h2 class="title h4"><a target="_blank" <?php if($exam->no_remake_exam==false) { ?>  href="index.php/student/pass/exam/{{$exam->exam_id}}" <?php
+                                        <h2 class="title h4"><a target="_blank" <?php if($exam->no_remake_exam==false) { ?>  href="{{url('student/pass/exam/'.$exam->exam_id)}}" <?php
                                             }else{
                                             $booleanNeverTaken=false;
                                             if(!empty($arrayneverTakenExam)) {

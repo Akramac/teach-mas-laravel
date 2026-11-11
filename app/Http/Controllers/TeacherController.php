@@ -789,11 +789,11 @@ class TeacherController extends Controller
         foreach ($listQuestMulti as $multiQuest) {
             // Get the response for the multi-choice question
             $reponseMutliQuest = ResponseQuestionMultiChoice::where('exam_id', $idExam)
-                ->where('question_multi_id', $multiQuest->question_multi_id)
+                ->where('question_multi_id', $multiQuest->question_multi_choice_id)
                 ->where('student_id', $idStudent)
                 ->orderBy('id', 'desc')
                 ->first();
-
+                
             if ($reponseMutliQuest) {
                 $data['respones_multi_quest'][] = $reponseMutliQuest;
             }
