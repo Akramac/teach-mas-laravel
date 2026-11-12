@@ -259,11 +259,11 @@
                                     <label >Link the correct options</label>
 
 
-                                    <div style="margin-top: 7%;">
+                                    <div style="margin-top: 7%;margin-left: 12%">
                                         <div class="row">
                                             <img src="{{asset('assets/images/dragg.png')}}" alt="Alternate Text" style="width:35px;height: 35px;" />
                                             <img src="{{asset('assets/images/link.png')}}" alt="Alternate Text" style="width:25px;height: 35px;float:right;"/>
-                                            <ul id="sortlist{{$question->question_tawsil_id}}" class="col-md-6 col-xs-6 sortlist" style="margin-top:30px;">
+                                            <ul id="sortlist{{$question->question_tawsil_id}}" class="col-md-4 col-xs-6 sortlist">
                                                 <li alt="{{$question->option_1}}">
 
                                                     {{$question->option_1}}
@@ -290,7 +290,7 @@
                                                 <?php endif;?>
                                             </ul>
 
-                                            <ul id="correspList"  class="correspList col-md-6 col-xs-6">
+                                            <ul id="correspList"  class="correspList col-md-4 col-xs-6">
                                                 <li>
                                                     {{$question->link_option_1}}
                                                 </li>
