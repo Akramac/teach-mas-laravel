@@ -610,29 +610,14 @@ class TeacherController extends Controller
             // Make correction
             if ($questTawsilQuest && $reponseTawsilQuest) {
                 // Check if the answers are correct
-                $isAnsweredWrong = true;
-
-                if ($reponseTawsilQuest->response_option_1 == $reponseTawsilQuest->correct_option_1) {
-                    $isAnsweredWrong = false;
-                }
-                if ($reponseTawsilQuest->response_option_2 == $reponseTawsilQuest->correct_option_2) {
-                    $isAnsweredWrong = false;
-                }
-                if ($reponseTawsilQuest->response_option_3 == $reponseTawsilQuest->correct_option_3) {
-                    $isAnsweredWrong = false;
-                }
-                if ($reponseTawsilQuest->response_option_4 == $reponseTawsilQuest->correct_option_4) {
-                    $isAnsweredWrong = false;
-                }
-                if ($reponseTawsilQuest->response_option_5 == $reponseTawsilQuest->correct_option_5) {
-                    $isAnsweredWrong = false;
-                }
-                if ($reponseTawsilQuest->response_option_6 == $reponseTawsilQuest->correct_option_6) {
-                    $isAnsweredWrong = false;
-                }
+                $isAllCorrect = 
+                ($reponseTawsilQuest->response_option_1 == $reponseTawsilQuest->correct_option_1) &&
+                ($reponseTawsilQuest->response_option_2 == $reponseTawsilQuest->correct_option_2) &&
+                ($reponseTawsilQuest->response_option_3 == $reponseTawsilQuest->correct_option_3) &&
+                ($reponseTawsilQuest->response_option_4 == $reponseTawsilQuest->correct_option_4);
 
                 // Update the note based on whether the answer was correct
-                if ($isAnsweredWrong) {
+                if ($isAllCorrect) {
                     $noteFinale += $questTawsilQuest->points;
                     $reponseTawsilQuest->note_by_teacher = $questTawsilQuest->points;
                 } else {
