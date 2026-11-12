@@ -738,7 +738,7 @@ Common
                                     <td>{{$mutli->response_option_5}}</td>
                                     <td>{{$mutli->response_option_6}}</td>
                                 </tr>
-                                <?php foreach($quets_multi_quest as $orginalquest) { ?>
+                                <?php foreach($quets_multi_quest as $orginalquest) {  ?>
                                 <?php if($orginalquest->id==$mutli->question_multi_id){ ?>
                                 <tr style="color: forestgreen">
                                     <td>{{$orginalquest->id}}</td>

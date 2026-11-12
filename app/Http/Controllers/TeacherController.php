@@ -784,7 +784,7 @@ class TeacherController extends Controller
             }
 
             // Get the question details
-            $examssResult = QuestionMultiChoice::find($multiQuest->question_multi_id);
+            $examssResult = QuestionMultiChoice::find($multiQuest->question_multi_choice_id);
             if ($examssResult) {
                 $data['quets_multi_quest'][] = $examssResult;
             }
@@ -826,7 +826,6 @@ class TeacherController extends Controller
                 $data['quets_tawsil_quest'][] = $examssTawsilResult;
             }
         }
-
         // Show note Tartib
         $listQuestTartib = ExamQuestTartibJunction::where('exam_id', $idExam)->get();
         $data['respones_tartib_quest'] = [];

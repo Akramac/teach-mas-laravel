@@ -750,7 +750,7 @@ Common
                                 <?php foreach($respones_multi_quest as $mutli) { ?>
                                 <tr>
                                     <td>{{$mutli->question_multi_id}}</td>
-                                    <td>Multi Question</td>
+                                    <td>Multi Question </td>
                                     <td>{{$mutli->note_by_teacher}}</td>
                                     <td>{{$mutli->response_option_1}}</td>
                                     <td>{{$mutli->response_option_2}}</td>
