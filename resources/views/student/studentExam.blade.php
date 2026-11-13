@@ -346,7 +346,7 @@
                             </div>
                             <?php } ?>
                             <label>Order this cards correctly :</label>
-                            <div class="row justify-content-center"><img src="{{asset('assets/images/dragg.png')}}" alt="Alternate Text" style="width:45px;float:right;"/>
+                            <div class="row justify-content-center"><img src="{{asset('assets/images/dragg.png')}}" alt="Alternate Text" style="width:45px;height:45px;float:right;"/>
                                 <ul id="sortlistOrder{{$question->question_tartib_id}}" class="col-md-6 col-xs-12 sortlistOrder" >
                                 <!--<img src="<?php /*echo base_url(); */?>assets/images/dragg.png" alt="Alternate Text" style="width:25px;float:right;"/>-->
                                     <li alt="{{$question->option_to_order_1;}}">
