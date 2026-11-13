@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="{{ asset('assets/css/menu.css') }}">
+
 <!-- ======================== Navigation ======================== -->
 
 <nav>
@@ -14,7 +16,7 @@
         <!-- ==========  Pre navigation ========== -->
 
         <div class="navigation navigation-pre clearfix">
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-md-3">
                     <a href="#"><i class="icon icon-heart-pulse"></i> </a>
                 </div>
@@ -28,6 +30,104 @@
                     <a href="#"></a>
                 </div>
             </div>
+            -->
+
+            <!-- Navigation Wrapper -->
+            <header class="navbar-wrapper">
+                <nav class="navbar">
+
+                <!-- Center: Pill Menu -->
+                <div class="nav-pill">
+                    <a href="#" class="nav-link">Home</a>
+                    <a href="#" class="nav-link">Exams</a>
+                    <a href="#" class="nav-link">Corrections</a>
+                </div>
+
+                <!-- Right: Auth Actions Pill -->
+                <div class="auth-pill">
+                    <a href="#" class="auth-link login">Login</a>
+                    <a href="#" class="auth-link signup">Sign up</a>
+                    <a href="#" class="btn-primary">Logout</a>
+                </div>
+                </nav>
+
+                <!-- Mega Dropdown Menu (Resources) -->
+                <div class="mega-menu" id="resources-menu">
+                <div class="mega-menu-inner">
+                    
+                    <!-- Column 1: Featured -->
+                    <div class="menu-col col-featured">
+                    <span class="col-label">Featured</span>
+                    <a href="#" class="featured-card">
+                        <div class="featured-img-box">
+                        <div class="featured-overlay">
+                            <p>Voiceflow named in Gartner’s Innovation Guide for AI Agents</p>
+                        </div>
+                        </div>
+                        <h3 class="featured-title">Voiceflow named in Gartner’s Innovation Guide for AI Agents as a key AI Agent vendor for customer service</h3>
+                        <span class="read-more">Read now <span class="arrow">&rsaquo;</span></span>
+                    </a>
+                    </div>
+
+                    <!-- Column 2: Read -->
+                    <div class="menu-col col-read">
+                    <span class="col-label">Read</span>
+                    
+                    <a href="#" class="read-item">
+                        <div class="read-thumb thumb-docs"></div>
+                        <div class="read-content">
+                        <h4>Docs</h4>
+                        <p>Powerful documentation for designers and developers to learn Voiceflow.</p>
+                        <span class="read-more">Read now <span class="arrow">&rsaquo;</span></span>
+                        </div>
+                    </a>
+
+                    <div class="divider"></div>
+
+                    <a href="#" class="read-item">
+                        <div class="read-thumb thumb-stories"></div>
+                        <div class="read-content">
+                        <h4>Customer stories</h4>
+                        <p>Build, launch, and scale AI agents for every customer channel — all in one...</p>
+                        <span class="read-more">Read now <span class="arrow">&rsaquo;</span></span>
+                        </div>
+                    </a>
+                    </div>
+
+                    <!-- Column 3: Links -->
+                    <div class="menu-col col-links">
+                    <span class="col-label">Links</span>
+                    <div class="links-grid">
+                        <a href="#" class="icon-link">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+                        <span>Podcast</span>
+                        <span class="ext-arrow">&#8599;</span>
+                        </a>
+                        <a href="#" class="icon-link">
+                        <span>Community</span>
+                        </a>
+                        <a href="#" class="icon-link">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/></svg>
+                        <span>Webinars</span>
+                        </a>
+                        <a href="#" class="icon-link">
+                        <span>Youtube</span>
+                        <span class="ext-arrow">&#8599;</span>
+                        </a>
+                        <a href="#" class="icon-link">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                        <span>Stories</span>
+                        </a>
+                        <a href="#" class="icon-link">
+                        <span>Changelog</span>
+                        <span class="ext-arrow">&#8599;</span>
+                        </a>
+                    </div>
+                    </div>
+
+                </div>
+                </div>
+        </header>
         </div>
 
 
