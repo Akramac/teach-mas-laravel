@@ -642,34 +642,21 @@ class TeacherController extends Controller
             // Make correction
             if ($questTartibQuest && $reponseTartibQuest) {
                 // Check if the answers are correct
-                $isAnsweredWrong = true;
+                $isAllCorrect = 
+                ($reponseTartibQuest->reponse_option_to_order_1 == $reponseTartibQuest->correct_order_1) &&
+                ($reponseTartibQuest->reponse_option_to_order_2 == $reponseTartibQuest->correct_order_2) &&
+                ($reponseTartibQuest->reponse_option_to_order_3 == $reponseTartibQuest->correct_order_3) &&
+                ($reponseTartibQuest->reponse_option_to_order_4 == $reponseTartibQuest->correct_order_4) &&
+                ($reponseTartibQuest->reponse_option_to_order_5 == $reponseTartibQuest->correct_order_5) &&
+                ($reponseTartibQuest->reponse_option_to_order_6 == $reponseTartibQuest->correct_order_6);
 
-                if ($reponseTartibQuest->reponse_option_to_order_1 == $reponseTartibQuest->correct_order_1) {
-                    $isAnsweredWrong = false;
-                }
-                if ($reponseTartibQuest->reponse_option_to_order_2 == $reponseTartibQuest->correct_order_2) {
-                    $isAnsweredWrong = false;
-                }
-                if ($reponseTartibQuest->reponse_option_to_order_3 == $reponseTartibQuest->correct_order_3) {
-                    $isAnsweredWrong = false;
-                }
-                if ($reponseTartibQuest->reponse_option_to_order_4 == $reponseTartibQuest->correct_order_4) {
-                    $isAnsweredWrong = false;
-                }
-                if ($reponseTartibQuest->reponse_option_to_order_5 == $reponseTartibQuest->correct_order_5) {
-                    $isAnsweredWrong = false;
-                }
-                if ($reponseTartibQuest->reponse_option_to_order_6 == $reponseTartibQuest->correct_order_6) {
-                    $isAnsweredWrong = false;
-                }
-
-                // Update the note based on whether the answer was correct
-                if ($isAnsweredWrong) {
-                    $noteFinale += $questTartibQuest->points;
-                    $reponseTartibQuest->note_by_teacher = $questTartibQuest->points;
-                } else {
-                    $reponseTartibQuest->note_by_teacher = 0;
-                }
+            // Update the note based on whether all answers were correct
+            if ($isAllCorrect) {
+                $noteFinale += $questTartibQuest->points;
+                $reponseTartibQuest->note_by_teacher = $questTartibQuest->points;
+            } else {
+                $reponseTartibQuest->note_by_teacher = 0;
+            }
 
                 $reponseTartibQuest->save();
             }

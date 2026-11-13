@@ -974,16 +974,16 @@ Common
 
                                             <a style="display: none;" class="btn-floating btn-small waves-effect waves-light green correct-option-btn" > <i class="fa fa-check"></i></a>
                                             <a style="display: none;" class="btn-floating btn-small waves-effect waves-light red remove-option-btn" > <i class="fa fa-minus"></i></a>
-                                            <input type="text"  value="" style="display:none;" class="form-control options-list"  name="option-multi-5-1">
+                                            <input type="text"  value="" style="display:none;" class="form-control options-list"  name="option-multi-5-1" autocomplete="off">
                                             <a class="btn-floating btn-small waves-effect waves-light red add-option-btn" > <i class="fa fa-plus"></i></a>
-                                            <input type="text" style="display: none;" class="form-control correct-options-list"  name="correct-option-multi-5-1">
+                                            <input type="text" style="display: none;" class="form-control correct-options-list"  name="correct-option-multi-5-1" autocomplete="off">
 
                                         </div>
                                         <div class="col-md-6" >
                                             <a style="display: none;" class="btn-floating btn-small waves-effect waves-light green correct-option-btn" > <i class="fa fa-check"></i></a>
                                             <a style="display: none;" class="btn-floating btn-small waves-effect waves-light red remove-option-btn" > <i class="fa fa-minus"></i></a>
-                                            <input type="text"   value=""  style="display:none;" class="form-control options-list"  name="option-multi-6-1"><a class="btn-floating btn-small waves-effect waves-light red add-option-btn" > <i class="fa fa-plus"></i></a>
-                                            <input type="text" style="display: none;" class="form-control correct-options-list"  name="correct-option-multi-5-1">
+                                            <input type="text"   value=""  style="display:none;" class="form-control options-list"  name="option-multi-6-1" autocomplete="off"><a class="btn-floating btn-small waves-effect waves-light red add-option-btn" > <i class="fa fa-plus"></i></a>
+                                            <input type="text" style="display: none;" class="form-control correct-options-list"  name="correct-option-multi-6-1" autocomplete="off">
 
                                         </div>
                                     </div>
