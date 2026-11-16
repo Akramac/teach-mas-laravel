@@ -30,6 +30,7 @@ Route::middleware('guest')->group(function () {
 Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('register', [RegisterController::class, 'index'])->name('register');
 Route::redirect('/','/login');
+Route::redirect('/home','/login');
 Route::post('registerData', [RegisterController::class, 'registerData'])->name('registerData');
 Route::post('login/validation', [LoginController::class, 'validation'])->name('login/validation');
 Route::middleware(['auth.redirect'])->group(function(){
