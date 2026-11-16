@@ -326,3 +326,7 @@ a:hover .read-more .arrow {
     padding-top: 24px;
   }
 }
+
+nav .logo {
+  top: 0;
+}

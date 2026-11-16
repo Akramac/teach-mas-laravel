@@ -24,7 +24,9 @@ Route::get('/', function () {
 });
 
 
-Route::get('login', [LoginController::class, 'index'])->name('login');
+Route::middleware('guest')->group(function () {
+    Route::get('login', [LoginController::class, 'index'])->name('login');
+});
 Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('register', [RegisterController::class, 'index'])->name('register');
 Route::redirect('/','/login');

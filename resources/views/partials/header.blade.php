@@ -16,7 +16,7 @@
     <link rel="icon" href="{{asset('assets/images/logo--cropped.ico')}}">
 
     <!--Title-->
-    <title></title>
+    <title>{{ $title ?? 'Yahia mas App' }}</title>
 
     <!--CSS bundle -->
     <!-- <link rel="stylesheet" media="all" href="{{asset('assets/css/bootstrap.css')}}" /> -->

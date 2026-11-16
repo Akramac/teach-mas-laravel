@@ -1,5 +1,5 @@
 
-@include('partials.header')
+@include('partials.header', ['title' => 'Exams Affectation'])
 <!-- Compiled and minified CSS -->
 <link rel="stylesheet" media="all" href="https://unpkg.com/materialize-stepper@3.1.0/dist/css/mstepper.min.css" />
 <style>

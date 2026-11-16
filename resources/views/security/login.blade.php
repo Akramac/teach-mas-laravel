@@ -1,4 +1,4 @@
-@include('partials.header')
+@include('partials.header', ['title' => 'Login'])
 <!-- Compiled and minified CSS -->
 <head>
 </head>

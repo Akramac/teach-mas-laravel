@@ -1,5 +1,5 @@
 
-@include('partials/header')
+@include('partials/header', ['title' => 'Student Exam'])
 <!-- Compiled and minified CSS -->
 <link rel="stylesheet" media="all" href="https://unpkg.com/materialize-stepper@3.1.0/dist/css/mstepper.min.css" />
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">

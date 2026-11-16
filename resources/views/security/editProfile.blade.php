@@ -1,4 +1,4 @@
-@include('partials.header')
+@include('partials.header', ['title' => 'Edit profile'])
 <!-- Compiled and minified CSS -->
 <head>
 </head>

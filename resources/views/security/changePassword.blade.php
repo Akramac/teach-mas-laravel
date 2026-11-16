@@ -1,4 +1,4 @@
-@include('partials.header')
+@include('partials.header', ['title' => 'Password change'])
 <!-- Compiled and minified CSS -->
 <head>
 </head>

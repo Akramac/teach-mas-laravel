@@ -31,23 +31,29 @@
                 </div>
             </div>
             -->
-
+            @if (!Route::is('login'))
             <!-- Navigation Wrapper -->
             <header class="navbar-wrapper">
                 <nav class="navbar">
 
                 <!-- Center: Pill Menu -->
                 <div class="nav-pill">
-                    <a href="#" class="nav-link">Home</a>
-                    <a href="#" class="nav-link">Exams</a>
+                    <a href="{{ route('login') }}" class="nav-link">Home</a>
+                    @if (auth()->user()?->user_level === 'ROLE_TEACHER')
+                        <a href="{{ route('teacher.studentListExamByTeacher', ['teacher'=> auth()->user()?->id])  }}" class="nav-link">Exams</a>
+                    @else
+                        <a href="{{ route('student.studentListExam') }}" class="nav-link">Exams</a>
+                    @endif
                     <a href="#" class="nav-link">Corrections</a>
                 </div>
 
                 <!-- Right: Auth Actions Pill -->
                 <div class="auth-pill">
-                    <a href="#" class="auth-link login">Login</a>
-                    <a href="#" class="auth-link signup">Sign up</a>
-                    <a href="#" class="btn-primary">Logout</a>
+                    @guest
+                    <a href="{{ route('login') }}" class="auth-link login">Login</a>
+                    @endguest
+                    <a href="{{ route('register') }}{{auth()->user()?->user_level === 'ROLE_TEACHER' ?  '?user=teacher' : '?user=student'}}" class="auth-link signup">Sign up</a>
+                    <a href="{{ route('logout') }}" class="btn-primary">Logout</a>
                 </div>
                 </nav>
 
@@ -127,7 +133,8 @@
 
                 </div>
                 </div>
-        </header>
+            </header>
+            @endif
         </div>
 
 
@@ -138,7 +145,7 @@
             <ul>
                 <!--add active class for current page-->
                 <li class="left-side"><a href="index.html" class="logo-icon"><!--<img src="<?php /*echo base_url(); */?>assets/images/icon.png" alt="Alternate Text" /></a>--></li>
-                <li class="left-side"><a href="{{url('register')}}?user=teacher"><img alt="teacher" src="{{asset('assets/images/teacher.png')}}" width="30" /></a></li>
+                <li class="left-side"><a href="{{url('register')}}"><img alt="teacher" src="{{asset('assets/images/teacher.png')}}" width="30" /></a></li>
                 <!--
 
                     // Use active class for current state
