@@ -60,7 +60,7 @@ class TeacherController extends Controller
                 $userId = Auth::id();
 
                 // Get the teacher ID based on the authenticated user
-                $teacher = Teacher::find($userId);
+                $teacher = Teacher::where('user_id',$userId)->first();
 
                 $idTeacher = $teacher ? $teacher->id : null;
 
@@ -279,7 +279,7 @@ class TeacherController extends Controller
                 $userId = Auth::id();
 
                 // Get the teacher ID based on the authenticated user
-                $teacher = Teacher::find($userId);
+                $teacher = Teacher::where('user_id',$userId)->first();
                 $idTeacher = $teacher ? $teacher->id : null;
 
                 //id exam to edit
@@ -428,7 +428,7 @@ class TeacherController extends Controller
     {
 
         $data['title'] = 'Student Page By Teacher';
-
+        
         // Get list of exams by teacher
         $examsResult = Exam::where('teacher_id', $idTeacher)
             ->orderBy('created_at', 'desc')
@@ -452,7 +452,7 @@ class TeacherController extends Controller
             }
         }
         $data['arrayLinksByExam'] = $arrayLinksByExam;
-
+        
         return view('teacher.studentListExamByTeacher', $data);
     }
 

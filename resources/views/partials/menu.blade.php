@@ -40,7 +40,10 @@
                 <div class="nav-pill">
                     <a href="{{ route('login') }}" class="nav-link">Home</a>
                     @if (auth()->user()?->user_level === 'ROLE_TEACHER')
-                        <a href="{{ route('teacher.studentListExamByTeacher', ['teacher'=> auth()->user()?->id])  }}" class="nav-link">Exams</a>
+                    @php
+                        $teacher = \App\Models\Teacher::where('user_id', auth()->id())->first();
+                    @endphp
+                        <a href="{{ route('teacher.studentListExamByTeacher', ['teacher'=> $teacher->id])  }}" class="nav-link">Exams</a>
                     @else
                         <a href="{{ route('student.studentListExam') }}" class="nav-link">Exams</a>
                     @endif
@@ -205,7 +208,7 @@
                                             @endif
                                             @if (Auth::check() && Auth::user()->hasRole('ROLE_TEACHER'))
                                                 <li><a style="cursor: pointer;" href="{{ url('teacher/teacherExam') }}">Add Exam</a></li>
-                                                <li><a style="cursor: pointer;" href="{{ url('teacher/list/exam-by-teacher/' . Auth::user()->id) }}">List Exams</a></li>
+                                                <li><a style="cursor: pointer;" href="{{ url('teacher/list/exam-by-teacher/' . $teacher->id) }}">List Exams</a></li>
                                             @endif
                                             @if (Auth::check() && Auth::user()->hasRole('ROLE_STUDENT'))
                                                 <li><a style="cursor: pointer;" href="{{ url('student/list-exam') }}">List Exams</a></li>

@@ -648,7 +648,11 @@ Common
                                         <!--											<span class="description clearfix">Gubergren amet dolor ea diam takimata consetetur facilisis blandit et aliquyam lorem ea duo labore diam sit et consetetur nulla</span>
                                         -->	
                                         <br>
-                                        Delete exam : <a  href="{{ url('teacher/deleteExam/'.$exam->id) }}"><i class="fa fa-trash trash-delete-exam delete-exam-{{$exam->id}}" aria-hidden="true" style="color:red"></i></a>									
+                                        @php
+                                            $deleteUrl = $exam ? url('teacher/deleteExam/' . $exam->id) : '#';
+                                        @endphp
+
+                                        Delete exam : <a  href="{{ url('teacher/deleteExam/'.$exam->id) }}"><i class="fa fa-trash trash-delete-exam delete-exam-{{$exam->id}}" data-url="{{ $deleteUrl }}" aria-hidden="true" style="color:red"></i></a>									
                                     </div>
                                 </div>
                             </article>
@@ -802,9 +806,16 @@ Common
     };
     $( document ).ready( paginationHandler );
 
-    $('.trash-delete-exam').click(function(){
-    window.location.href="{{ url('teacher/deleteExam/'.$exam->id) }}";
-    })
+    $('.trash-delete-exam').click(function(e){
+        e.preventDefault()
+        const url = $(this).data('url');
+
+        if (!url || url === '#') {
+            console.warn('Exam ID is missing.');
+            return;
+        }
+
+        window.location.href = url;
 
 </script>
 <script>
