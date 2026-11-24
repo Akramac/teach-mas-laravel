@@ -753,6 +753,10 @@ Common
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script src="https://unpkg.com/materialize-stepper@3.1.0/dist/js/mstepper.min.js"></script>
 
+@php
+    $teacherId = \App\Models\Teacher::where('user_id', auth()->id())->value('id');
+@endphp
+
 <script>
     var paginationHandler = function(){
         $('#allTeachers').change(function(){
@@ -829,13 +833,12 @@ Common
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-
             $.ajax({
                 type: "POST",
                 url: "{{url('teacher/affectation')}}",
                 data: {
                     'array_students' : arrayStudentToAffect ,
-                    'id_teacher' : {{Auth::user()->id}} ,
+                    'id_teacher' : {{$teacherId ?? 'null'}} ,
                     'exam_id':{{$exam->id}}},
                 error: function(error){
                     console.log(error);

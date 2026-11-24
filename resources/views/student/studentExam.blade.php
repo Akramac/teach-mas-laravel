@@ -230,6 +230,40 @@
                                 </div>
                             </div>
 
+                            <p id="src-draw-me" hidden>{{$question->data_file}}</p>
+                            <canvas width="600" height="400" id="draw-me"></canvas>
+                            <canvas width="600" height="400" id="draw-new"></canvas>
+                            <div class="controls">
+                                <ul>
+                                    <li class="red selected"></li>
+                                    <li class="blue"></li>
+                                    <li class="yellow"></li>
+                                </ul>
+
+                                <!--<button type="button" download="example.jpg" href=""  id="saveImage"  onclick="downloadCanvas(this);" hidden>Save Image</button>-->
+                                <button type="button" id="revealColorSelect">New Color</button>
+                                <div id="colorSelect">
+                                    <span id="newColor"></span>
+                                    <div class="sliders">
+                                        <p>
+                                            <label for="red">Red</label>
+                                            <input id="red" name="red" type="range" min=0 max=255 value=0>
+                                        </p>
+                                        <p>
+                                            <label for="green">Green</label>
+                                            <input id="green" name="green" type="range" min=0 max=255 value=0>
+                                        </p>
+                                        <p>
+                                            <label for="blue">Blue</label>
+                                            <input id="blue" name="blue" type="range" min=0 max=255 value=0>
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <button type="button" id="addNewColor">Add Color</button>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="step-actions">
                                 <button class="waves-effect waves-dark btn blue next-step">CONTINUE</button>
                             </div>
@@ -316,7 +350,39 @@
                                 </div>
 
                             </div>
+                            <p id="src-draw-me" hidden>{{$question->data_file}}</p>
+                            <canvas width="600" height="400" id="draw-me"></canvas>
+                            <canvas width="600" height="400" id="draw-new"></canvas>
+                            <div class="controls">
+                                <ul>
+                                    <li class="red selected"></li>
+                                    <li class="blue"></li>
+                                    <li class="yellow"></li>
+                                </ul>
 
+                                <!--<button type="button" download="example.jpg" href=""  id="saveImage"  onclick="downloadCanvas(this);" hidden>Save Image</button>-->
+                                <button type="button" id="revealColorSelect">New Color</button>
+                                <div id="colorSelect">
+                                    <span id="newColor"></span>
+                                    <div class="sliders">
+                                        <p>
+                                            <label for="red">Red</label>
+                                            <input id="red" name="red" type="range" min=0 max=255 value=0>
+                                        </p>
+                                        <p>
+                                            <label for="green">Green</label>
+                                            <input id="green" name="green" type="range" min=0 max=255 value=0>
+                                        </p>
+                                        <p>
+                                            <label for="blue">Blue</label>
+                                            <input id="blue" name="blue" type="range" min=0 max=255 value=0>
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <button type="button" id="addNewColor">Add Color</button>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="step-actions">
                                 <!--								<button class="waves-effect waves-dark btn blue next-step" data-feedback="someFunction">CONTINUE</button>
                                 -->								<button class="waves-effect waves-dark btn blue next-step">CONTINUE</button>
@@ -380,7 +446,39 @@
                                 <input type="text" value="1;2;3;4;5;6" name="tartib-input-{{$question->question_tartib_id;}}" class="form-control tartib-input"  style="opacity:0;">
 
                             </div>
+<p id="src-draw-me" hidden>{{$question->data_file}}</p>
+                            <canvas width="600" height="400" id="draw-me"></canvas>
+                            <canvas width="600" height="400" id="draw-new"></canvas>
+                            <div class="controls">
+                                <ul>
+                                    <li class="red selected"></li>
+                                    <li class="blue"></li>
+                                    <li class="yellow"></li>
+                                </ul>
 
+                                <!--<button type="button" download="example.jpg" href=""  id="saveImage"  onclick="downloadCanvas(this);" hidden>Save Image</button>-->
+                                <button type="button" id="revealColorSelect">New Color</button>
+                                <div id="colorSelect">
+                                    <span id="newColor"></span>
+                                    <div class="sliders">
+                                        <p>
+                                            <label for="red">Red</label>
+                                            <input id="red" name="red" type="range" min=0 max=255 value=0>
+                                        </p>
+                                        <p>
+                                            <label for="green">Green</label>
+                                            <input id="green" name="green" type="range" min=0 max=255 value=0>
+                                        </p>
+                                        <p>
+                                            <label for="blue">Blue</label>
+                                            <input id="blue" name="blue" type="range" min=0 max=255 value=0>
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <button type="button" id="addNewColor">Add Color</button>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="step-actions">
                                 <!--								<button class="waves-effect waves-dark btn blue next-step" data-feedback="someFunction">CONTINUE</button>
                                 -->
@@ -490,7 +588,39 @@
                                     </div>
                                 </div>
                             </div>
+                            <p id="src-draw-me" hidden>{{$question->data_file}}</p>
+                            <canvas width="600" height="400" id="draw-me"></canvas>
+                            <canvas width="600" height="400" id="draw-new"></canvas>
+                            <div class="controls">
+                                <ul>
+                                    <li class="red selected"></li>
+                                    <li class="blue"></li>
+                                    <li class="yellow"></li>
+                                </ul>
 
+                                <!--<button type="button" download="example.jpg" href=""  id="saveImage"  onclick="downloadCanvas(this);" hidden>Save Image</button>-->
+                                <button type="button" id="revealColorSelect">New Color</button>
+                                <div id="colorSelect">
+                                    <span id="newColor"></span>
+                                    <div class="sliders">
+                                        <p>
+                                            <label for="red">Red</label>
+                                            <input id="red" name="red" type="range" min=0 max=255 value=0>
+                                        </p>
+                                        <p>
+                                            <label for="green">Green</label>
+                                            <input id="green" name="green" type="range" min=0 max=255 value=0>
+                                        </p>
+                                        <p>
+                                            <label for="blue">Blue</label>
+                                            <input id="blue" name="blue" type="range" min=0 max=255 value=0>
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <button type="button" id="addNewColor">Add Color</button>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="step-actions">
                                 <button class="waves-effect waves-dark btn blue next-step">CONTINUE</button>
                             </div>
@@ -1270,12 +1400,14 @@
 
     /* script canva draw */
     var color = $(".selected").css("background-color");
-    var context = $("canvas")[1].getContext("2d");
-    var $canvas = $("canvas");
+
+    const $canvas = $("canvas");
+    const secondCanvasEl = $canvas.get(1);
+    const context = secondCanvasEl ? secondCanvasEl.getContext("2d") : null;
+    const canvas = document.getElementById("draw-new");
     var lastEvent;
     var mouseDown = false;
-    let canvas = document.getElementById("draw-new");
-    let ctx = canvas.getContext("2d");
+    const ctx = canvas ? canvas.getContext("2d") : null;
     //when clicking on control list items
     $(".controls").on("click", "li", function() {
         //deselect sibling elements

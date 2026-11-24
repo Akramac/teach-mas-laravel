@@ -629,8 +629,11 @@ Common
                                         Edit this exam
                                     </div>
                                 </div> <!--/filter-box-->
+                                @php
+                                    $teacher = \App\Models\Teacher::where('user_id', auth()->id())->first();
+                                @endphp
                                 <!--close filters on mobile / update filters class removed .toggle-filters-close-->
-                                <a target="_blank" href="{{ url('teacher/teacherEditExam/'.$exam->id.'/'.Auth::user()->id) }}"><div type="button" class=" btn btn-main" id="edit-exam">
+                                <a target="_blank" href="{{ url('teacher/teacherEditExam/'.$exam->id.'/'.$teacher->id) }}"><div type="button" class=" btn btn-main" id="edit-exam">
                                         Edit this exam
                                     </div></a>
 
@@ -808,7 +811,7 @@ Common
 
 
         $('#submit-affectation-by-student').click(function(){
-            var arrayStudentToAffect= [];
+            const arrayStudentToAffect= [];
             $(".check-teacher:checkbox").each(function(){
                 var $this = $(this);
                 if($this.is(":checked")){
@@ -823,7 +826,7 @@ Common
                 url: "{{url('teacher/affectation')}}",
                 data: {
                     'array_students' : arrayStudentToAffect ,
-                    'id_teacher' : {{Auth::user()->id}} ,
+                    'id_teacher' : {{$teacher->id}} ,
                     'exam_id':{{$exam->id}}},
                 error: function(error){
                     console.log(error);
@@ -871,7 +874,7 @@ Common
                 },
                 success: function(data){
                     console.log(data);
-                    window.location.href="{{url('teacher/result/exam-by-teacher')}}/"+'{{Auth::user()->id}}/{{$exam->id}}'
+                    window.location.href="{{url('teacher/result/exam-by-teacher')}}/"+'{{$teacher->id}}/{{$exam->id}}'
 
                 },
             })

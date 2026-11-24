@@ -951,7 +951,6 @@ class TeacherController extends Controller
         $idExam=$request->input('exam_id');
         $idTeacher=$request->input('id_teacher');
 
-
         foreach ($arrayStudents as $idStudent){
             $data['student_id']=$idStudent;
             $data['exam_id']=$idExam;

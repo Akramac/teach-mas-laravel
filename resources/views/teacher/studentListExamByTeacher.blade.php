@@ -611,7 +611,9 @@ Common
 
                         <?php foreach($exams_by_student as $exam) { ?>
                         <div class="col-md-12 ">
-
+                            @php
+                                $teacher = \App\Models\Teacher::where('user_id', auth()->id())->first();
+                            @endphp
                             <article data-page="{{ ($exam->id % 5) + 1 }}"  >
                                 <div class="info">
                                     <!--<span class="add-favorite">
@@ -621,7 +623,7 @@ Common
                                         <a  href="{{ url('teacher/adminstrate/exam-by-teacher/'.$exam->id) }}" class="" data-title="Affect the exam"><i class="icon icon-pointer-right"></i></a>
                                     </span>
                                     <span>
-                                        <a  href="{{ url('teacher/teacherEditExam/'.$exam->id.'/'.Auth::user()->id) }}" class="" data-title="Edit this exam"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                        <a  href="{{ url('teacher/teacherEditExam/'.$exam->id.'/'.$teacher->id) }}" class="" data-title="Edit this exam"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                                     </span>
                                     <?php
                                     $hash='';

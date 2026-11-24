@@ -81,7 +81,7 @@ class StudentController extends Controller
         $exam=Exam::select('teacher_id','id')->where('id',$idExam)->first();
         $data['idExam'] = $exam ? $exam->id : '';
         $data['idTeacher'] = $exam ? $exam->teacher_id : '';
-
+        
         // Get exam duration and settings
         $durationExam =Exam::select('duration_exam', 'allow_screen_record', 'allow_camera_record', 'random_questions')
                             ->where('id',$idExam)
